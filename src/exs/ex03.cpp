@@ -17,8 +17,8 @@ static GLfloat vertices[] =
     // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f, 1.0f,
     // -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, 0.0f, 1.0f, 0.0f
     0.5f, 0.9f,                         1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f * float(sqrt(3)) / 3,   0.0f, 1.0f, 0.0f,
-    -0.5f, -0.5f * float(sqrt(3)) / 3, 1.0f, 0.0f, 1.0f,
+    0.5f, -0.5f * float(sqrt(3)) / 3,   0.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,
     -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f
     // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
     // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
@@ -104,7 +104,9 @@ int ex03()
     );   
     // view = glm::mat4(1.f);
     GLint uniView = glGetUniformLocation(shaderProgram.shaderProgramId, "view");
+    
 
+    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
     glm::mat4 proj = glm::perspective(
         glm::radians(45.f), 
         800.0f / 600.0f,
@@ -112,6 +114,7 @@ int ex03()
         10.f
     );
     GLint uniProj = glGetUniformLocation(shaderProgram.shaderProgramId, "proj");
+    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
 
     while (!glfwWindowShouldClose(window))
@@ -128,13 +131,17 @@ int ex03()
         auto now = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration_cast<std::chrono::duration<float> >(now - t_start).count();
         trans = glm::rotate(trans,
-            glm::radians(1.0f) * time,
-            // glm::radians(1.0f),
+            // glm::radians(1.0f) * time,
+            glm::radians(1.0f),
             glm::vec3(0.0f, 0.0f, 1.0f));
+        // float s = sin(time * 5.f) * 0.25f + 1.75f;
+        float s = sin(time * 5.f) * .15f + 1.f;
+        std::cout << "sin value : " << s << std::endl;
+        trans = glm::scale(trans, 
+            glm::vec3(s, s, s) 
+        );
 
         glUniformMatrix4fv(uniTransform, 1, GL_FALSE, glm::value_ptr(trans));
-        glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
         // ------------------- end transform ---------------
         // glDrawArrays(GL_TRIANGLES, 0, 3);
         // glDrawArrays(GL_TRIANGLES, 0, 4);

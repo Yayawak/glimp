@@ -14,7 +14,9 @@ const char *vsSrc = "#version 330 core\n"
     "void main()\n"
     "{\n"
     // "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "   Color = color;\n"
+    // "   Color = color;\n"
+    // "   Color = sin(color);\n"
+    "   Color = vec3(sin(color.x), color.y, color.z);\n"
     "   gl_Position = proj * view * trans * vec4(position, 0.0, 1.0);\n"
     "}\0";
 const char *fsSrc = "#version 330 core\n\
