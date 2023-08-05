@@ -4,18 +4,25 @@
 const char *vsSrc = "#version 330 core\n"
     // "layout (location = 0) in vec3 aPos;\n"
     "in vec2 position;\n"
+    "in vec3 color;\n"
+
+    "out vec3 Color;\n"
+
+    "uniform mat4 trans;\n"
     "void main()\n"
     "{\n"
     // "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "   gl_Position = vec4(position, 0.0, 1.0);\n"
+    "   Color = color;\n"
+    "   gl_Position = trans * vec4(position, 0.0, 1.0);\n"
     "}\0";
 const char *fsSrc = "#version 330 core\n\
-    // out vec4 FragColor;\n\
+    in vec3 Color;\n\
     out vec4 outColor;\n\
     void main()\n\
     {\n\
         // FragColor = vec4(0.4f, 0.f, 1.f, 1.f);\n\
-        outColor = vec4(1.0, 0.0, 0.0, 1.0);\n\
+        // outColor = vec4(1.0, 0.0, 0.0, 1.0);\n\
+        outColor = vec4(Color, 1.0);\n\
     }";
 #pragma endregion
 
