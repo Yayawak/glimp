@@ -8,12 +8,14 @@ const char *vsSrc = "#version 330 core\n"
 
     "out vec3 Color;\n"
 
+    "uniform mat4 view;\n"
+    "uniform mat4 proj;\n"
     "uniform mat4 trans;\n"
     "void main()\n"
     "{\n"
     // "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
     "   Color = color;\n"
-    "   gl_Position = trans * vec4(position, 0.0, 1.0);\n"
+    "   gl_Position = proj * view * trans * vec4(position, 0.0, 1.0);\n"
     "}\0";
 const char *fsSrc = "#version 330 core\n\
     in vec3 Color;\n\

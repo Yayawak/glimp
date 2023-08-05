@@ -1,5 +1,7 @@
 // #include "../structure/headers/shaderClass.hpp"
 #include "../structure/headers/stdgl.hpp"
+#include "glm/ext/matrix_clip_space.hpp"
+#include "glm/ext/matrix_transform.hpp"
 #include "glm/trigonometric.hpp"
 #include "math.h"
 #include <chrono>
@@ -89,10 +91,28 @@ int ex03()
 
     // GLint positionAtt
 
-
-    GLint uniTransform = glGetUniformLocation(shaderProgram.shaderProgramId, "trans");
-    glm::mat4 trans(1.0f);
     auto t_start = std::chrono::high_resolution_clock::now();
+
+    glm::mat4 trans(1.0f);
+    GLint uniTransform = glGetUniformLocation(shaderProgram.shaderProgramId, "trans");
+
+    glm::mat4 view = glm::lookAt(
+        // glm::vec3(1.2f, 1.2f, 1.2f),
+        glm::vec3(2, 2, 2),
+        glm::vec3(0.0f),
+        glm::vec3(.0f, .0f, 1.f)
+    );   
+    // view = glm::mat4(1.f);
+    GLint uniView = glGetUniformLocation(shaderProgram.shaderProgramId, "view");
+
+    glm::mat4 proj = glm::perspective(
+        glm::radians(45.f), 
+        800.0f / 600.0f,
+        1.0f,
+        10.f
+    );
+    GLint uniProj = glGetUniformLocation(shaderProgram.shaderProgramId, "proj");
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -108,29 +128,27 @@ int ex03()
         auto now = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration_cast<std::chrono::duration<float> >(now - t_start).count();
         trans = glm::rotate(trans,
-            // glm::radians(1.0f) * time,
-            glm::radians(1.0f),
+            glm::radians(1.0f) * time,
+            // glm::radians(1.0f),
             glm::vec3(0.0f, 0.0f, 1.0f));
 
-        // glm::value_ptr(trans);
-        glUniformMatrix4fv(uniTransform, 1, GL_FALSE, 
-            glm::value_ptr(trans)
-        );
+        glUniformMatrix4fv(uniTransform, 1, GL_FALSE, glm::value_ptr(trans));
+        glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
         // ------------------- end transform ---------------
         // glDrawArrays(GL_TRIANGLES, 0, 3);
         // glDrawArrays(GL_TRIANGLES, 0, 4);
         // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    // vao1.Delete();
-    // vbo1.Delete();
-    // ebo1.Delete();
-    // shaderProgram.Delete();
+    vao1.Delete();
+    vbo1.Delete();
+    ebo1.Delete();
+    shaderProgram.Delete();
 
 
     glfwDestroyWindow(window);
