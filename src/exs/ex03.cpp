@@ -1,5 +1,6 @@
 // #include "../structure/headers/shaderClass.hpp"
 #include "../structure/headers/stdgl.hpp"
+#include "glm/detail/qualifier.hpp"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/trigonometric.hpp"
@@ -38,10 +39,28 @@ static GLfloat vertices[] =
 //     -0.5f, -0.5f
 // };
 
+static glm::mat4 trans(1.0f);
+
+static void flip()
+{
+    trans = glm::rotate(trans,
+        glm::radians(180.f),
+        // glm::vec3(1.0f, 0.0f, 0.0f));
+        glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
 static GLuint indices[] = {
     0, 1, 2,
     2, 3, 0
 };
+
+static void keyInputManagerFn(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+    {
+        flip();
+    }
+}
 
 int ex03()
 {
@@ -55,6 +74,7 @@ int ex03()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     GLFWwindow *window = glfwCreateWindow(700, 500, "EX03", NULL, NULL);
+    glfwSetKeyCallback(window, keyInputManagerFn);
     glfwMakeContextCurrent(window);
 
     Shader shaderProgram(
@@ -93,7 +113,6 @@ int ex03()
 
     auto t_start = std::chrono::high_resolution_clock::now();
 
-    glm::mat4 trans(1.0f);
     GLint uniTransform = glGetUniformLocation(shaderProgram.shaderProgramId, "trans");
 
     glm::mat4 view = glm::lookAt(
@@ -133,13 +152,15 @@ int ex03()
         trans = glm::rotate(trans,
             // glm::radians(1.0f) * time,
             glm::radians(1.0f),
-            glm::vec3(0.0f, 0.0f, 1.0f));
+            // glm::vec3(0.0f, 0.0f, 1.0f));
+            glm::vec3(0.0f, time, time));
+            // glm::vec3(time, time, time));
         // float s = sin(time * 5.f) * 0.25f + 1.75f;
-        float s = sin(time * 5.f) * .15f + 1.f;
-        std::cout << "sin value : " << s << std::endl;
-        trans = glm::scale(trans, 
-            glm::vec3(s, s, s) 
-        );
+        // float s = sin(time * 5.f) * .15f + 1.f;
+        // std::cout << "sin value : " << s << std::endl;
+        // trans = glm::scale(trans, 
+        //     glm::vec3(s, s, s) 
+        // );
 
         glUniformMatrix4fv(uniTransform, 1, GL_FALSE, glm::value_ptr(trans));
         // ------------------- end transform ---------------
