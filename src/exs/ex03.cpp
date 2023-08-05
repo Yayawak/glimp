@@ -10,20 +10,74 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-static GLfloat vertices[] = 
-{
-    // NOTE : position                  ----   color
-    // 0.5f, 0.9f,                        0.0f, 1.0f, 0.0f, 0.0f,
-    // 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,  0.0f, 1.0f, 0.0f,
-    // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f, 1.0f,
-    // -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, 0.0f, 1.0f, 0.0f
-    0.5f, 0.9f,                         1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f * float(sqrt(3)) / 3,   0.0f, 0.0f, 1.0f,
-    -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f
-    // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
-    // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
+// ? Use for 2d image 
+// static GLfloat vertices[] = 
+// {
+//     // NOTE : position                  ----   color
+//     // 0.5f, 0.9f,                        0.0f, 1.0f, 0.0f, 0.0f,
+//     // 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,  0.0f, 1.0f, 0.0f,
+//     // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f, 1.0f,
+//     // -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, 0.0f, 1.0f, 0.0f
+//     0.5f, 0.9f,                         1.0f, 0.0f, 0.0f,
+//     0.5f, -0.5f * float(sqrt(3)) / 3,   0.0f, 0.0f, 1.0f,
+//     -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,
+//     -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f
+//     // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
+//     // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
+// };
+// static float vertices[] = {
+//   // X      Y     Z     R     G     B     U     V
+//     -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+//     0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+//     0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+//     -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f
+// };
+// ? Cube
+GLfloat vertices[] = {
+    //NOTE position     | color          | texture
+    -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+
+    -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+    0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+
+    -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+    0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+    0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
+    -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+    0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+    0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f
 };
+
 // static GLfloat vertices[] = 
 // {
 //     0.5f, 0.9f, 0.0f,
@@ -76,6 +130,7 @@ int ex03()
     GLFWwindow *window = glfwCreateWindow(700, 500, "EX03", NULL, NULL);
     glfwSetKeyCallback(window, keyInputManagerFn);
     glfwMakeContextCurrent(window);
+    glEnable(GL_DEPTH_TEST);
 
     Shader shaderProgram(
         "/Users/rio/Desktop/glgl/src/resources/shaders/default.vert",
@@ -94,17 +149,32 @@ int ex03()
     //ANCHOR Manually Get Attributes from shader program
     GLint positionAttrib = glGetAttribLocation(shaderProgram.shaderProgramId, "position");
     glEnableVertexAttribArray(positionAttrib);
+    // glVertexAttribPointer(positionAttrib, 3, GL_FLOAT, GL_FALSE,
+    //     5 * sizeof(float), 0);
     glVertexAttribPointer(positionAttrib, 3, GL_FLOAT, GL_FALSE,
-        5 * sizeof(float), 0);
+        8 * sizeof(float), 0);
+
+    
+
 
     GLint colorAttrib = glGetAttribLocation(shaderProgram.shaderProgramId, "color");
     glEnableVertexAttribArray(colorAttrib);
     // * 3 is r, g, b components
+    // glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE,
+    //     5 * sizeof(float), (void *)(2 * sizeof(float)));
     glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE,
-        5 * sizeof(float), (void *)(2 * sizeof(float))
-    );
+        8 * sizeof(float), (void *)(3 * sizeof(float)));
     
 
+
+    GLint texAtt = glGetAttribLocation(shaderProgram.shaderProgramId, "texCoord");
+    glEnableVertexAttribArray(texAtt);
+    // * 3 is r, g, b components
+    // glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE,
+    //     5 * sizeof(float), (void *)(2 * sizeof(float)));
+    glVertexAttribPointer(texAtt, 3, GL_FLOAT, GL_FALSE,
+        8 * sizeof(float), (void *)(6 * sizeof(float)));
+    
 
     // vbo1.Unbind();
     // ebo1.Unbind();
@@ -117,7 +187,8 @@ int ex03()
 
     glm::mat4 view = glm::lookAt(
         // glm::vec3(1.2f, 1.2f, 1.2f),
-        glm::vec3(2, 2, 2),
+        // glm::vec3(2, 2, 2),
+        glm::vec3(4, 4, 4),
         glm::vec3(0.0f),
         glm::vec3(.0f, .0f, 1.f)
     );   
@@ -139,8 +210,10 @@ int ex03()
     while (!glfwWindowShouldClose(window))
     {
         // glClearColor(.17f, .13f, .15f, 1.0f);
+        // ? old 
         glClear(GL_COLOR_BUFFER_BIT);
-
+        // * for depth testing
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // shaderProgram.Activate();        
 
         // vao1.Bind();
@@ -149,12 +222,12 @@ int ex03()
         // glm::mat4 trans(1.0f);
         auto now = std::chrono::high_resolution_clock::now();
         float time = std::chrono::duration_cast<std::chrono::duration<float> >(now - t_start).count();
-        trans = glm::rotate(trans,
-            // glm::radians(1.0f) * time,
-            glm::radians(1.0f),
-            // glm::vec3(0.0f, 0.0f, 1.0f));
-            glm::vec3(0.0f, time, time));
-            // glm::vec3(time, time, time));
+        // trans = glm::rotate(trans,
+        //     // glm::radians(1.0f) * time,
+        //     glm::radians(1.0f),
+        //     // glm::vec3(0.0f, 0.0f, 1.0f));
+        //     glm::vec3(0.0f, time, time));
+        //     // glm::vec3(time, time, time));
         // float s = sin(time * 5.f) * 0.25f + 1.75f;
         // float s = sin(time * 5.f) * .15f + 1.f;
         // std::cout << "sin value : " << s << std::endl;
@@ -165,9 +238,9 @@ int ex03()
         glUniformMatrix4fv(uniTransform, 1, GL_FALSE, glm::value_ptr(trans));
         // ------------------- end transform ---------------
         // glDrawArrays(GL_TRIANGLES, 0, 3);
-        // glDrawArrays(GL_TRIANGLES, 0, 4);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

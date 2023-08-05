@@ -3,7 +3,7 @@
 #pragma region cheatsource
 const char *vsSrc = "#version 330 core\n"
     // "layout (location = 0) in vec3 aPos;\n"
-    "in vec2 position;\n"
+    "in vec3 position;\n"
     "in vec3 color;\n"
 
     "out vec3 Color;\n"
@@ -17,7 +17,7 @@ const char *vsSrc = "#version 330 core\n"
     // "   Color = color;\n"
     // "   Color = sin(color);\n"
     "   Color = vec3(sin(color.x), color.y, color.z);\n"
-    "   gl_Position = proj * view * trans * vec4(position, 0.0, 1.0);\n"
+    "   gl_Position = proj * view * trans * vec4(position, 1.0);\n"
     "}\0";
 const char *fsSrc = "#version 330 core\n\
     in vec3 Color;\n\
