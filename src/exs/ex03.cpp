@@ -120,71 +120,16 @@ int ex03()
     vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void *)(6 * sizeof(float)));
 
     
-    // GLint texAtt = glGetAttribLocation(shaderProgram.shaderProgramId, "texCoord");
-    // glEnableVertexAttribArray(texAtt);
-    // // * 3 is r, g, b components
-    // // glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE,
-    // //     5 * sizeof(float), (void *)(2 * sizeof(float)));
-    // glVertexAttribPointer(texAtt, 3, GL_FLOAT, GL_FALSE,
-    //     8 * sizeof(float), (void *)(6 * sizeof(float)));
-    
-
+    Texture slarkTex("img/slark.png",
+        GL_TEXTURE_2D, GL_TEXTURE0,
+        GL_RGBA, GL_UNSIGNED_BYTE
+    );
+    slarkTex.texUnit(shaderProgram, "tex0", 0);
     // vao1.Unbind();
     // vbo1.Unbind();
     // ebo1.Unbind();
 
-    int w, h, colorChannels;
-    // unsigned char *bytes = stbi_load("../resources/Textures/equanimity.jpg",
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char *bytes = stbi_load(
-        // "/Users/rio/Desktop/glgl/src/resources/Textures/equanimity.jpg",
-        // "src/exs/def.png",
-        "img/sony.png",
-        &w, &h, &colorChannels, 0
-    );
-    if (stbi_failure_reason())
-    {
-        std::cout << "Failed reason : " << stbi_failure_reason();
-    }
-    if (!bytes)
-    {
-        // std::cout << "Can't Load Image File" << std::endl;
-        stbi_image_free(bytes);
-    }
-    // else {
-    //     std::cout << "Can load image file" << std::endl;
-    // }
-    // std::cout << bytes << std::endl;
-    GLuint textureId;
-    glGenTextures(1, &textureId);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureId);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-
-    // float flatColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
-    glTexImage2D(
-        GL_TEXTURE_2D, 0, GL_RGBA,
-        w, h, 0,
-        GL_RGBA, GL_UNSIGNED_BYTE,
-        bytes
-    );
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-
-    stbi_image_free(bytes);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    GLuint uniTex = glGetUniformLocation(shaderProgram.shaderProgramId, "tex0");
-    shaderProgram.Activate();
-    glUniform1i(uniTex, 0);
 
     // auto t_start = std::chrono::high_resolution_clock::now();
 
@@ -223,7 +168,8 @@ int ex03()
         // float time = std::chrono::duration_cast<std::chrono::duration<float> >(now - t_start).count();
 
         //TODO - 
-        glBindTexture(GL_TEXTURE_2D, textureId);
+        // glBindTexture(GL_TEXTURE_2D, textureId);
+        slarkTex.Bind();
 
         // glUniform1f(uniScale, (int(time) % 3));
         // glUniform1f(uniScale, time);
@@ -256,7 +202,7 @@ int ex03()
     vao1.Delete();
     vbo1.Delete();
     ebo1.Delete();
-    glDeleteTextures(1, &textureId);
+    slarkTex.Delete();
     shaderProgram.Delete();
 
 

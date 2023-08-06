@@ -1,5 +1,5 @@
-#ifndef Shader_Class_H
-# define Shader_Class_H
+#ifndef SHADER_CLASS_H
+# define SHADER_CLASS_H
 
 #include <GLFW/glfw3.h>
 #include <string>
