@@ -1,72 +1,47 @@
-// #include "../structure/headers/shaderClass.hpp"
 #include "../structure/headers/stdgl.hpp"
 
-// ? Use for 2d image 
 static GLfloat vertices[] = 
 {
-    // NOTE : position                |        color
+    // NOTE : position                |        color       | texCoordiation
     // 0.5f, 0.9f,                        0.0f, 1.0f, 0.0f, 0.0f,
     // 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,  0.0f, 1.0f, 0.0f,
     // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f, 1.0f,
     // -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, 0.0f, 1.0f, 0.0f
-    0.5f, 0.9f,                         1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f * float(sqrt(3)) / 3,   0.1f, 0.1f, 0.5f,
-    -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f
+
+    // 0.5f, 0.5f * float(sqrt(3)) / 3,    1.0f, 0.0f, 0.0f,  .0f, .0f,
+    // 0.5f, -0.5f * float(sqrt(3)) / 3,   0.1f, 0.1f, 0.5f,  .0f, 1.0f,
+    // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,   1.0f, 1.0f
+    // -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f,   1.0f, .0f
+
+    -0.5f, -0.5f, 0.0f,                    1.0f, 0.0f, 0.0f,  .0f, .0f,
+    -0.5f, 0.5f, .0f,                    0.1f, 0.1f, 0.5f,  .0f, 1.0f,
+    0.5f, 0.5f, .0f,                   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
+    0.5f, -0.5f, .0f,                    0.0f, 1.0f, 1.0f,   1.0f, .0f
+
     // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
     // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
 };
+// // ? Use for 2d image 
+// static GLfloat vertices[] = 
+// {
+//     // NOTE : position                |        color
+//     // 0.5f, 0.9f,                        0.0f, 1.0f, 0.0f, 0.0f,
+//     // 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,  0.0f, 1.0f, 0.0f,
+//     // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f, 1.0f,
+//     // -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, 0.0f, 1.0f, 0.0f
+//     0.5f, 0.9f,                         1.0f, 0.0f, 0.0f,
+//     0.5f, -0.5f * float(sqrt(3)) / 3,   0.1f, 0.1f, 0.5f,
+//     -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,
+//     -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f
+//     // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
+//     // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
+// };
 // static float vertices[] = {
 //   // X      Y     Z     R     G     B     U     V
 //     -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 //     0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
 //     0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
 //     -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f
-// };
-// ? Cube
-// GLfloat vertices[] = {
-//     //NOTE position     | color          | texture
-//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-//     0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-
-//     -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-//     0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-
-//     -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-//     -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-
-//     0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-//     0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-
-//     -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-
-//     -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-//     0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-//     0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-//     -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-//     -0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f
 // };
 
 // static GLfloat vertices[] = 
@@ -95,8 +70,8 @@ static GLfloat vertices[] =
 
 
 static GLuint indices[] = {
-    0, 1, 2,
-    2, 3, 0
+    0, 2, 1,
+    0, 3, 2
 };
 
 // static void keyInputManagerFn(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -140,33 +115,11 @@ int ex03()
 
     //FIXME: Still not implemented stride.
     // vao1.LinkVBO(vbo1, 0); // -> old code for only positions componentes (can not use with colors, etc....)
-    vao1.LinkAttrib(vbo1, 0, 2, GL_FLOAT, 5 * sizeof(float), (void *)0);
-    vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 5 * sizeof(float), (void *)(3 * sizeof(float)));
+    vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void *)0);
+    vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void *)(3 * sizeof(float)));
+    vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void *)(6 * sizeof(float)));
 
     
-
-    //ANCHOR Manually Get Attributes from shader program
-    // GLint positionAttrib = glGetAttribLocation(shaderProgram.shaderProgramId, "position");
-    // glEnableVertexAttribArray(positionAttrib);
-    // glVertexAttribPointer(positionAttrib, 3, GL_FLOAT, GL_FALSE,
-    //     sizeof(float), 0);
-        // 5 * sizeof(float), 0);
-    // glVertexAttribPointer(positionAttrib, 3, GL_FLOAT, GL_FALSE,
-    //     8 * sizeof(float), 0);
-
-    
-
-
-    // GLint colorAttrib = glGetAttribLocation(shaderProgram.shaderProgramId, "color");
-    // glEnableVertexAttribArray(colorAttrib);
-    // // * 3 is r, g, b components
-    // // glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE,
-    // //     5 * sizeof(float), (void *)(2 * sizeof(float)));
-    // glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE,
-    //     8 * sizeof(float), (void *)(3 * sizeof(float)));
-    
-
-
     // GLint texAtt = glGetAttribLocation(shaderProgram.shaderProgramId, "texCoord");
     // glEnableVertexAttribArray(texAtt);
     // // * 3 is r, g, b components
@@ -176,15 +129,66 @@ int ex03()
     //     8 * sizeof(float), (void *)(6 * sizeof(float)));
     
 
+    // vao1.Unbind();
     // vbo1.Unbind();
     // ebo1.Unbind();
 
-    // GLint positionAtt
+    int w, h, colorChannels;
+    // unsigned char *bytes = stbi_load("../resources/Textures/equanimity.jpg",
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *bytes = stbi_load(
+        // "/Users/rio/Desktop/glgl/src/resources/Textures/equanimity.jpg",
+        // "src/exs/def.png",
+        "img/sony.png",
+        &w, &h, &colorChannels, 0
+    );
+    if (stbi_failure_reason())
+    {
+        std::cout << "Failed reason : " << stbi_failure_reason();
+    }
+    if (!bytes)
+    {
+        // std::cout << "Can't Load Image File" << std::endl;
+        stbi_image_free(bytes);
+    }
+    // else {
+    //     std::cout << "Can load image file" << std::endl;
+    // }
+    // std::cout << bytes << std::endl;
+    GLuint textureId;
+    glGenTextures(1, &textureId);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureId);
 
-    auto t_start = std::chrono::high_resolution_clock::now();
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+    // float flatColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    glTexImage2D(
+        GL_TEXTURE_2D, 0, GL_RGBA,
+        w, h, 0,
+        GL_RGBA, GL_UNSIGNED_BYTE,
+        bytes
+    );
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+
+    stbi_image_free(bytes);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    GLuint uniTex = glGetUniformLocation(shaderProgram.shaderProgramId, "tex0");
+    shaderProgram.Activate();
+    glUniform1i(uniTex, 0);
+
+    // auto t_start = std::chrono::high_resolution_clock::now();
 
     // GLint uniTransform = glGetUniformLocation(shaderProgram.shaderProgramId, "trans");
-
     // view = glm::mat4(1.f);
     // GLint uniView = glGetUniformLocation(shaderProgram.shaderProgramId, "view");
     
@@ -200,26 +204,29 @@ int ex03()
     // glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
     GLint uniScale = glGetUniformLocation(shaderProgram.shaderProgramId, "scale");
-    // glUniform1f(uniScale, 1.5f);
+    glUniform1f(uniScale, 1.0f);
 
     while (!glfwWindowShouldClose(window))
     {
-        // glClearColor(.17f, .13f, .15f, 1.0f);
+        glClearColor(.17f, .13f, .15f, 1.0f);
         // ? old 
         glClear(GL_COLOR_BUFFER_BIT);
         // * for depth testing
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shaderProgram.Activate();        
 
         // vao1.Bind();
 
         //NOTE - Transform Matrix
         // glm::mat4 trans(1.0f);
-        auto now = std::chrono::high_resolution_clock::now();
-        float time = std::chrono::duration_cast<std::chrono::duration<float> >(now - t_start).count();
+        // auto now = std::chrono::high_resolution_clock::now();
+        // float time = std::chrono::duration_cast<std::chrono::duration<float> >(now - t_start).count();
+
+        //TODO - 
+        glBindTexture(GL_TEXTURE_2D, textureId);
 
         // glUniform1f(uniScale, (int(time) % 3));
-        glUniform1f(uniScale, time);
+        // glUniform1f(uniScale, time);
 
         // trans = glm::rotate(trans,
         //     // glm::radians(1.0f) * time,
@@ -249,6 +256,7 @@ int ex03()
     vao1.Delete();
     vbo1.Delete();
     ebo1.Delete();
+    glDeleteTextures(1, &textureId);
     shaderProgram.Delete();
 
 

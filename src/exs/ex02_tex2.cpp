@@ -1,5 +1,5 @@
 #define GLEW_STATIC
-#include "../inc/SOIL.hpp"
+// #include "../inc/SOIL.hpp" // STUB : stb already use SOIL dont duplicate
 #include "../inc/jstd.hpp"
 
 const char *vertexSource = "#version 150 core\n"
@@ -119,9 +119,9 @@ int ex02_tex2()
 //     img = SOIL_load_image("abadon.jpg", &w, &h, 0, SOIL_LOAD_RGB);
 //         img = SOIL_load_image("", &w, &h, 0, SOIL_LOAD_RGB);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
-        image = SOIL_load_image("../../img/abadon.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+        // image = SOIL_load_image("../../img/abadon.jpg", &width, &height, 0, SOIL_LOAD_RGB);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-        SOIL_free_image_data(image);
+    // SOIL_free_image_data(image);
     glUniform1i(glGetUniformLocation(shaderProgram, "texKitten"), 0);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -131,9 +131,9 @@ int ex02_tex2()
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, textures[1]);
-        image = SOIL_load_image("../../img/slark.png", &width, &height, 0, SOIL_LOAD_RGB);
+        // image = SOIL_load_image("../../img/slark.png", &width, &height, 0, SOIL_LOAD_RGB);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-        SOIL_free_image_data(image);
+        // SOIL_free_image_data(image);
     glUniform1i(glGetUniformLocation(shaderProgram, "texPuppy"), 1);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

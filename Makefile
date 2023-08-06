@@ -5,7 +5,9 @@ buildDir = ./bin
 
 appDefines:=
 appIncludes:= -I./src/vendors/GLFW -framework Cocoa -framework OpenGL -framework IOKit
-appLinkers:= -L./src/vendors/GLFW/lib -lglfw3 -L./src/vendors/libs -lSOIL
+# appLinkers:= -L./src/vendors/GLFW/lib -lglfw3 -L./src/vendors/libs -lSOIL
+# NOTE : don't include SOIL becuase we use <stb/image....h> which already included SOIL
+appLinkers:= -L./src/vendors/GLFW/lib -lglfw3
 # incPaths = ./src/inc/*.hpp
 exsPaths = ./src/exs/*.cpp 
 
