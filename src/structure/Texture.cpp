@@ -38,14 +38,14 @@ Texture::Texture(const char *image, GLenum textype,
     glTexParameteri(textype, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(textype, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    // glTexParameteri(textype, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    // glTexParameteri(textype, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    // glTexParameteri(textype, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    // glTexParameteri(textype, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
     // float flatColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
     glTexImage2D(
         textype, 0, GL_RGBA,
         w, h, 0,
-        GL_RGBA, GL_UNSIGNED_BYTE,
+        format, pixel,
         bytes
     );
     glGenerateMipmap(textype);
@@ -57,7 +57,7 @@ Texture::Texture(const char *image, GLenum textype,
     // std::cout << "bytes after freed : " << bytes << std::endl;
 }
 
-void Texture::texUnit(Shader shaderProgram, const char *uniform, GLuint unit)
+void Texture::texUnit(Shader& shaderProgram, const char *uniform, GLuint unit)
 {
     // GLuint uniTex0 = glGetUniformLocation(shaderProgram.shaderProgramId, "tex0");
     GLuint uniTex = glGetUniformLocation(shaderProgram.shaderProgramId, uniform);

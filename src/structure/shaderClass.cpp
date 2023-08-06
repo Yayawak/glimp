@@ -24,7 +24,7 @@ const char *vsSrc = "#version 330 core\n"
     "   texCoord = aTex;\n"
     // "   Color = sin(color);\n"
     // "   Color = vec3(sin(color.x), color.y, color.z);\n"
-    "   gl_Position = proj * view * trans * vec4(position, 1.0);\n"
+    "   gl_Position = proj * view * trans * vec4(position, 1.0f);\n"
     // "   gl_Position = vec4(position, 1.0f);\n"
     // "   gl_Position = vec4(position * scale, 0.0f, 1.0f);\n"
     "}\0";

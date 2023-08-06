@@ -13,7 +13,7 @@ class Texture
             GLenum pixel
         );
 
-        void texUnit(Shader shaderProgram, const char *uniform, GLuint unit);
+        void texUnit(Shader& shaderProgram, const char *uniform, GLuint unit);
         void Bind();
         void Unbind();
         void Delete();

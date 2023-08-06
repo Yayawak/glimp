@@ -2,77 +2,34 @@
 
 static GLfloat vertices[] = 
 {
-    // NOTE : position                |        color       | texCoordiation
-    // 0.5f, 0.9f,                        0.0f, 1.0f, 0.0f, 0.0f,
-    // 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,  0.0f, 1.0f, 0.0f,
-    // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f, 1.0f,
-    // -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, 0.0f, 1.0f, 0.0f
-
-    // 0.5f, 0.5f * float(sqrt(3)) / 3,    1.0f, 0.0f, 0.0f,  .0f, .0f,
-    // 0.5f, -0.5f * float(sqrt(3)) / 3,   0.1f, 0.1f, 0.5f,  .0f, 1.0f,
-    // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,   1.0f, 1.0f
-    // -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f,   1.0f, .0f
-
-    -0.5f, -0.5f, 0.0f,                    1.0f, 0.0f, 0.0f,  .0f, .0f,
-    -0.5f, 0.5f, .0f,                    0.1f, 0.1f, 0.5f,  .0f, 1.0f,
-    0.5f, 0.5f, .0f,                   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-    0.5f, -0.5f, .0f,                    0.0f, 1.0f, 1.0f,   1.0f, .0f
-
-    // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
-    // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
+    // NOTE : position   |        color       | texCoordiation
+    -0.5f, +0.0f, +0.5f,    0.83f, 0.70f, 0.44f,   0.0f, 0.0f,
+    -0.5f, +0.0f, -0.5f,    0.83f, 0.70f, 0.44f,   5.0f, 0.0f,
+    +0.5f, +0.0f, -0.5f,    0.83f, 0.70f, 0.44f,   0.0f, 0.0f,
+    +0.5f, +0.0f, +0.5f,    0.83f, 0.70f, 0.44f,   5.0f, 0.0f,
+    +0.0f, +0.8f, +0.0f,    0.92f, 0.86f, 0.75f,   2.5f, 5.0f
 };
-// // ? Use for 2d image 
-// static GLfloat vertices[] = 
-// {
-//     // NOTE : position                |        color
-//     // 0.5f, 0.9f,                        0.0f, 1.0f, 0.0f, 0.0f,
-//     // 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,  0.0f, 1.0f, 0.0f,
-//     // -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f, 1.0f,
-//     // -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f, 0.0f, 1.0f, 0.0f
-//     0.5f, 0.9f,                         1.0f, 0.0f, 0.0f,
-//     0.5f, -0.5f * float(sqrt(3)) / 3,   0.1f, 0.1f, 0.5f,
-//     -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, 1.0f, 0.0f,
-//     -0.5f, 0.5f * float(sqrt(3)) / 3,  0.0f, 1.0f, 1.0f
-//     // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
-//     // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
-// };
-// static float vertices[] = {
-//   // X      Y     Z     R     G     B     U     V
-//     -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-//     0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-//     0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-//     -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f
-// };
 
-// static GLfloat vertices[] = 
-// {
-//     0.5f, 0.9f, 0.0f,
-//     0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-//     -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-//     -0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
-//     // -0.0f, 0.5f * float(sqrt(3)) / 3, 0.0f,
-//     // 0.5f, 0.5f * float(sqrt(3)) / 3, 0.0f,
-// };
-// static float vertices[] = {
-//     0.0f, 0.5f,
-//     0.5f, -0.5f,
-//     -0.5f, -0.5f
-// };
+static GLuint indices[] = {
+    0, 1, 2,
+    0, 2, 3,
+    0, 1, 4,
+    1, 2, 4,
+    2, 3, 4,
+    3, 0, 4
+};
 
 static glm::mat4 trans(1.0f);
 static glm::mat4 view = glm::lookAt(
-    // glm::vec3(1.2f, 1.2f, 1.2f),
-    glm::vec3(2, 2, 2),
+    glm::vec3(1.2f, 1.2f, 1.2f),
+    // glm::vec3(0.0f, 0.0f, -5.f),
+    // glm::vec3(2, 2, 2),
     // glm::vec3(4, 4, 4),
     glm::vec3(0.0f),
     glm::vec3(.0f, .0f, 1.f)
 );   
 
 
-static GLuint indices[] = {
-    0, 2, 1,
-    0, 3, 2
-};
 
 // static void keyInputManagerFn(GLFWwindow* window, int key, int scancode, int action, int mods)
 // {
@@ -116,11 +73,11 @@ int ex03()
     vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void *)(6 * sizeof(float)));
 
     
-    Texture slarkTex("img/slark.png",
+    Texture tex("img/sexyboy.png",
         GL_TEXTURE_2D, GL_TEXTURE0,
-        GL_RGBA, GL_UNSIGNED_BYTE
+        GL_RGB, GL_UNSIGNED_BYTE
     );
-    slarkTex.texUnit(shaderProgram, "tex0", 0);
+    tex.texUnit(shaderProgram, "tex0", 0);
     // vao1.Unbind();
     // vbo1.Unbind();
     // ebo1.Unbind();
@@ -164,7 +121,7 @@ int ex03()
 
         //TODO - 
         // glBindTexture(GL_TEXTURE_2D, textureId);
-        slarkTex.Bind();
+        tex.Bind();
 
         // glUniform1f(uniScale, (int(time) % 3));
         // glUniform1f(uniScale, time);
@@ -190,7 +147,9 @@ int ex03()
         // glDrawArrays(GL_TRIANGLES, 0, 3);
         // glDrawArrays(GL_TRIANGLES, 0, 36);
         // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -199,7 +158,7 @@ int ex03()
     vao1.Delete();
     vbo1.Delete();
     ebo1.Delete();
-    slarkTex.Delete();
+    tex.Delete();
     shaderProgram.Delete();
 
 

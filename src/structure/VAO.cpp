@@ -17,7 +17,7 @@ VAO::VAO()
 //     // ? for cleaning
 //     vbo.Unbind();
 // }
-void VAO::LinkAttrib(VBO vbo, GLuint layout, GLuint numComponents,
+void VAO::LinkAttrib(VBO& vbo, GLuint layout, GLuint numComponents,
     GLenum vartype, GLsizeiptr stride, void *offset)
 {
     vbo.Bind();
