@@ -59,14 +59,14 @@ static GLfloat vertices[] =
 //     -0.5f, -0.5f
 // };
 
-// static glm::mat4 trans(1.0f);
-// static glm::mat4 view = glm::lookAt(
-//     glm::vec3(1.2f, 1.2f, 1.2f),
-//     // glm::vec3(2, 2, 2),
-//     // glm::vec3(4, 4, 4),
-//     glm::vec3(0.0f),
-//     glm::vec3(.0f, .0f, 1.f)
-// );   
+static glm::mat4 trans(1.0f);
+static glm::mat4 view = glm::lookAt(
+    // glm::vec3(1.2f, 1.2f, 1.2f),
+    glm::vec3(2, 2, 2),
+    // glm::vec3(4, 4, 4),
+    glm::vec3(0.0f),
+    glm::vec3(.0f, .0f, 1.f)
+);   
 
 
 static GLuint indices[] = {
@@ -84,8 +84,6 @@ static GLuint indices[] = {
 
 int ex03()
 {
-    // Shader sd("../resources/shaders/defualt.vert",
-    //     "../resources/shaders/defualt.frag");
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -113,8 +111,6 @@ int ex03()
     EBO ebo1(indices, sizeof(indices));
 
 
-    //FIXME: Still not implemented stride.
-    // vao1.LinkVBO(vbo1, 0); // -> old code for only positions componentes (can not use with colors, etc....)
     vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void *)0);
     vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void *)(3 * sizeof(float)));
     vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void *)(6 * sizeof(float)));
@@ -133,23 +129,22 @@ int ex03()
 
     // auto t_start = std::chrono::high_resolution_clock::now();
 
-    // GLint uniTransform = glGetUniformLocation(shaderProgram.shaderProgramId, "trans");
+    GLint uniTrans = glGetUniformLocation(shaderProgram.shaderProgramId, "trans");
     // view = glm::mat4(1.f);
-    // GLint uniView = glGetUniformLocation(shaderProgram.shaderProgramId, "view");
-    
+    GLint uniView = glGetUniformLocation(shaderProgram.shaderProgramId, "view");
+    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-    // glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-    // glm::mat4 proj = glm::perspective(
-    //     glm::radians(45.f), 
-    //     800.0f / 600.0f,
-    //     1.0f,
-    //     10.f
-    // );
-    // GLint uniProj = glGetUniformLocation(shaderProgram.shaderProgramId, "proj");
-    // glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+    glm::mat4 proj = glm::perspective(
+        glm::radians(45.f), 
+        800.0f / 600.0f,
+        1.0f,
+        10.f
+    );
+    GLint uniProj = glGetUniformLocation(shaderProgram.shaderProgramId, "proj");
+    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
-    GLint uniScale = glGetUniformLocation(shaderProgram.shaderProgramId, "scale");
-    glUniform1f(uniScale, 1.0f);
+    // GLint uniScale = glGetUniformLocation(shaderProgram.shaderProgramId, "scale");
+    // glUniform1f(uniScale, 1.0f);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -174,11 +169,12 @@ int ex03()
         // glUniform1f(uniScale, (int(time) % 3));
         // glUniform1f(uniScale, time);
 
-        // trans = glm::rotate(trans,
-        //     // glm::radians(1.0f) * time,
-        //     glm::radians(1.0f),
-        //     // glm::vec3(0.0f, 0.0f, 1.0f));
-        //     glm::vec3(0.0f, time, time));
+        trans = glm::rotate(trans,
+            // glm::radians(1.0f) * time,
+            glm::radians(1.0f),
+            glm::vec3(0.0f, 0.0f, 1.0f));
+            // glm::vec3(0.0f, time, time));
+
         //     // glm::vec3(time, time, time));
         // float s = sin(time * 5.f) * 0.25f + 1.75f;
         // float s = sin(time * 5.f) * .15f + 1.f;
@@ -187,8 +183,9 @@ int ex03()
         //     glm::vec3(s, s, s) 
         // );
 
-        // glUniformMatrix4fv(uniTransform, 1, GL_FALSE, glm::value_ptr(trans));
-        // glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
+        glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+
         // ------------------- end transform ---------------
         // glDrawArrays(GL_TRIANGLES, 0, 3);
         // glDrawArrays(GL_TRIANGLES, 0, 36);
