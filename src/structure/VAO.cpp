@@ -5,16 +5,25 @@ VAO::VAO()
     glGenVertexArrays(1, &Id);    
 }
 
-void VAO::LinkVBO(VBO vbo, GLuint layout)
+// void VAO::LinkVBO(VBO vbo, GLuint layout)
+// {
+//     // ? still functional even below line absented.
+//     vbo.Bind();
+//     //NOTE Making the linke between vertex data & attributes
+//     glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+//     // ? 3 = number of components (x, y, z), layout = 0 mean pointer to addr 0 (default)
+//     // glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+//     glEnableVertexAttribArray(layout);
+//     // ? for cleaning
+//     vbo.Unbind();
+// }
+void VAO::LinkAttrib(VBO vbo, GLuint layout, GLuint numComponents,
+    GLenum vartype, GLsizeiptr stride, void *offset)
 {
-    // ? still functional even below line absented.
     vbo.Bind();
-    //NOTE Making the linke between vertex data & attributes
-    glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
-    // ? 3 = number of components (x, y, z), layout = 0 mean pointer to addr 0 (default)
-    // glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glVertexAttribPointer(layout, numComponents, vartype, 
+        GL_FALSE, stride, offset);
     glEnableVertexAttribArray(layout);
-    // ? for cleaning
     vbo.Unbind();
 }
 

@@ -2,29 +2,32 @@
 
 #pragma region cheatsource
 const char *vsSrc = "#version 330 core\n"
-    "layout (location = 0) in vec3 position;\n"
+    "layout (location = 0) in vec2 position;\n"
     // "in vec3 position;\n"
-    "in vec3 color;\n"
-
+    "layout (location = 1) in vec3 color;\n"
     "out vec3 Color;\n"
-
-    "uniform mat4 view;\n"
-    "uniform mat4 proj;\n"
-    "uniform mat4 trans;\n"
+    "uniform float scale;\n"
+    // "uniform mat4 view;\n"
+    // "uniform mat4 proj;\n"
+    // "uniform mat4 trans;\n"
     "void main()\n"
     "{\n"
     // "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    // "   Color = color;\n"
+    "   Color = color;\n"
     // "   Color = sin(color);\n"
-    "   Color = vec3(sin(color.x), color.y, color.z);\n"
-    "   gl_Position = proj * view * trans * vec4(position, 1.0);\n"
+    // "   Color = vec3(sin(color.x), color.y, color.z);\n"
+    // "   gl_Position = proj * view * trans * vec4(position, 1.0);\n"
+    // "   gl_Position = vec4(position, 0.0f, 1.0f);\n"
+    "   gl_Position = vec4(position * scale, 0.0f, 1.0f);\n"
     "}\0";
 const char *fsSrc = "#version 330 core\n\
     in vec3 Color;\n\
     out vec4 outColor;\n\
+    // out vec4 FragColor;\n\
     void main()\n\
     {\n\
-        // FragColor = vec4(0.4f, 0.f, 1.f, 1.f);\n\
+        // FragColor = vec4(0.4f, 1.f, 0.f, 1.f);\n\
+        // FragColor = vec4(1.f, 0.7f, 0.f, 1.f);\n\
         // outColor = vec4(1.0, 0.0, 0.0, 1.0);\n\
         outColor = vec4(Color, 1.0);\n\
     }";
