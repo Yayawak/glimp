@@ -2,8 +2,8 @@
 
 #pragma region cheatsource
 const char *vsSrc = "#version 330 core\n"
-    // "layout (location = 0) in vec3 aPos;\n"
-    "in vec3 position;\n"
+    "layout (location = 0) in vec3 position;\n"
+    // "in vec3 position;\n"
     "in vec3 color;\n"
 
     "out vec3 Color;\n"

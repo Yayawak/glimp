@@ -94,6 +94,28 @@ GLfloat vertices[] = {
 // };
 
 static glm::mat4 trans(1.0f);
+static glm::mat4 view = glm::lookAt(
+    glm::vec3(1.2f, 1.2f, 1.2f),
+    // glm::vec3(2, 2, 2),
+    // glm::vec3(4, 4, 4),
+    glm::vec3(0.0f),
+    glm::vec3(.0f, .0f, 1.f)
+);   
+
+static float zoomFactor = 1.2f;
+static void setCameraView(bool isZoom)
+{
+    float zoomSpeed = 0.1f;
+    if (isZoom)
+        zoomFactor += zoomSpeed;
+    else
+        zoomSpeed -= zoomSpeed;
+    view = glm::lookAt(
+        glm::vec3(zoomFactor, zoomFactor, zoomFactor),
+        glm::vec3(0.0f),
+        glm::vec3(.0f, .0f, 1.f)
+    );   
+}
 
 static void flip()
 {
@@ -114,6 +136,14 @@ static void keyInputManagerFn(GLFWwindow* window, int key, int scancode, int act
     {
         flip();
     }
+    if (key == GLFW_KEY_K && action == GLFW_PRESS)
+    {
+        setCameraView(true);
+    }
+    if (key == GLFW_KEY_J && action == GLFW_PRESS)
+    {
+        setCameraView(false);
+    }
 }
 
 int ex03()
@@ -131,6 +161,10 @@ int ex03()
     glfwSetKeyCallback(window, keyInputManagerFn);
     glfwMakeContextCurrent(window);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_STENCIL_TEST);
+
+    // glStencilFunc(GL_GEQUAL, 2, 0xFF);
+    glStencilFunc(GL_LESS, 2, 0xFF);
 
     Shader shaderProgram(
         "/Users/rio/Desktop/glgl/src/resources/shaders/default.vert",
@@ -185,18 +219,11 @@ int ex03()
 
     GLint uniTransform = glGetUniformLocation(shaderProgram.shaderProgramId, "trans");
 
-    glm::mat4 view = glm::lookAt(
-        // glm::vec3(1.2f, 1.2f, 1.2f),
-        // glm::vec3(2, 2, 2),
-        glm::vec3(4, 4, 4),
-        glm::vec3(0.0f),
-        glm::vec3(.0f, .0f, 1.f)
-    );   
     // view = glm::mat4(1.f);
     GLint uniView = glGetUniformLocation(shaderProgram.shaderProgramId, "view");
     
 
-    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+    // glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
     glm::mat4 proj = glm::perspective(
         glm::radians(45.f), 
         800.0f / 600.0f,
@@ -236,6 +263,7 @@ int ex03()
         // );
 
         glUniformMatrix4fv(uniTransform, 1, GL_FALSE, glm::value_ptr(trans));
+        glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
         // ------------------- end transform ---------------
         // glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawArrays(GL_TRIANGLES, 0, 36);
