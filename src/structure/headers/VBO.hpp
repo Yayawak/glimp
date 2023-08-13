@@ -2,6 +2,7 @@
 # define VBO_Class_H
 
 #include <GLFW/glfw3.h>
+// #include <GL/glew.h>
 
 class VBO
 {

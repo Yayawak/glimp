@@ -76,5 +76,6 @@
         "queue": "cpp",
         "set": "cpp",
         "stack": "cpp"
-    }
+    },
+    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-13"
 }

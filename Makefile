@@ -4,15 +4,18 @@ buildDir = ./bin
 # cppFiles = ./src/**/*.cpp
 
 appDefines:=
+# appIncludes:= -I./src/vendors/GLFW -framework Cocoa -framework OpenGL -framework IOKit
 appIncludes:= -I./src/vendors/GLFW -framework Cocoa -framework OpenGL -framework IOKit
 # appLinkers:= -L./src/vendors/GLFW/lib -lglfw3 -L./src/vendors/libs -lSOIL
 # NOTE : don't include SOIL becuase we use <stb/image....h> which already included SOIL
 appLinkers:= -L./src/vendors/GLFW/lib -lglfw3
 # incPaths = ./src/inc/*.hpp
-exsPaths = ./src/exs/*.cpp 
+exsPaths = ./src/exs/*.cpp ./src/exs/**/*.cpp
 
+# structureFiles = ./src/structure/*.cpp /usr/local/include/common/shader.cpp
 structureFiles = ./src/structure/*.cpp
 # structureHeaders = ./src/structure/headers/*.hpp
+runFlags = -std=c++11
 
 test: build run
 
@@ -23,7 +26,7 @@ build:
 # g++ $(incPaths) $(exsPaths) src/main.cpp -o $(buildDir)/$(appName) $(appIncludes) $(appLinkers)
 # g++ $(exsPaths) src/main.cpp -o $(buildDir)/$(appName) $(appIncludes) $(appLinkers)
 # ? For Develope modern gl structure application
-	g++ $(structureFiles) $(exsPaths) src/main.cpp -o $(buildDir)/$(appName) $(appIncludes) $(appLinkers)
+	g++ ${runFlags} $(structureFiles) $(exsPaths) src/main.cpp -o $(buildDir)/$(appName) $(appIncludes) $(appLinkers)
 # g++ $(structureFiles) $(exsPaths) src/main.cpp -o $(buildDir)/$(appName) $(appIncludes) $(appLinkers)
 # g++ $(structureFiles) src/main.cpp -o $(buildDir)/$(appName) $(appIncludes) $(appLinkers)
 # g++ src/structure/shaderClass.cpp src/main.cpp -o $(buildDir)/$(appName) $(appIncludes) $(appLinkers)

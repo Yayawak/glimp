@@ -6,5 +6,3 @@ int ex02_tex2();
 int ex_matrix00();
 int imgproc_app();
 int ex03();
-void ex04();
-void ex05();

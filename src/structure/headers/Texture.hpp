@@ -3,6 +3,8 @@
 
 #include "shaderClass.hpp"
 
+GLuint loadDDS(const char *imagepath);
+
 class Texture
 {
     public:
