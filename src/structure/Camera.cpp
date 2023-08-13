@@ -74,7 +74,7 @@ void Camera::computeMatricesFromInputs(GLFWwindow* window, Shader shaderProgram,
     int screenHeight = 768;
     double mouseX, mouseY;
     glfwGetCursorPos(window, &mouseX, &mouseY); 
-    glfwSetCursorPos(window, screenWidth / 2, screenHeight / 2);
+    // glfwSetCursorPos(window, screenWidth / 2, screenHeight / 2);
 
     horizontalAngle += mouseSpeed * float(screenWidth / 2 - mouseX);
     verticalAngle += mouseSpeed * float(screenHeight / 2 - mouseY);

@@ -2,7 +2,8 @@
 #include "glm/fwd.hpp"
 #include <type_traits>
 
-static const char *texPath = "img/abadon.png";
+// static const char *texPath = "img/abadon.png";
+static const char *texPath = "img/sexyboy.png";
 static GLfloat vertices[] = 
 {
     // NOTE : position   |        color       | texCoordiation
@@ -54,8 +55,8 @@ int ex03()
     // glStencilFunc(GL_LESS, 2, 0xFF);
 
     Shader shaderProgram(
-        "/Users/rio/Desktop/glgl/src/resources/shaders/default.vert",
-        "/Users/rio/Desktop/glgl/src/resources/shaders/default.frag");
+        "/Users/rio/Desktop/glgl/src/exs/ex03_abadon_pyramid/default.vert",
+        "/Users/rio/Desktop/glgl/src/exs/ex03_abadon_pyramid/default.frag");
 
     VAO vao1;
     vao1.Bind();
@@ -101,10 +102,10 @@ int ex03()
         tex.Bind();
 
 
-        // camera.Inputs(window);
-        camera.computeMatricesFromInputs(window, shaderProgram, "camMatrix");
+        // camera.computeMatricesFromInputs(window, shaderProgram, "camMatrix");
         //TODO  modulate
-        // camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+        camera.Inputs(window);
+        camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
         // camera.Matrix(145.0f, 0.01f, 100.0f, shaderProgram, "camMatrix");
 
         if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
