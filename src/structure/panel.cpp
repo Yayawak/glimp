@@ -6,14 +6,17 @@
 Panel::Panel(glm::vec3 color, glm::vec4 rect, std::string panelName) 
     :
     rect(rect), panelName(panelName), 
+    // ! cant do this line : you can't send NULL to there shaderProgram becasue it's will find file that point to NULL with erorr
+    // shaderProgram(NULL, NULL)
+    shaderProgram(useShaderProgram(
+        "/Users/rio/Desktop/glgl/src/resources/duals/basicPosAndColor/default.vert",
+        "/Users/rio/Desktop/glgl/src/resources/duals/basicPosAndColor/default.frag"
+    ))
 {
     // printf("color = (%f, %f, %f)\n", color.x, color.y, color.z);
     // printf("rect = (%f, %f, %f, %f)\n", rect.x, rect.y, rect.z, rect.w);
+    // init();
     setColor(color);
-    shaderProgram = useShaderProgram(
-        "/Users/rio/Desktop/glgl/src/resources/duals/basicPosAndColor/default.vert",
-        "/Users/rio/Desktop/glgl/src/resources/duals/basicPosAndColor/default.frag"
-    );
 }
 
 // NOTE should move this function to utiliy class instead
@@ -26,12 +29,53 @@ void Panel::setColor(glm::vec3 _color)
     this->color = _color / 255.f;
 
     printf("setting color : %s (%f, %f, %f)\n", panelName.c_str(), color.x, color.y, color.z);
+    // printf("\twith xy = (%f, %f)\n", rect.x, rect.y);
 }
+
+// void Panel::init()
+// {
+//     // printf("setting color : %s (%f, %f, %f)\n", panelName.c_str(), color.x, color.y, color.z);
+//     // GLfloat vertices[] = 
+
+//     // vertices = 
+//     GLfloat temp_v[] = 
+//     {
+//         //*  position                          | color
+//         rect.x         , rect.y,          0.0f, color.x, color.y, color.z,
+//         rect.x + rect.z, rect.y,          0.0f, color.x, color.y, color.z,
+//         rect.x + rect.z, rect.y - rect.w, 0.0f, color.x, color.y, color.z,
+//         rect.x         , rect.y - rect.w, 0.0f, color.x, color.y, color.z,
+//     };
+
+//     *vertices = temp_v;
+//     // just for a normal rectangle
+//     // GLuint indices[] = 
+//     // *indices = NULL;
+//     // *indices[] = 
+//     // {
+//     //     0, 1, 2,
+//     //     2, 3, 0
+//     // };
+//     // VAO vao;
+
+//     // *vao = VAO();
+
+//     vao->Bind();
+
+//     // VBO vbo(vertices, sizeof(vertices));
+//     // EBO ebo(indices, sizeof(indices));
+//     // *vbo = VBO(vertices, sizeof(vertices));
+//     vbo = new VBO(*vertices, sizeof(vertices));
+//     ebo = new EBO(indices, sizeof(indices));
+
+//     //! FIXME must use specific shaders
+//     vao->LinkAttrib(*vbo, 0, 3, GL_FLOAT, 6 * sizeof(float), (void *)0);
+//     vao->LinkAttrib(*vbo, 1, 3, GL_FLOAT, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+// }
 
 void Panel::draw()
 {
-    // printf("setting color : %s (%f, %f, %f)\n", panelName.c_str(), color.x, color.y, color.z);
-    GLfloat vertices[] = 
+    GLfloat temp_v[] = 
     {
         //*  position                          | color
         rect.x         , rect.y,          0.0f, color.x, color.y, color.z,
@@ -39,27 +83,28 @@ void Panel::draw()
         rect.x + rect.z, rect.y - rect.w, 0.0f, color.x, color.y, color.z,
         rect.x         , rect.y - rect.w, 0.0f, color.x, color.y, color.z,
     };
-    // just for a normal rectangle
-    GLuint indices[] = 
-    {
-        0, 1, 2,
-        2, 3, 0
-    };
-    VAO vao;
-    vao.Bind();
+    *vertices = temp_v;
 
-    VBO vbo(vertices, sizeof(vertices));
-    EBO ebo(indices, sizeof(indices));
+    vao->Bind();
+    //! must called this line every time you change data in vertices
+    vbo = new VBO(*vertices, sizeof(vertices));
+    ebo = new EBO(indices, sizeof(indices));
 
-    //! FIXME must use specific shaders
-    vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, 6 * sizeof(float), (void *)0);
-    vao.LinkAttrib(vbo, 1, 3, GL_FLOAT, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+    vbo = new VBO(*vertices, sizeof(vertices));
+    // ebo = new EBO(indices, sizeof(indices));
+    vao->LinkAttrib(*vbo, 0, 3, GL_FLOAT, 6 * sizeof(float), (void *)0);
+    vao->LinkAttrib(*vbo, 1, 3, GL_FLOAT, 6 * sizeof(float), (void *)(3 * sizeof(float)));
 
+    shaderProgram.Activate();
     glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int),
         GL_UNSIGNED_INT, 0
     );
 
-    // shaderProgram.D
+    vbo->Delete();
+    ebo->Delete();
+
+    delete [] vbo;
+    delete [] ebo;
 }
 
 // Shader Panel::useShaderProgram()
@@ -71,7 +116,7 @@ Shader Panel::useShaderProgram(std::string vertSource, std::string fragSource)
     //     "/Users/rio/Desktop/glgl/src/resources/duals/basicPosAndColor/default.frag"
     // );
     Shader sp(vertSource.c_str(), fragSource.c_str());
-    sp.Activate();
+    // sp.Activate();
     return (sp);
 }
 
@@ -101,3 +146,11 @@ void Panel::setPosition(float x, float y)
 //         2.f / screenHeight * y - 1.f
 //     );
 // }
+
+void Panel::clean()
+{
+    vao->Delete();
+    vbo->Delete();
+    ebo->Delete();
+    shaderProgram.Delete();
+}

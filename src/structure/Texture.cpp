@@ -16,12 +16,13 @@ Texture::Texture(const char *image, GLenum textype,
 
     stbi_set_flip_vertically_on_load(true);
 
+    // std::cout << "image path = " << image << std::endl;
     unsigned char *bytes = stbi_load( image,
         &w, &h, &colorChannels, 0);
     if (stbi_failure_reason())
     {
         stbi_image_free(bytes);
-        std::cout << "Failed reason : " << stbi_failure_reason();
+        std::cout << "Failed reason : " << stbi_failure_reason() << "\n";
         // exit(0);
     }
 

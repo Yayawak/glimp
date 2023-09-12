@@ -2,6 +2,7 @@
 #define Panel_H
 #include "EBO.hpp"
 #include "VAO.hpp"
+#include "VBO.hpp"
 #include "shaderClass.hpp"
 #include <glm/glm.hpp>
 #include <string>
@@ -17,8 +18,25 @@ private:
     // NOTE : retrieve shaders from specific path
     // Shader useShaderProgram();
 protected:
+    // VAO *vao = NULL;
+    // VBO *vbo = NULL;
+    // EBO *ebo = NULL;
+    VAO *vao = new VAO();
+    // VBO *vbo = new VBO();
+    VBO *vbo = NULL;
+    EBO *ebo = NULL;
+    // GLuint *indices[6];
+    GLfloat *vertices[4 * 6];
+    // GLfloat **vertices; // not worked
+    GLuint indices[6] = 
+        {
+            0, 1, 2,
+            2, 3, 0
+        };
+
     Shader shaderProgram;
     virtual Shader useShaderProgram(std::string vertSource, std::string fragSource);
+    // virtual void init();
 
 public:
     std::string panelName;
@@ -35,7 +53,8 @@ public:
     virtual void draw();
     void shiftByVec(float x, float y);
     void setPosition(float x, float y);
-
+    void clean();
+    bool isCollideWith(Panel *other);
 
 };
 

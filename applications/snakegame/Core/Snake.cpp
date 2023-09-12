@@ -26,10 +26,31 @@ static std::string getDirectionName(Directions dir)
     return "in valid direction";
 }
 
+SnakeSigs Snake::preventOutOfBorder(SnakeNode *currentNode)
+{
+    if (currentNode->node->rect.x > 1)    
+    {
+        currentNode->node->rect.x = -1;
+    }
+    else if (currentNode->node->rect.x < -1)    
+    {
+        currentNode->node->rect.x = 1;
+    }
+    else if (currentNode->node->rect.y > 1)    
+    {
+        currentNode->node->rect.y = -1;
+    }
+    else if (currentNode->node->rect.y < -1)    
+    {
+        currentNode->node->rect.y = 1;
+    }
+    return (well);
+}
 
 // glm::vec2 Snake::calculateNextTailPosition(Directions tailDirection)
 glm::vec2 Snake::calculateNextPosition(SnakeNode *currentNode, NodeDecisionDirection whereToCalculateNextNode)
 {
+    preventOutOfBorder(currentNode);
     int directionMultiplier = (whereToCalculateNextNode == front) ? 1 : -1;
     // std::cout << "old tail direction : " << currentNode->thisNodeFacingDirection << "\n";
     glm::vec2 *nextPos = NULL;
@@ -151,7 +172,7 @@ SnakeSigs Snake::updateAllNodeDirection()
     }
     // std::cout << "after reverse shift value from tail...";
     // printBodyLinkData();
-    std::cout << "\n";
+    // std::cout << "\n";
 
     return (well);
 }
@@ -176,7 +197,7 @@ SnakeSigs Snake::moveOneStep()
     }
 
     updateAllNodeDirection();
-    printBodyLinkData();
+    // printBodyLinkData();
     return (well);
 }
 

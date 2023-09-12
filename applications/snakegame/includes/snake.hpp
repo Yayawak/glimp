@@ -62,6 +62,7 @@ private:
     // SnakeSigs appendBody(Directions direction);
     // glm::vec2 calculateNextTailPosition(Directions tailDirection);
     // glm::vec2 calculateNextPosition(SnakeNode *currentNode);
+    SnakeSigs preventOutOfBorder(SnakeNode *currentNode);
     glm::vec2 calculateNextPosition(SnakeNode *currentNode, NodeDecisionDirection whereToCalculateNextNode);
     SnakeSigs setFacingDirection(Directions dir);
     SnakeSigs updateAllNodeDirection();
