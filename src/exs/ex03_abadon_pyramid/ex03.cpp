@@ -2,8 +2,8 @@
 #include "glm/fwd.hpp"
 #include <type_traits>
 
-// static const char *texPath = "img/abadon.png";
-static const char *texPath = "img/sexyboy.png";
+static const char *texPath = "img/abadon.png";
+// static const char *texPath = "img/sexyboy.png";
 static GLfloat vertices[] = 
 {
     // NOTE : position   |        color       | texCoordiation
@@ -56,7 +56,8 @@ int ex03()
 
     Shader shaderProgram(
         "/Users/rio/Desktop/glgl/src/exs/ex03_abadon_pyramid/default.vert",
-        "/Users/rio/Desktop/glgl/src/exs/ex03_abadon_pyramid/default.frag");
+        "/Users/rio/Desktop/glgl/src/exs/ex03_abadon_pyramid/default.frag"
+    );
 
     VAO vao1;
     vao1.Bind();
@@ -83,6 +84,8 @@ int ex03()
 
     // Camera camera(screen_width, screen_height, glm::vec3(-0.8f, 0.0f, 0.0f));
     Camera camera(screen_width, screen_height, glm::vec3(0.0f, 0.5f, 0.7f));
+    // Camera camera(screen_width, screen_height,
+    //     glm::vec3(0.0f, 1.f, 0.7f));
     // camera.Orientation = glm::vec3(1.0f, 0.0f, 0.0f);
     // camera.Orientation = glm::vec3(0.0f, 0.0f, -2.0f);
     // camera.Orientation = glm::vec3(0.0f, 0.0f, -2.0f);
@@ -102,10 +105,11 @@ int ex03()
         tex.Bind();
 
 
-        // camera.computeMatricesFromInputs(window, shaderProgram, "camMatrix");
+        // NOTE : New way to control input (with mouse)
+        camera.computeMatricesFromInputs(window, shaderProgram, "camMatrix");
         //TODO  modulate
-        camera.Inputs(window);
-        camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+        // camera.Inputs(window);
+        // camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
         // camera.Matrix(145.0f, 0.01f, 100.0f, shaderProgram, "camMatrix");
 
         if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)

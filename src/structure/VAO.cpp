@@ -27,6 +27,8 @@ void VAO::LinkAttrib(VBO& vbo, GLuint layout, GLuint numComponents,
     vbo.Unbind();
 }
 
+
+
 // ? Why not called this method on constructor ?
 //!SECTION SEX X
 //ANCHOR - 

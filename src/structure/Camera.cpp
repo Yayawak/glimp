@@ -1,4 +1,3 @@
-#include "headers/Camera.hpp"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/quaternion_geometric.hpp"
@@ -7,7 +6,12 @@
 #include "glm/gtx/quaternion.hpp"
 #include "glm/gtx/vector_angle.hpp"
 #include "glm/trigonometric.hpp"
+
 #include "headers/shaderClass.hpp"
+#include "headers/Camera.hpp"
+#include "headers/setupWindow.hpp"
+#include "headers/constants.hpp"
+// #include "headers/stdgl.hpp"
 
 Camera::Camera(int width, int height, glm::vec3 position) 
 {
@@ -59,22 +63,23 @@ float horizontalAngle = 3.14f;
 float verticalAngle = .0f;
 // float 
 float mouseSpeed = 0.005f;
+// int screenWidth = 1024;
+// int screenHeight = 768;
 
 
 // can use extern window use not well way.
 void Camera::computeMatricesFromInputs(GLFWwindow* window, Shader shaderProgram, const char *uniform)
 {
+    speed = 0.8f;
     static double lastTime = glfwGetTime();
     double currentTime = glfwGetTime();
 
     // Compute time difference between current and last frame
     float deltaTime = float(currentTime - lastTime);
 
-    int screenWidth = 1024;
-    int screenHeight = 768;
     double mouseX, mouseY;
     glfwGetCursorPos(window, &mouseX, &mouseY); 
-    // glfwSetCursorPos(window, screenWidth / 2, screenHeight / 2);
+    glfwSetCursorPos(window, screenWidth / 2, screenHeight / 2);
 
     horizontalAngle += mouseSpeed * float(screenWidth / 2 - mouseX);
     verticalAngle += mouseSpeed * float(screenHeight / 2 - mouseY);
@@ -92,24 +97,25 @@ void Camera::computeMatricesFromInputs(GLFWwindow* window, Shader shaderProgram,
         cos(horizontalAngle - 3.14f / 2.0f)
     );
     glm::vec3 up = glm::cross(right, direction);
+    // glm::vec3 up = glm::cross(direction, right);
 
     // Move forward
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
         position += direction * deltaTime * speed;
     }
     // Move backwrad
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
         position -= direction * deltaTime * speed;
     }
     // Starfe right
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     {
         position += right * deltaTime * speed;
     }
     // Starfe left
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
     {
         position -= right * deltaTime * speed;
     }

@@ -1,4 +1,5 @@
 #include "../../structure/headers/stdgl.hpp"
+// #include "../../structure/headers/constants.hpp"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/fwd.hpp"
@@ -6,6 +7,7 @@
 #include <cstdio>
 #include <iostream>
 #include <common/shader.hpp>
+// #include ""
 
 GLFWwindow* window;
 
@@ -88,8 +90,9 @@ static GLfloat g_uv_buffer_data[] = {
 	};
 
 
-static const int width = 1024;
-static const int height= 768;
+// static const int screenWidth = 1024;
+// static const int screenHeight;= 768;
+// static const int screenscreenWidth
 void ex04()
 {
     std::cout << "EX04\n"; 
@@ -105,7 +108,7 @@ void ex04()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(width, height, "Tutorial 05 - Textured Cube", NULL, NULL);
+    window = glfwCreateWindow(screenWidth, screenHeight, "Tutorial 05 - Textured Cube", NULL, NULL);
 	if( window == NULL ){
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
 		glfwTerminate();
@@ -156,9 +159,9 @@ void ex04()
 
 
     // glm::vec3 camPos = glm::vec3(4, 4, 4);
-    // Camera cam(width, height, camPos);
-    // // Camera cam(height, width, glm::vec3(10.0f));
-    // // Camera cam(height, width, glm::vec3(0.0f, 0.5f, 0.7f));
+    // Camera cam(screenWidth, screenHeight;, camPos);
+    // // Camera cam(screenHeight;, screenWidth, glm::vec3(10.0f));
+    // // Camera cam(screenHeight;, screenWidth, glm::vec3(0.0f, 0.5f, 0.7f));
     // cam.Orientation = -camPos;
     
         // glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);

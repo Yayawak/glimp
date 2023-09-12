@@ -8,3 +8,5 @@ int imgproc_app();
 int ex03();
 void ex04();
 void ex05();
+void ex06_text();
+void ex07_multiplePanelColor();

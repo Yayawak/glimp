@@ -13,9 +13,23 @@ appLinkers:= -L./src/vendors/GLFW/lib -lglfw3
 exsPaths = ./src/exs/*.cpp ./src/exs/**/*.cpp
 
 # structureFiles = ./src/structure/*.cpp /usr/local/include/common/shader.cpp
-structureFiles = ./src/structure/*.cpp
+structureFiles = ./src/structure/*.cpp src/structure/**/*.cpp
+# structureFiles = ./src/structure/*.cpp 
 # structureHeaders = ./src/structure/headers/*.hpp
 runFlags = -std=c++11
+
+# * ------------------ SNAKE GAME ---------------------------
+snakeGameName = snake-game
+# snakeMainSrc = `find applications/snakegame -name "mainsnake.cpp"`
+snakeMainSrc = applications/snakegame/mainsnake.cpp
+# snakeAllSrc = application/snakegame/*.cpp application/snakegame/**/.cpp
+# snakeAllSrc = ${find applications/snakegame -name "*.cpp" ! -name "mainsnake.cpp"}
+snakeAllSrc = `find applications/snakegame -name "*.cpp" ! -name "mainsnake.cpp"`
+# snakeAllSrc = find applications/snakegame -name "*.cpp" ! -name "mainsnake.cpp"
+
+all: snake
+# all:
+# 	echo $(snakeAllSrc)
 
 test: build run
 
@@ -37,3 +51,14 @@ build:
 run:
 	./bin/$(appName)
 
+
+snake: buildsnake
+	./bin/$(snakeGameName)
+buildsnake:
+# g++ ${runFlags} $(structureFiles) $(exsPaths) src/main.cpp -o $(buildDir)/$(snakeGameName) $(appIncludes) $(appLinkers)
+# g++ ${runFlags} $(structureFiles) $(exsPaths) -o $(buildDir)/$(snakeGameName) $(appIncludes) $(appLinkers)
+# echo ${snakeAllSrc} 
+# g++ ${runFlags} ${structureFiles} ${snakeAllSrc} ${snakeMainSrc} 
+# g++ ${runFlags} ${structureFiles} ${snakeAllSrc} ${snakeMainSrc} -o ${buildDir}/$(snakeGameName) $(appLinkers)
+# g++ ${runFlags} ${structureFiles} ${snakeAllSrc} ${snakeMainSrc} -o ${buildDir}/$(snakeGameName) $( appIncludes )
+	g++ -pthread ${runFlags} $(structureFiles) $(snakeAllSrc) $(snakeMainSrc) -o $(buildDir)/$(snakeGameName) $(appIncludes) $(appLinkers)
