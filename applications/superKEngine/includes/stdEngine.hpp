@@ -4,6 +4,6 @@
 
 #include "../../../src/structure/headers/stdgl.hpp"
 #include "EnObject.hpp"
-#include "Plane.hpp"
+#include "Cube.hpp"
 
 #endif

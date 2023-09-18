@@ -6,7 +6,7 @@ layout (location = 0) in vec3 position;
 
 // out vec3 Color;
 // out vec2 texCoord;
-// uniform float scale;
+uniform vec3 scaleVec;
 
 
 // "uniform mat4 view;\n"
@@ -27,6 +27,7 @@ void main()
     // gl_Position = transf *  vec4(position, 1.0f);
     // gl_Position = vec4(position, 1.0f);
     gl_Position = transf * camMatrix * vec4(position, 1.0f);
+    // gl_Position = transf * camMatrix * vec4(position * scaleVec, 1.0f);
 // "   gl_Position = vec4(position, 1.0f);\n"
 // "   gl_Position = vec4(position * scale, 0.0f, 1.0f);\n"
 }

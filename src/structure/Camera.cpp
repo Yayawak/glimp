@@ -33,7 +33,12 @@ void Camera::Matrix(float FovDeg, float nearPlane, float farPlane,
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);
 
-    view = glm::lookAt(position, position + Orientation, Up);
+
+    // if (lookAtPosition != NULL)
+    //     view = glm::lookAt(position, *lookAtPosition, Up);
+    // else
+    // view = glm::lookAt(position, position + Orientation, Up);
+    view = glm::lookAt(position, glm::vec3(0), Up);
     // glm::vec3 lookAtWhere = glm::vec3(0.0f);
     // view = glm::lookAt(position, lookAtWhere, Up);
     projection = glm::perspective(glm::radians(FovDeg),

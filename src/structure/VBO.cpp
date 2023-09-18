@@ -8,11 +8,18 @@
 //     this->VBO(vertices.)
 // }
 
+// FIXME : still bad implementation
 VBO::VBO(std::vector<GLfloat> verticesVec)
 {
     // vecToGlf(verticesVec);
     GLfloat *v = vecToGlf(verticesVec);
-    VBO(v, sizeof(v));
+    // vecshow(glm::vec3 v)
+    // showvertices(v, verticesVec.size());
+    // VBO(v, verticesVec.size());
+    // printf("size of verticesVec.size() * sizeof(GLfloat) = %lu\n", verticesVec.size() * sizeof(GLfloat));
+    VBO(v, verticesVec.size() * sizeof(GLfloat));
+    // printf("size of v = %lu\n", sizeof(*v));
+    // VBO(v, sizeof(*v));
 }
 
 VBO::VBO(GLfloat *vertices, GLsizeiptr size)

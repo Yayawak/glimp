@@ -1,4 +1,4 @@
-// #include "../../includes/Plane.hpp"
+#include "../../includes/Cube.hpp"
 #include "../../includes/stdEngine.hpp"
 #include "../../../../src/structure/headers/stdgl.hpp"
 #include <vector>

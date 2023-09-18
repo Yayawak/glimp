@@ -1,5 +1,5 @@
 #include "./includes/stdEngine.hpp"
-#include "includes/Plane.hpp"
+// #include "includes/.hpp"
 #include <unistd.h>
 
 int main(void)
@@ -11,15 +11,22 @@ int main(void)
 
     // Plane plane(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3, 2, 1));
     // Plane plane(glm::vec3(-5, -5, -5), glm::vec3(9, 9, 9));
-    Plane plane;
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+
+    // fo
+    Cube plane;
     // std::cout << "nn, ";
     // Camera cam(screenWidth, screenHeight, glm::vec3(0.0, 0.5f, 0.7f));
     // cam.PaneCamera(*plane.getShaderProgramPtr(), "transf");
     // Panel p(glm::vec3(0.0f, 50.f, 180.f), glm::vec4(0.0f, 0.5f, 1.f, 1.f), "sus");
+    // Cube cubes[9];
+    // for ()
 
     // Camera camera(1024, 1024, glm::vec3(0.0f, 0.5f, 0.7f), w);
     // Camera camera(1024, 1024, glm::vec3(0.0f, 0.5f, 0.7f));
-    Camera camera(screenWidth, screenHeight, glm::vec3(-5, -5, 5));
+    Camera camera(screenWidth, screenHeight, glm::vec3(-5, 1, 5));
+    // camera.speed = 15000.1f;
+    // *camera.lookAtPosition = glm::vec3(0, 0, 0);
     camera.PaneCamera(*plane.getShaderProgramPtr(), "transf");
     // printf("a\n");
     sleep(1);
@@ -33,6 +40,7 @@ int main(void)
         camera.computeMatricesFromInputs(w, *plane.getShaderProgramPtr(), "camMatrix");
         // std::cout << "a";
         plane.always();
+        // plane.shiftByVec(glm::vec3(0.2 * sin(glfwGetTime()), 0.0, 0.0));
         // p.draw();
 
         glfwSwapBuffers(w);

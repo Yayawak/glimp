@@ -5,7 +5,10 @@
 #include <glm/glm.hpp>
 #include <stdio.h>
 #include <vector>
+#include <iostream>
 
+void showvertices(GLfloat *vertices, size_t size);
+void showvertices(GLuint *vertices, size_t size);
 void vecshow(glm::vec3 v);
 std::vector<GLfloat> glfToVec(GLfloat *ptrToGlf, size_t noOfGlf);
 GLfloat* vecToGlf(std::vector<GLfloat> vec);
