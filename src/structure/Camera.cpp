@@ -13,6 +13,12 @@
 #include "headers/constants.hpp"
 // #include "headers/stdgl.hpp"
 
+// Camera::Camera(int width, int height, glm::vec3 position, GLFWwindow *w)
+// {
+//     Camera(width, height, position); 
+//     windowWhoOwnedCamera = w;
+// }
+
 Camera::Camera(int width, int height, glm::vec3 position) 
 {
     Camera::width = width;
@@ -67,6 +73,10 @@ float mouseSpeed = 0.005f;
 // int screenHeight = 768;
 
 
+// void Camera::computeMatricesFromInputs(Shader shaderProgram, const char *uniform)
+// {
+//     computeMatricesFromInputs(windowWhoOwnedCamera, shaderProgram, uniform);
+// }
 // can use extern window use not well way.
 void Camera::computeMatricesFromInputs(GLFWwindow* window, Shader shaderProgram, const char *uniform)
 {

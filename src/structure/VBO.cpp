@@ -1,4 +1,19 @@
+#include "headers/utilsGL.hpp"
 #include "headers/VBO.hpp"
+#include <vector>
+// #include "headers/Vertex.hpp"
+
+// VBO::VBO(Vertex *vertices, GLsizeiptr size)
+// {
+//     this->VBO(vertices.)
+// }
+
+VBO::VBO(std::vector<GLfloat> verticesVec)
+{
+    // vecToGlf(verticesVec);
+    GLfloat *v = vecToGlf(verticesVec);
+    VBO(v, sizeof(v));
+}
 
 VBO::VBO(GLfloat *vertices, GLsizeiptr size)
 {

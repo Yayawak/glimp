@@ -1,5 +1,13 @@
 #include "headers/EBO.hpp"
 
+EBO::EBO(std::vector<GLuint> indices)
+{
+    GLuint idxs[indices.size()];
+    for (GLuint i = 0; i < indices.size(); i++)
+        idxs[i] = indices[i];
+    EBO(idxs, sizeof(idxs));
+}
+
 EBO::EBO(GLuint *indices, GLsizeiptr size)
 {
     glGenBuffers(1, &Id);

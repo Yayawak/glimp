@@ -2,6 +2,7 @@
 #define EnObject_H
 // #include "../includes/stdEngine.hpp"
 #include "../../../src/structure/headers/stdgl.hpp"
+#include "glm/fwd.hpp"
 
 class EnObject
 {
@@ -11,10 +12,31 @@ protected:
     VBO *vbo;
     EBO *ebo;
     Shader *shaderProgram;
-
+    // std::vector<Vertex> vertices;
+    std::vector<GLfloat> vertices;
+    std::vector<GLuint> indices;
 public:
-    EnObject();
-    virtual void init() = 0;
+    // EnObject();
+    EnObject()
+    {
+        init();
+    }
+    // virtual void init() = 0;
+    // void set(
+    //     const Vertex* vertices,
+    //     const unsigned noOfVertices,
+    //     const GLuint* indices,
+    //     const unsigned noOfIndices)
+    // {
+    //     for (size_t i = 0; i < noOfVertices; i++)
+    //         this->vertices.push_back(vertices[i]);
+    //     for (size_t i = 0; i < noOfIndices; i++)
+    //         this->indices.push_back(indices[i]);
+    // }
+    virtual void init()
+    {
+
+    }
     // virtual void init() {};
     // virtual void init();
     virtual void always() = 0;

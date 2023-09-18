@@ -29,6 +29,7 @@
 #include "panel.hpp"
 #include "Colors.hpp"
 #include "utilsGL.hpp"
+#include "Vertex.hpp"
 
 // * ---------------------- 
 #include "../Grid/Grid.hpp"

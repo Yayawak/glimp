@@ -13,6 +13,8 @@
 
 class Camera
 {
+    private:
+        GLFWwindow *windowWhoOwnedCamera;
     public:
         glm::vec3 position;
         // glm::vec3 Orientation = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -27,6 +29,7 @@ class Camera
         float speed = 0.1f;
         float sensitivity = 100.0f;
 
+        // Camera(int width, int height, glm::vec3 position, GLFWwindow *w);
         Camera(int width, int height, glm::vec3 position);
 
         void Matrix(float FovDeg, float nearPlane, float farPlane,
@@ -39,6 +42,7 @@ class Camera
         // void 
         // void computeMatricesFromInputs(GLFWwindow* window);
         void computeMatricesFromInputs(GLFWwindow* window, Shader shaderProgram, const char *uniform);
+        // void computeMatricesFromInputs(Shader shaderProgram, const char *uniform);
 };
 
 #endif
