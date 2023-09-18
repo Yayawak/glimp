@@ -5,10 +5,11 @@
 // extern const int screenHeight = 768;
 
 // NOTE : i should use these values
-// const int screenWidth = 1024;
+const int screenWidth = 1024;
 // const int screenHeight = 768;
+const int screenHeight = 650;
 
-const int screenWidth = 1024 / 2;
-const int screenHeight = 768 / 1.5;
+// const int screenWidth = 1024 / 2;
+// const int screenHeight = 768 / 1.5;
 
 #endif

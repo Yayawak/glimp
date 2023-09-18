@@ -1,0 +1,7 @@
+/Users/rio/Desktop/glgl/dynet/build/CMakeFiles/dynet.dir
+/Users/rio/Desktop/glgl/dynet/build/CMakeFiles/edit_cache.dir
+/Users/rio/Desktop/glgl/dynet/build/CMakeFiles/rebuild_cache.dir
+/Users/rio/Desktop/glgl/dynet/build/CMakeFiles/list_install_components.dir
+/Users/rio/Desktop/glgl/dynet/build/CMakeFiles/install.dir
+/Users/rio/Desktop/glgl/dynet/build/CMakeFiles/install/local.dir
+/Users/rio/Desktop/glgl/dynet/build/CMakeFiles/install/strip.dir

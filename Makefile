@@ -27,6 +27,13 @@ snakeMainSrc = applications/snakegame/mainsnake.cpp
 snakeAllSrc = `find applications/snakegame -name "*.cpp" ! -name "mainsnake.cpp"`
 # snakeAllSrc = find applications/snakegame -name "*.cpp" ! -name "mainsnake.cpp"
 
+
+# * ------------------ SUPER K ENGINE ---------------------------
+kengineName = kengine
+kengMainSrc = applications/superKEngine/superKEngine.c++
+kengAllSrc = `find applications/superKEngine -name "*.c++" ! -name "superKEngine.c++"`
+
+
 all: snake
 # all:
 # 	echo $(snakeAllSrc)
@@ -62,3 +69,11 @@ buildsnake:
 # g++ ${runFlags} ${structureFiles} ${snakeAllSrc} ${snakeMainSrc} -o ${buildDir}/$(snakeGameName) $(appLinkers)
 # g++ ${runFlags} ${structureFiles} ${snakeAllSrc} ${snakeMainSrc} -o ${buildDir}/$(snakeGameName) $( appIncludes )
 	g++ -pthread ${runFlags} $(structureFiles) $(snakeAllSrc) $(snakeMainSrc) -o $(buildDir)/$(snakeGameName) $(appIncludes) $(appLinkers)
+
+# NOTE : for my super project Game Engine (learn stuff in kmitl in game)
+kengine:  buildkengine
+	./bin/$(kengineName)
+
+buildkengine:
+	g++ -pthread ${runFlags} $(structureFiles) $(kengAllSrc) $(kengMainSrc) -o $(buildDir)/$(kengineName) $(appIncludes) $(appLinkers)
+
