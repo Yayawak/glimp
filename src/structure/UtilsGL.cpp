@@ -2,7 +2,7 @@
 
 void vecshow(glm::vec3 v)
 {
-    printf("vec3 [%f, %f, %f]\n", v.x, v.y, v.z);    
+    printf("vec[%f, %f, %f]\n", v.x, v.y, v.z);    
 }
 
 // GLuint* vecToGlui(std::vector<GLuint> vec)
@@ -67,9 +67,11 @@ std::vector<GLfloat> glfToVec(GLfloat *ptrToGlf, size_t noOfGlf)
 
 void showvertices(GLfloat *vertices, size_t size)
 {
+    printf("printing vertices data of size[%lu]\n", size);
     for (size_t i = 0; i < size; i++)
     {
-        printf("v[%lu] = %.1f, ", i, vertices[i]);
+        // printf("v[%lu] = %.1f, ", i, vertices[i]);
+        printf("%.1f ", vertices[i]);
     }
     printf("\n");
 }
@@ -81,4 +83,15 @@ void showvertices(GLuint *vertices, size_t size)
         printf("v[%lu] = %.1d, ", i, vertices[i]);
     }
     printf("\n");
+}
+
+void showvertices(std::vector<Vertex> vexs)
+{
+    for (int i = 0; i < vexs.size(); i++)
+    {
+        Vertex cur = vexs[i];
+        // printf("pos[%f, %f, %f]\n", cur.position)
+        printf("pos[%d]:", i);
+        vecshow(cur.position);
+    }
 }

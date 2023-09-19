@@ -9,26 +9,6 @@
 //                                                 1.5, 0.5, 0.0f,
 //                                                 2.0f, 1.0f, 0.0f};
 // static GLfloat g_vertex_buffer_data[] = { 
-
-
-
-class Cube : public EnObject
-{
-private:
-    float width;
-    float height;
-    float detph;
-
-public:
-
-    // GLfloat startTime;
-    GLfloat startTime = glfwGetTime();
-    Cube()
-    {
-        shaderProgram = new Shader(
-            "/Users/rio/Desktop/glgl/applications/superKEngine/Core/Plane/default.vert",
-            "/Users/rio/Desktop/glgl/applications/superKEngine/Core/Plane/default.frag"
-        );
 // static GLfloat g_vertex_buffer_data[] = { 
 //     -1.0f,-1.0f,-1.0f,
 //     -1.0f,-1.0f, 1.0f,
@@ -69,8 +49,8 @@ public:
 // };
 // float ver[8 * 3] = 
 // ! must be static
+// static GLfloat ver[] = 
 static GLfloat ver[] = 
-// GLfloat ver[] = 
 {
     -1.0,-1.0,1.0,
     -1.0,1.0,1.0,
@@ -112,7 +92,7 @@ static GLuint inds[] =
     4,5,6,7,
     0,1,5,4,
 };
-// GLuint *ptrInds = inds;
+// int *ptrInds = inds;
 
 // {0, 3, 2, 1,
 //  2, 3, 7, 6,
@@ -122,21 +102,59 @@ static GLuint inds[] =
 //  0, 1, 5, 4 };
 
 // {0, 1, 2};
+
+
+
+class Cube : public EnObject
+{
+private:
+    float width;
+    float height;
+    float detph;
+
+public:
+
+    // GLfloat startTime;
+    GLfloat startTime = glfwGetTime();
+    Cube()
+    {
+        shaderProgram = new Shader(
+            "/Users/rio/Desktop/glgl/applications/superKEngine/Core/Plane/default.vert",
+            "/Users/rio/Desktop/glgl/applications/superKEngine/Core/Plane/default.frag"
+        );
+
         // std::cout << "set up all configuration.\n";
         // vertices = glfToVec(g_vertex_buffer_data, sizeof(g_vertex_buffer_data) / sizeof(GLfloat));
         // vertices = g_vertex_buffer_data;
         // noOfVertices = sizeof(g_vertex_buffer_data) / sizeof(GLfloat);
-        vertices = ver;
+        
+        for (int i = 0; i < 8; i++)
+        {
+            Vertex v;
+            // for (int j = 0; j < 3; j++)
+            // {
+            //     v.position 
+            // }
+            // v.position = glm::vec3((i * 3) + 0, )
+            v.position.x = ver[(i * 3) + 0];
+            v.position.y = ver[(i * 3) + 1];
+            v.position.z = ver[(i * 3) + 2];
+            vertices.push_back(v);
+        }
+
+        // vertices = ver;
         // vertices = ptrVtx;
-        noOfVertices = sizeof(ver) / sizeof(GLfloat);
+        // noOfVertices = sizeof(ver) / sizeof(GLfloat);
+        noOfVertices = 8;
 
         indices = inds;
         // indices = ptrInds;
-        noOfIndices = sizeof(inds) / sizeof(GLuint);
+        // noOfIndices = sizeof(inds) / sizeof(GLuint);
+        noOfIndices = 4 * 8;
 
         // showvertices(GLfloat *vertices, size_t size)
         // scale(glm::vec3(1.5, 0.2, 1.5));
-        showvertices(indices, noOfIndices);
+        // showvertices(indices, noOfIndices);
     }
 
     // void Plane::init()
@@ -155,23 +173,26 @@ static GLuint inds[] =
         // * ---------- making linking -------------
 
         // vbo = new VBO(g_vertex_buffer_data, sizeof(g_vertex_buffer_data));
-        vbo = new VBO(vertices, noOfVertices * sizeof(GLfloat));
-        // vbo = new VBO(vertices, );
-        ebo = new EBO(indices, noOfIndices * sizeof(GLuint));
+        // vbo = new VBO(vertices, noOfVertices * sizeof(GLfloat));
+        // vbo = new VBO(vertices.data());
+        // vbo = new VBO(vertices.data(), noOfVertices * sizeof(GLfloat));
+        vbo = new VBO(vertices);
+        // ebo = new EBO(indices, noOfIndices * sizeof(GLuint));
 
         // scale(glm::vec3(2, 1, 1));
 
         // postion only
         vao->LinkAttrib(*vbo, 0, 3, GL_FLOAT, 3 * sizeof(float), (void *)0);
 
+        // glDrawElements(GL_TRIANGLES, noOfIndices, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 8);
         // glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
-        glDrawElements(GL_TRIANGLES, noOfIndices, GL_UNSIGNED_INT, 0);
         // glDrawElements(GL_TRIANGLES, 4 * 6, GL_UNSIGNED_BYTE, indices);
         // glDrawElements(GL_QUADS, 4 * 6, GL_UNSIGNED_BYTE, indices);
 
         vbo->Delete();
-        ebo->Delete();
+        // ebo->Delete();
     }
 
     // void Plane::clear()

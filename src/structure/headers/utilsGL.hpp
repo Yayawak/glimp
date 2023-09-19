@@ -6,7 +6,9 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include "Vertex.hpp"
 
+void showvertices(std::vector<Vertex> vexs);
 void showvertices(GLfloat *vertices, size_t size);
 void showvertices(GLuint *vertices, size_t size);
 void vecshow(glm::vec3 v);

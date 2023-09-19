@@ -34,7 +34,7 @@ int main(void)
     while (!glfwWindowShouldClose(w))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(0.0f, 0.0f, .15f, .0f);
+        // glClearColor(0.0f, 0.0f, .15f, .0f);
 
         // camera.computeMatricesFromInputs(*plane.getShaderProgramPtr(), "camMatrix");
         camera.computeMatricesFromInputs(w, *plane.getShaderProgramPtr(), "camMatrix");

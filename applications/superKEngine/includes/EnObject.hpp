@@ -12,10 +12,10 @@ protected:
     VBO *vbo;
     EBO *ebo;
     Shader *shaderProgram;
-    // std::vector<Vertex> vertices;
+    std::vector<Vertex> vertices;
     // std::vector<GLfloat> vertices;
     // std::vector<GLuint> indices;
-    GLfloat *vertices;
+    // GLfloat *vertices;
     GLuint *indices;
     size_t noOfVertices;
     size_t noOfIndices;
@@ -58,13 +58,14 @@ public:
         // glUniform3fv(GLint location, GLsizei count, const GLfloat *value)
         for (size_t i = 0; i < noOfVertices; i++)
         {
-            int j = 3 * i;
-            vertices[j + 0] *= scaleVector.x;
-            vertices[j + 1] *= scaleVector.y;
-            vertices[j + 2] *= scaleVector.z;
+            // int j = 3 * i;
+            // vertices[j + 0] *= scaleVector.x;
+            // vertices[j + 1] *= scaleVector.y;
+            // vertices[j + 2] *= scaleVector.z;
+            vertices[i].position *= scaleVector;
         }
         std::cout << "result after scaled.\n";
-        showvertices(vertices, noOfVertices);
+        // showvertices(vertices, noOfVertices);
     }
 
     // virtual void setPosition(glm::vec3 center)
@@ -76,13 +77,14 @@ public:
     {
         for (size_t i = 0; i < noOfVertices; i++)
         {
-            int j = 3 * i;
-            vertices[j + 0] += shiftVector.x;
-            vertices[j + 1] += shiftVector.y;
-            vertices[j + 2] += shiftVector.z;
+            // int j = 3 * i;
+            // vertices[j + 0] += shiftVector.x;
+            // vertices[j + 1] += shiftVector.y;
+            // vertices[j + 2] += shiftVector.z;
+            vertices[i].position += shiftVector;
         }
         std::cout << "result after shifted.\n";
-        showvertices(vertices, noOfVertices);
+        // showvertices(vertices, noOfVertices);
     }
 
     // void
