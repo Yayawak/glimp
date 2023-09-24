@@ -1,9 +1,12 @@
 #include "headers/EBO.hpp"
+#include "headers/utilsGL.hpp"
 
 EBO::EBO(std::vector<GLuint> indices)
 {
+    printf("Indicess Vector size = %lu\n", indices.size());
+    // showvertices(indices);
     GLuint idxs[indices.size()];
-    for (GLuint i = 0; i < indices.size(); i++)
+    for (size_t i = 0; i < indices.size(); i++)
         idxs[i] = indices[i];
     EBO(idxs, sizeof(idxs));
 }

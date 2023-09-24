@@ -9,6 +9,8 @@
 #include <sstream>
 #include <iostream>
 #include <cerrno>
+#include <glm/glm.hpp>
+#include "glm/gtc/type_ptr.hpp" // for use value_ptr()
 
 std::string get_file_contents(const char *filename);
 // const char* get_file_contents(const char *filename);
@@ -21,6 +23,8 @@ class Shader
 
         void Activate();
         void Delete();
+        void Deactivate();
+        void setMat4fv(glm::mat4 value, const GLchar* name, GLboolean transpose = GL_FALSE);
     private:
         GLint compileStatus;
         char compileShaderLog[512];

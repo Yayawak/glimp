@@ -2,7 +2,15 @@
 
 void vecshow(glm::vec3 v)
 {
-    printf("vec[%f, %f, %f]\n", v.x, v.y, v.z);    
+    // printf("vec[%f, %f, %f]\n", v.x, v.y, v.z);    
+    // printf("[%.2f, %.2f, %.2f]", v.x, v.y, v.z);    
+    // printf("[%2.2f, %2.2f, %2.2f]", v.x, v.y, v.z);    
+    printf("[% 0.2f, % 0.2f, % 0.2f]", v.x, v.y, v.z);    
+}
+
+void vecshow(glm::vec2 v)
+{
+    printf("[% .2f, % .2f]", v.x, v.y);    
 }
 
 // GLuint* vecToGlui(std::vector<GLuint> vec)
@@ -87,11 +95,28 @@ void showvertices(GLuint *vertices, size_t size)
 
 void showvertices(std::vector<Vertex> vexs)
 {
+    printf("position 3 | color 3 | texcoord 2 | normal 3\n");
     for (int i = 0; i < vexs.size(); i++)
     {
         Vertex cur = vexs[i];
         // printf("pos[%f, %f, %f]\n", cur.position)
-        printf("pos[%d]:", i);
+        // printf("pos[%d]:", i);
+        printf("pos");
         vecshow(cur.position);
+        printf(" | ");
+
+        printf("col");
+        vecshow(cur.color);
+        printf(" | ");
+
+        printf("tex");
+        vecshow(cur.texcoord);
+        printf(" | ");
+
+        printf("nom");
+        vecshow(cur.normal);
+        printf(" | ");
+
+        printf("\n");       
     }
 }

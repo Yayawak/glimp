@@ -1,7 +1,4 @@
 #include "headers/shaderClass.hpp"
-#include <cstdio>
-#include <fstream>
-#include <sstream>
 
 
 std::string get_file_contents(const char *filename)
@@ -111,4 +108,17 @@ void Shader::Activate()
 void Shader::Delete()
 {
     glDeleteProgram(shaderProgramId);
+}
+
+// void Shader::setMat4fv(glm::mat4 value, const GLchar* name, GLboolean transpose = GL_FALSE)
+void Shader::setMat4fv(glm::mat4 value, const GLchar* name, GLboolean transpose)
+{
+    Activate();
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgramId, name), 1, transpose, glm::value_ptr(value));
+    
+}
+
+void Shader::Deactivate()
+{
+    glUseProgram(0);
 }

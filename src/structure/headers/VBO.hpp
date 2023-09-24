@@ -13,7 +13,7 @@ class VBO
     public:
         GLuint Id;
         VBO(std::vector<Vertex> stdVertices);
-        VBO(std::vector<GLfloat> verticesVec);
+        // VBO(std::vector<GLfloat> verticesVec);
         VBO(GLfloat *vertices, GLsizeiptr size);
 
         void Bind();
