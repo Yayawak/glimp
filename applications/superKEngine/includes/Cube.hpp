@@ -116,7 +116,7 @@ public:
 
     // GLfloat startTime;
     GLfloat startTime = glfwGetTime();
-    Cube()
+    Cube() : EnObject(0, 0, 0, 0)
     {
         shaderProgram = new Shader(
             "/Users/rio/Desktop/glgl/applications/superKEngine/Core/Plane/default.vert",
@@ -147,7 +147,8 @@ public:
         // noOfVertices = sizeof(ver) / sizeof(GLfloat);
         noOfVertices = 8;
 
-        indices = inds;
+        // indices = inds;
+
         // indices = ptrInds;
         // noOfIndices = sizeof(inds) / sizeof(GLuint);
         noOfIndices = 4 * 8;
