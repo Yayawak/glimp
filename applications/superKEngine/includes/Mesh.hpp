@@ -2,11 +2,13 @@
 #define EnObject_H
 // #include "../includes/stdEngine.hpp"
 #include "../../../src/structure/headers/stdgl.hpp"
+#include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/fwd.hpp"
 #include "glm/trigonometric.hpp"
 #include <cassert>
 #include <new>
+#include "Primitive.hpp"
 
 class Mesh
 {
@@ -27,6 +29,8 @@ private:
     glm::vec3 rotation;
     glm::vec3 scale;
     glm::mat4 ModelMatrix;
+    glm::mat4 ProjectionMatrix;
+    glm::mat4 ViewMatrix;
 
 
     // ! must be called before initVAO (must have data in vertices variable before initialization)
@@ -48,6 +52,11 @@ private:
             this->indices.push_back(indexArray[i]);
         }
     }
+
+    // void initVAO(Primitive* primitive)
+    // {
+    //     // initVertexData(Vertex *vertexArray, const unsigned int &noOfVertices, GLuint *indexArray, const unsigned int &noOfIndices)
+    // }
 
     void initVAO()
     {
@@ -77,15 +86,16 @@ private:
         vao->Unbind();
     }
 
-    void initModelMatrix()
-    {
-
-        updateModelMatrix();
-    }
+    // void initModelMatrix()
+    // {
+    //     updateModelMatrix();
+    // }
 
     void updateUniform(Shader* shader)
     {
         shader->setMat4fv(this->ModelMatrix, "ModelMatrix");
+        shader->setMat4fv(this->ViewMatrix, "ViewMatrix");
+        shader->setMat4fv(this->ProjectionMatrix, "ProjectionMatrix");
     }
 
     void updateModelMatrix()
@@ -98,8 +108,52 @@ private:
         ModelMatrix = glm::scale(ModelMatrix, scale);
     }
 
+    void updateViewMatrix()
+    {
+        glm::vec3 cameraPosition(0.f, 0.f, 1.f);
+        glm::vec3 worldUp(0.f, 1.f, 0.f);
+        glm::vec3 cameraFrontDirection(0.f, 0.f, -1.f);
+        // glm::vec3 cameraFrontDirection(0.f, 0.f, 1.f);
+        ViewMatrix = glm::mat4(1.f);
+        ViewMatrix = glm::lookAt(cameraPosition, cameraPosition + cameraFrontDirection, worldUp);
+    }
+
+    void updateProjectionMatrix()
+    {
+        float fov = 90.f;
+        float nearPlane = 0.1f;
+        float farPlane = 100.f;
+        ProjectionMatrix = glm::perspective(
+            glm::radians(fov),
+            static_cast<float>(screenWidth) / screenHeight,
+            nearPlane,
+            farPlane
+        );
+    }
+
 
 public:
+    Mesh(
+        Primitive *primitive,
+        glm::vec3 position = glm::vec3(0),
+        glm::vec3 rotation = glm::vec3(0),
+        glm::vec3 scale = glm::vec3(1)
+    )
+    {
+        this->position = position;
+        this->rotation = rotation;
+        this->scale = scale;
+
+        initVertexData(primitive->getVertices(), primitive->getNoOfVertices(),
+            primitive->getIndices(), primitive->getNoOfIndices()
+        );
+        // initVertexData(primitive.getVertices(), primitive.getNoOfVertices(),
+        //     primitive.getIndices(), primitive.getNoOfIndices()
+        // );
+        initVAO();
+        // initModelMatrix();
+    }
+
     Mesh(
         Vertex *vertexArray,
         const unsigned& noOfVertices,
@@ -141,7 +195,10 @@ public:
 
     void render(Shader* shader)
     {
+        updateProjectionMatrix();
+        updateViewMatrix();
         updateModelMatrix();
+
         updateUniform(shader);
         shader->Activate(); // mus active after updateUniform
 

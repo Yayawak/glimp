@@ -1,32 +1,12 @@
 #include "./includes/stdEngine.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "includes/Mesh.hpp"
+#include "includes/Cube.hpp"
+#include "includes/Quad.hpp"
+// #include "includes/Qube.hpp"
+#include "includes/Triangle.hpp"
 // #include "includes/.hpp"
 #include <unistd.h>
-
-Vertex vertices[] =
-{
-    // posotion, color, texcoords, normal
-    glm::vec3(-0.5f,  0.5f, 0.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
-    glm::vec3(-0.5f, -0.5f, 0.f),       glm::vec3(0.f, 1.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
-    glm::vec3( 0.5f, -0.5f, 0.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
-    glm::vec3( 0.5f,  0.5f, 0.f),       glm::vec3(0.f, 1.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
-
-
-    // glm::vec3(-0.5f,  0.5f, 1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
-    // glm::vec3(-0.5f, -0.5f, 1.f),       glm::vec3(0.f, 1.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
-    // glm::vec3( 0.5f, -0.5f, 1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
-    // glm::vec3( 0.5f,  0.5f, 1.f),       glm::vec3(0.f, 1.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f)
-};
-
-unsigned noOfV = sizeof(vertices) / sizeof(Vertex);
-// unsigned noOfV = 4;
-
-GLuint indices[] = 
-{
-    0, 1, 2,
-    0, 2, 3,
-};
 
 void updateInput(GLFWwindow* w, 
     // glm::vec3 &pos, 
@@ -35,8 +15,13 @@ void updateInput(GLFWwindow* w,
     Mesh &mesh
 )
 {
-    float speed = 0.01f;
-    float deltaScale = 0.1f;
+    // const float speed = 0.01f;
+    const float speed = 0.05f;
+    // const float deltaScale = 0.1f;
+    const float deltaScale = 0.01f;
+    const float rotationSpeed = 1.f;
+
+    // * Move Y
     if (glfwGetKey(w, GLFW_KEY_W) == GLFW_PRESS)
     {
         // pos.z -= speed;
@@ -49,6 +34,7 @@ void updateInput(GLFWwindow* w,
         // mesh.move(glm::vec3(0, 0, speed));
         mesh.move(glm::vec3(0, -speed, 0));
     }
+    // * Move X
     if (glfwGetKey(w, GLFW_KEY_A) == GLFW_PRESS)
     {
         // pos.x -= speed;
@@ -59,17 +45,29 @@ void updateInput(GLFWwindow* w,
         // pos.x += speed;
         mesh.move(glm::vec3(+speed, 0, 0));
     }
+    // * Move Z
+    if (glfwGetKey(w, GLFW_KEY_R) == GLFW_PRESS)
+    {
+        // pos.x -= speed;
+        mesh.move(glm::vec3(0, 0, -speed));
+    }
+    if (glfwGetKey(w, GLFW_KEY_F) == GLFW_PRESS)
+    {
+        // pos.x += speed;
+        mesh.move(glm::vec3(0, 0, +speed));
+    }
+    // * Rotation Around Y Axis
     if (glfwGetKey(w, GLFW_KEY_Q) == GLFW_PRESS)
     {
         // mesh.setRotation(glm::vec3(0, -speed, 0));
-        // mesh.rotate(glm::vec3(0, -speed, 0));
-        mesh.rotate(glm::vec3(0, 0, -speed));
+        mesh.rotate(glm::vec3(0, -rotationSpeed, 0));
+        // mesh.rotate(glm::vec3(0, 0, -speed));
     }
     if (glfwGetKey(w, GLFW_KEY_E) == GLFW_PRESS)
     {
         // mesh.setRotation(glm::vec3(0, +speed, 0));
-        // mesh.rotate(glm::vec3(0, +speed, 0));
-        mesh.rotate(glm::vec3(0, 0, +speed));
+        mesh.rotate(glm::vec3(0, +rotationSpeed, 0));
+        // mesh.rotate(glm::vec3(0, 0, +speed));
     }
     if (glfwGetKey(w, GLFW_KEY_Z) == GLFW_PRESS)
     {
@@ -81,7 +79,6 @@ void updateInput(GLFWwindow* w,
     }
 }
 
-unsigned noOfI = sizeof(indices) / sizeof(GLuint);
 
 int main(void)
 {
@@ -110,17 +107,42 @@ int main(void)
     //     glm::vec3(0),
     //     glm::vec3(1.3)
     // );
-    Mesh *ms[3];
+    // Quad *give_me_a_name = new Quad();
+    // Quad give_me_a_name;
+    // Mesh quad(Quad());
+    // Mesh quad(give_me_a_name);
 
-    for (int i = 0; i < 3; i++)
+    Mesh trigMesh(new Triangle());
+
+    Mesh plane(new Quad());
+    plane.setPosition(glm::vec3(0, -0.5, 0));
+    plane.rotate(glm::vec3(90, 0, 0));
+    plane.scaleMesh(glm::vec3(4));
+
+    // Mesh cubeMesh(new Cube());
+    Mesh *cubeMeshs[9];
+
+    for (int i = 0; i < 9; i++)
     {
-        Mesh *m = new Mesh(vertices, noOfV, indices, noOfI,
-            glm::vec3(0, 1 - (i / 2), 0),
-            glm::vec3(0),
-            glm::vec3(0.3)
-        );
-        ms[i] = m;
+        int r = i / 3;
+        int c = i % 3;
+
+        Mesh *cb = new Mesh(new Cube());
+        cb->setPosition(glm::vec3(r, c, 0));
+        // cb->setPosition(glm::vec3(0, 0, 0));
+        cubeMeshs[i] = cb;
     }
+    // Mesh *ms[3];
+
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     Mesh *m = new Mesh(vertices, noOfV, indices, noOfI,
+    //         glm::vec3(0, 1 - (i / 2), 0),
+    //         glm::vec3(0),
+    //         glm::vec3(0.3)
+    //     );
+    //     ms[i] = m;
+    // }
     sleep(1);
     printf("--------------------------------------- start doing game loop ---------------------------------------\n");
     while (!glfwWindowShouldClose(w))
@@ -131,15 +153,32 @@ int main(void)
         // cam.computeMatricesFromInputs(w, *cubeShader, "camMatrix");
 
         // m.render(cubeShader);
-        for (int i = 0; i < 3; i++)
+        // quad.setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+        // quad.render(cubeShader);
+        // trigMesh.render(cubeShader);
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     ms[i]->render(cubeShader);
+        //     updateInput(w, *ms[i]);
+        // }
+
+        for (int i = 0; i < 9; i++)
         {
-            ms[i]->render(cubeShader);
-            updateInput(w, *ms[i]);
+            cubeMeshs[i]->render(cubeShader);
+            updateInput(w, *cubeMeshs[i]);
         }
+        // cubeMeshs[0]->render(cubeShader);
+        // updateInput(w, *cubeMeshs[0]);
+        plane.render(cubeShader);
+        updateInput(w, plane);
 
         // m.rotate(glm::vec3(0.0f, 0.0f, 1.0f));
         // m.scaleMesh(glm::vec3(1.0f, 0.1f * sin(glfwGetTime()), 1.0f));
         // updateInput(w, m);
+        // updateInput(w, quad);
+
+        // cubeMesh.render(cubeShader);
+        // updateInput(w, cubeMesh);
 
         glfwSwapBuffers(w);
         glfwPollEvents();

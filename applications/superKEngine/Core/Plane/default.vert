@@ -14,6 +14,8 @@ out vec3 Color;
 // // "uniform mat4 proj;\n"
 // uniform mat4 transf;
 // uniform mat4 camMatrix;
+uniform mat4 ProjectionMatrix;
+uniform mat4 ViewMatrix;
 uniform mat4 ModelMatrix;
 
 
@@ -31,7 +33,9 @@ void main()
     // gl_Position = vec4(position, 1.0f);
     // gl_Position = transf * camMatrix * vec4(position, 1.0f);
     // gl_Position = vec4(position, 1.0f);
-    gl_Position = ModelMatrix * vec4(position, 1.0f);
+    // gl_Position = ModelMatrix * vec4(position, 1.0f);
+    // gl_Position = ProjectionMatrix * ModelMatrix * vec4(position, 1.0f);
+    gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1.0f);
     // gl_Position = camMatrix * vec4(position, 1.0f);
     // gl_Position = transf * camMatrix * vec4(position * scaleVec, 1.0f);
 // "   gl_Position = vec4(position, 1.0f);\n"
