@@ -115,7 +115,7 @@ void Shader::setMat4fv(glm::mat4 value, const GLchar* name, GLboolean transpose)
 {
     Activate();
     glUniformMatrix4fv(glGetUniformLocation(shaderProgramId, name), 1, transpose, glm::value_ptr(value));
-    
+    Deactivate();
 }
 
 void Shader::Deactivate()
