@@ -6,7 +6,7 @@ layout (location = 2) in vec2 aTex;
 layout (location = 3) in vec3 normal;
 
 out vec3 Color;
-// // out vec2 texCoord;
+out vec2 texCoord;
 // uniform vec3 scaleVec;
 
 
@@ -23,7 +23,7 @@ void main()
 {
 // "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
     Color = color;
-    // texCoord = aTex;
+    texCoord = aTex;
 // "   Color = sin(color);\n"
 // "   Color = vec3(sin(color.x), color.y, color.z);\n"
 // "   gl_Position = proj * view * trans * vec4(position, 1.0f);\n"

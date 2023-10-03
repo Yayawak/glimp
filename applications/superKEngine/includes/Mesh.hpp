@@ -10,6 +10,7 @@
 #include <new>
 #include "Primitive.hpp"
 
+
 class Mesh
 {
 private:
@@ -22,6 +23,7 @@ private:
     VAO *vao;
     VBO *vbo;
     EBO *ebo;
+    Texture *texture;
 
     // Shader *shaderProgram;
 
@@ -51,12 +53,8 @@ private:
         {
             this->indices.push_back(indexArray[i]);
         }
-    }
 
-    // void initVAO(Primitive* primitive)
-    // {
-    //     // initVertexData(Vertex *vertexArray, const unsigned int &noOfVertices, GLuint *indexArray, const unsigned int &noOfIndices)
-    // }
+    }
 
     void initVAO()
     {
@@ -74,9 +72,9 @@ private:
         // glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data())
         ebo = new EBO(indices);
 
+
         // position, color, texcoord, normal
         // 3 + 3 + 2 + 3 = 11
-        // ! problem maybe here
         GLsizeiptr stride = 11 * sizeof(float);
         vao->LinkAttrib(*vbo, 0, 3, GL_FLOAT, stride, (void *)(0 * sizeof(float)));
         vao->LinkAttrib(*vbo, 1, 3, GL_FLOAT, stride, (void *)(3 * sizeof(float)));
@@ -133,6 +131,37 @@ private:
 
 
 public:
+
+    Mesh(
+        Primitive *primitive,
+        const char *texturePath
+    )
+    // ) : texture( new Texture(
+    //         texturePath,
+    //         // "img/abadon.png",
+    //         GL_TEXTURE_2D, GL_TEXTURE0,
+    //         GL_RGB, GL_UNSIGNED_BYTE
+    //     )
+    // )
+    {
+        this->position = glm::vec3(0);
+        this->rotation = glm::vec3(0);
+        this->scale = glm::vec3(1);
+    
+        texture = new Texture(
+            texturePath,
+            // "img/abadon.png",
+            // "/Users/rio/Desktop/glgl/img/abadon.png",
+            GL_TEXTURE_2D, GL_TEXTURE0,
+            GL_RGB, GL_UNSIGNED_BYTE
+        );
+
+        initVertexData(primitive->getVertices(), primitive->getNoOfVertices(),
+            primitive->getIndices(), primitive->getNoOfIndices()
+        );
+        initVAO();
+    }
+
     Mesh(
         Primitive *primitive,
         glm::vec3 position = glm::vec3(0),
@@ -143,7 +172,17 @@ public:
         this->position = position;
         this->rotation = rotation;
         this->scale = scale;
-
+    
+        texture = NULL;
+        // texture = new Texture(
+        //     // texturePath,
+        //     // "img/abadon.png",
+        //     "/Users/rio/Desktop/glgl/img/abadon.png",
+        //     GL_TEXTURE_2D, GL_TEXTURE0,
+        //     GL_RGB, GL_UNSIGNED_BYTE
+        // );
+// Unit(*shader, "tex0", 0);
+        //     // 
         initVertexData(primitive->getVertices(), primitive->getNoOfVertices(),
             primitive->getIndices(), primitive->getNoOfIndices()
         );
@@ -198,12 +237,50 @@ public:
         updateProjectionMatrix();
         updateViewMatrix();
         updateModelMatrix();
-
+        
         updateUniform(shader);
-        shader->Activate(); // mus active after updateUniform
 
+
+        shader->Activate(); // must active after updateUniform
+
+
+        // if (texture != NULL)
+        // {
+        //     // texture->texUnit(*shader, "tex0", 0);
+        //     // texture->Bind();
+        // }
+        // else{
+        //     std::cout << "im real null texture\n";
+        // }
 
         vao->Bind();
+
+
+        // #define JTest
+        // #ifndef JTest
+        // Texture *texture = new Texture(
+        //     // texturePath,
+        //     // "img/abadon.png",
+        //     "/Users/rio/Desktop/glgl/img/abadon.png",
+        //     GL_TEXTURE_2D, GL_TEXTURE0,
+        //     GL_RGB, GL_UNSIGNED_BYTE
+        // );
+        // texture->texUnit(*shader, "tex0", 0);
+        if (texture != NULL)
+        {
+            GLint loc = glGetUniformLocation(shader->shaderProgramId, "isHasTexture");
+            glUniform1i(loc, 1);
+
+            texture->Bind();
+        }
+        // meshes with no textures path file
+        else
+        {
+            GLint loc = glGetUniformLocation(shader->shaderProgramId, "isHasTexture");
+            glUniform1i(loc, 0);
+        }
+
+        // #endif
 
         // if (this->indices.empty())
         //     glDrawArrays(GL_TRIANGLES, 0, noOfVertices);
@@ -211,10 +288,11 @@ public:
         // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
         // glDrawElements(GL_TRIANGLES, noOfIndices, GL_UNSIGNED_BYTE, 0);
         // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glDrawElements(GL_TRIANGLES, noOfIndices, GL_UNSIGNED_INT, 0);
 
+        glDrawElements(GL_TRIANGLES, noOfIndices, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLES, 0, noOfVertices);
 
+        // texture->Delete();
         // shader->Deactivate();
     }
 

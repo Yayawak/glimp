@@ -1,3 +1,5 @@
+# CXX = clang++
+CXX = g++
 appName = myOpenGLApplication
 buildDir = ./bin
 # cppFiles = ./src/*.cpp
@@ -16,7 +18,7 @@ exsPaths = ./src/exs/*.cpp ./src/exs/**/*.cpp
 structureFiles = ./src/structure/*.cpp src/structure/**/*.cpp
 # structureFiles = ./src/structure/*.cpp 
 # structureHeaders = ./src/structure/headers/*.hpp
-runFlags = -std=c++11
+runFlags = -g -std=c++11
 
 # * ------------------ SNAKE GAME ---------------------------
 snakeGameName = snake-game
@@ -71,9 +73,13 @@ buildsnake:
 	g++ -pthread ${runFlags} $(structureFiles) $(snakeAllSrc) $(snakeMainSrc) -o $(buildDir)/$(snakeGameName) $(appIncludes) $(appLinkers)
 
 # NOTE : for my super project Game Engine (learn stuff in kmitl in game)
-kengine:  buildkengine
+# kengine:  buildkengine runk
+k:  buildkengine runk
+
+runk:
 	./bin/$(kengineName)
 
 buildkengine:
-	g++ -pthread ${runFlags} $(structureFiles) $(kengAllSrc) $(kengMainSrc) -o $(buildDir)/$(kengineName) $(appIncludes) $(appLinkers)
+	$(CXX) ${runFlags} $(structureFiles) $(kengAllSrc) $(kengMainSrc) -o $(buildDir)/$(kengineName) $(appIncludes) $(appLinkers)
+# g++ -pthread ${runFlags} $(structureFiles) $(kengAllSrc) $(kengMainSrc) -o $(buildDir)/$(kengineName) $(appIncludes) $(appLinkers)
 

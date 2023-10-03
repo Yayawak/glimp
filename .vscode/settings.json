@@ -77,5 +77,6 @@
         "set": "cpp",
         "stack": "cpp"
     },
-    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-13"
+    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-13",
+    "cmake.sourceDirectory": "/Users/rio/Desktop/glgl/dynet"
 }

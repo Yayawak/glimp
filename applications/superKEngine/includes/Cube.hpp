@@ -64,20 +64,20 @@ public:
             // A
             glm::vec3(-1.0f, -1.0f,  1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // B
-            glm::vec3(-1.0f,  1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f,  1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(5.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // C
             glm::vec3( 1.0f,  1.0f,  1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // D
-            glm::vec3( 1.0f, -1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3( 1.0f, -1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 5.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
 
             // E
             glm::vec3(-1.0f, -1.0f, -1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // G
-            glm::vec3(-1.0f,  1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f,  1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(5.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // H
-            glm::vec3( 1.0f,  1.0f, -1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3( 1.0f,  1.0f, -1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(5.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // F
-            glm::vec3( 1.0f, -1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3( 1.0f, -1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(10.0f, 5.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
         };
         unsigned noOfV = sizeof(vertices) / sizeof(Vertex);
         GLuint indices[] = 

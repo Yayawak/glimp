@@ -10,6 +10,7 @@ int main()
     // std::cin >> str;
     // ex_upsideDownTriangle();
     // ex02_tex2();
+    ex03(); // pytramid texture
     // ex_matrix00();
     // imgproc_app();
     // ex03(); // abadon
