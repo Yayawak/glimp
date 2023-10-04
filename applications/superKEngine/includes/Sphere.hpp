@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdbool>
+#include <ostream>
 #include <vector>
 
 
@@ -38,67 +39,92 @@ private:
         return ret;
     }
 
-    float getRadiasEachRing(int ringIndex) 
-    {
-        // NOTE linear interpolation
-        // float midRingWithMaxRadius = noOfRings / 2.f;
-        // float slope = (ringIndex <= midRingWithMaxRadius) ? (radius / midRingWithMaxRadius) : (-radius / midRingWithMaxRadius);
-        // float interception = (ringIndex <= midRingWithMaxRadius) ? (0) : (radius);
-        // // float interception = (ringIndex > midRingWithMaxRadius) ? (0) : (radius);
-        // // 0.1 prevent sub radius will be 0
-        // float ret =  0.1 + ((slope * ringIndex) + interception);
+    // float getRadiasEachRing(int ringIndex) 
+    // {
+    //     // NOTE linear interpolation
+    //     // float midRingWithMaxRadius = noOfRings / 2.f;
+    //     // float slope = (ringIndex <= midRingWithMaxRadius) ? (radius / midRingWithMaxRadius) : (-radius / midRingWithMaxRadius);
+    //     // float interception = (ringIndex <= midRingWithMaxRadius) ? (0) : (radius);
+    //     // // float interception = (ringIndex > midRingWithMaxRadius) ? (0) : (radius);
+    //     // // 0.1 prevent sub radius will be 0
+    //     // float ret =  0.1 + ((slope * ringIndex) + interception);
 
-        // printf("sub radius = %f\n", ret);
-        // assert(ret > 0);
-        // return ret;
+    //     // printf("sub radius = %f\n", ret);
+    //     // assert(ret > 0);
+    //     // return ret;
 
-        // NOTE linear interpolation v 2
-        // float valueNegOneToPosOne = lerp(0, noOfRings, -1, 1, ringIndex);
-        // float valueZeroToOne = sin(valueNegOneToPosOne);
-        // // float valueZeroToOne = valueNegOneToPosOne;
-        // // float amplifiedZeroToRadius = valueZeroToOne * radius;
-        // float amplifiedZeroToRadius = valueZeroToOne;
-        // printf("sub radius = %f\n", amplifiedZeroToRadius);
-        // return amplifiedZeroToRadius;
+    //     // NOTE linear interpolation v 2
+    //     // float valueNegOneToPosOne = lerp(0, noOfRings, -1, 1, ringIndex);
+    //     // float valueZeroToOne = sin(valueNegOneToPosOne);
+    //     // // float valueZeroToOne = valueNegOneToPosOne;
+    //     // // float amplifiedZeroToRadius = valueZeroToOne * radius;
+    //     // float amplifiedZeroToRadius = valueZeroToOne;
+    //     // printf("sub radius = %f\n", amplifiedZeroToRadius);
+    //     // return amplifiedZeroToRadius;
         
 
-        // NOTE : use sin fn (but not good enough)
-        // float val = lerp(0, noOfRings, 0, 180, ringIndex);
-        // val = sin(glm::radians(val)); // val *= radius; // this is worked but it's sin (not really real circle)
-        // float 
+    //     // NOTE : use sin fn (but not good enough)
+    //     // float val = lerp(0, noOfRings, 0, 180, ringIndex);
+    //     // val = sin(glm::radians(val)); // val *= radius; // this is worked but it's sin (not really real circle)
+    //     // float 
 
-        printf("sub radius = %f\n", val);
-        return val;
+    //     printf("sub radius = %f\n", val);
+    //     return val;
 
-        // NOTE parabolic
-        // float p = (-4.f / 3) * 10;
-        // return ( 1 / (4 * p)) * pow((ringIndex - midRingWithMaxRadius), 2) + radius;
-    }
+    //     // NOTE parabolic
+    //     // float p = (-4.f / 3) * 10;
+    //     // return ( 1 / (4 * p)) * pow((ringIndex - midRingWithMaxRadius), 2) + radius;
+    // }
 
     std::vector<Vertex> getRing(int ringIndex)
     {
-        // float pollAngle = 30;
-        // int noVerticesInARing = (int)(360 / pollAngle);
-        // glm::vec3 initPoint = center + glm::vec3(radius, 0.0f, (0.1)*ringIndex);
-        float subRadius = getRadiasEachRing(ringIndex);
-        float deltaZ = (2 * radius) / noOfRings;
-        glm::vec3 initPoint = center 
-            + glm::vec3(subRadius, 0.0f, (deltaZ)*ringIndex);
-        // glm::vec3 initPoint = glm::vec3(center.x + radius, center.y, (center.z + (0.1)*ringIndex) - radius);
-        // glm::vec3 initPoint = glm::vec3(center.x + (radius / ringIndex), center.y, (center.z + (0.1)*ringIndex) - radius);
         std::vector<Vertex> verticesInRing;
+        // // float pollAngle = 30;
+        // // int noVerticesInARing = (int)(360 / pollAngle);
+        // // glm::vec3 initPoint = center + glm::vec3(radius, 0.0f, (0.1)*ringIndex);
+        // float subRadius = getRadiasEachRing(ringIndex);
+        // float deltaZ = (2 * radius) / noOfRings;
+        // glm::vec3 initPoint = center 
+        //     + glm::vec3(subRadius, 0.0f, (deltaZ)*ringIndex);
+        // // glm::vec3 initPoint = glm::vec3(center.x + radius, center.y, (center.z + (0.1)*ringIndex) - radius);
+        // // glm::vec3 initPoint = glm::vec3(center.x + (radius / ringIndex), center.y, (center.z + (0.1)*ringIndex) - radius);
 
+        // for (int i = 0; i < noVerticesEachRing; i++)
+        // // for (int i = 1; i < 12; i++)
+        // {
+        //     glm::vec3 rotatedVec = glm::rotateZ(initPoint, (float)glm::radians(-pollAngle * i));
+        //     Vertex v = {
+        //         rotatedVec,
+        //         // glm::vec3(0.3, 0.3, 0.4), // color
+        //         glm::vec3((ringIndex % 2 ? 0 : 0.5), 0, 0.1 * sin(i)), // color
+        //         glm::vec3(1, 1, 0), // texcoord
+        //         glm::normalize(rotatedVec)
+        //     };
+        //     verticesInRing.push_back(v);
+        // }
+        // return verticesInRing;
+
+        float pitchAngle = pollAngle;
+
+        float angleToRotateYAxis = lerp(0, noOfRings, -90, 90, ringIndex);
+        // * VERSION 2
         for (int i = 0; i < noVerticesEachRing; i++)
-        // for (int i = 1; i < 12; i++)
         {
-            glm::vec3 rotatedVec = glm::rotateZ(initPoint, (float)glm::radians(-pollAngle * i));
+            glm::vec3 initPoint = center + glm::vec3(radius, 0, 0);
+            // glm::vec3 rotatedVec = glm::rotateY(initPoint, glm::radians(-pitchAngle * ringIndex));
+            glm::vec3 rotatedVec = glm::rotateY(initPoint, glm::radians(angleToRotateYAxis));
+            rotatedVec = glm::rotateZ(rotatedVec, glm::radians(pollAngle * i));
             Vertex v = {
                 rotatedVec,
                 // glm::vec3(0.3, 0.3, 0.4), // color
-                glm::vec3((ringIndex % 2 ? 0 : 0.5), 0, 0.1 * sin(i)), // color
+                glm::vec3((ringIndex % 2 ? 0.4 : 0.5), 0, 0.1 * sin(i)), // color
+                // glm::vec3(0, 0.2, 0.4), // color
+
                 glm::vec3(1, 1, 0), // texcoord
                 glm::normalize(rotatedVec)
             };
+            // vecshow(rotatedVec);
+            // std::cout << std::endl;
             verticesInRing.push_back(v);
         }
         return verticesInRing;
@@ -131,6 +157,12 @@ private:
             ret.b = ret.a + 1;
             ret.c = secondIndex + 1;
         }
+
+        // int allIndices = noOfRings * noOfVertices;
+        // ret.a %= allIndices;
+        // ret.b %= allIndices;
+        // ret.c %= allIndices;
+
         // return {ringIndex + vertexInThatRingIndex, secondIndex, secondIndex + 1};
         return (ret);
     }
@@ -139,7 +171,9 @@ private:
     {
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
-        noOfRings = 36;
+        // noOfRings = 36;
+        noOfRings = 64;
+        // noOfRings = 7;
         // noOfRings = pow(2, 8);
         // pollAngle = 15.f / 8;
         pollAngle = 30;
@@ -154,17 +188,23 @@ private:
             {
                 vertices.push_back(ring[vi]);
 
-                if (r == noOfRings - 1) continue;
-                TripleIndex tripletIndex = getIndicesOfTriangle(r, vi, true);
-                // printf("vi = %d\t", vi);
-                indices.push_back(tripletIndex.a);
-                indices.push_back(tripletIndex.b);
-                indices.push_back(tripletIndex.c);
+                // if (r != noOfRings - 1)
+                // {
+                    TripleIndex tripletIndex = getIndicesOfTriangle(r, vi, true);
+                    // printf("vi = %d\t", vi);
+                    indices.push_back(tripletIndex.a);
+                    indices.push_back(tripletIndex.b);
+                    indices.push_back(tripletIndex.c);
 
-                TripleIndex tripletIndex2 = getIndicesOfTriangle(r, vi, false);
-                indices.push_back(tripletIndex2.a);
-                indices.push_back(tripletIndex2.b);
-                indices.push_back(tripletIndex2.c);
+                    TripleIndex tripletIndex2 = getIndicesOfTriangle(r, vi, false);
+                    indices.push_back(tripletIndex2.a);
+                    indices.push_back(tripletIndex2.b);
+                    indices.push_back(tripletIndex2.c);
+                // }
+                // else
+                // {
+
+                // }
             }
         }
 

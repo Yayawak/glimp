@@ -164,8 +164,8 @@ int main(void)
     printf("--------------------------------------- start doing game loop ---------------------------------------\n");
     while (!glfwWindowShouldClose(w))
     {
-        // glClearColor(.07f, .03f, .15f, 1.0f); // dark blue
-        glClearColor(35/255.f, 115/255.f, 200/255.f, 1.f); // vivid blue
+        glClearColor(.07f, .03f, .15f, 1.0f); // dark blue
+        // glClearColor(35/255.f, 115/255.f, 200/255.f, 1.f); // vivid blue
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         // cam.computeMatricesFromInputs(w, *cubeShader, "camMatrix");
@@ -191,7 +191,7 @@ int main(void)
         // cubeMeshs[0]->render(cubeShader);
         // updateInput(w, *cubeMeshs[0]);
 
-        // plane.render(cubeShader);
+        plane.render(cubeShader);
         // updateInput(w, plane);
 
         // m.rotate(glm::vec3(0.0f, 0.0f, 1.0f));

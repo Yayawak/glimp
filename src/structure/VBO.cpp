@@ -2,6 +2,8 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "headers/Vertex.hpp"
 #include "headers/utilsGL.hpp"
+
+#undef JTest
 // #include "headers/Vertex.hpp"
 
 // VBO::VBO(Vertex *vertices, GLsizeiptr size)
@@ -69,7 +71,9 @@
 
 VBO::VBO(std::vector<SVertex>::value_type *ptr_to_value, GLsizeiptr sizeBytes)
 {
+    #ifdef JTest
     printf("\tbase VBO (2)(special std::vector<SVertex>::value_type *p)\n\t (class initializing verticees of %lu bytes\n", sizeBytes);
+    #endif
     // showvertices(vertices, sizeBytes / sizeof(GLfloat));
 
     glGenBuffers(1, &Id);
@@ -80,8 +84,10 @@ VBO::VBO(std::vector<SVertex>::value_type *ptr_to_value, GLsizeiptr sizeBytes)
 
 VBO::VBO(GLfloat *vertices, GLsizeiptr sizeBytes)
 {
+    #ifdef JTest
     printf("base VBO class initializing verticees of %lu bytes\n", sizeBytes);
     showvertices(vertices, sizeBytes / sizeof(GLfloat));
+    #endif
 
     glGenBuffers(1, &Id);
     glBindBuffer(GL_ARRAY_BUFFER, Id);
