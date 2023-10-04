@@ -13,7 +13,7 @@
 
 class Mesh
 {
-private:
+protected:
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
     size_t noOfVertices;
@@ -34,6 +34,24 @@ private:
     glm::mat4 ProjectionMatrix;
     glm::mat4 ViewMatrix;
 
+    void callthisfakeconstructor(
+        Vertex *vertexArray,
+        const unsigned& noOfVertices,
+        GLuint *indexArray,
+        const unsigned& noOfIndices,
+        glm::vec3 position = glm::vec3(0),
+        glm::vec3 rotation = glm::vec3(0),
+        glm::vec3 scale = glm::vec3(1)
+    )
+    {
+        this->position = position;
+        this->rotation = rotation;
+        this->scale = scale;
+        texture = NULL; // must have
+
+        initVertexData(vertexArray, noOfVertices, indexArray, noOfIndices);
+        initVAO();
+    }
 
     // ! must be called before initVAO (must have data in vertices variable before initialization)
     void initVertexData(Vertex *vertexArray,
@@ -84,11 +102,6 @@ private:
         vao->Unbind();
     }
 
-    // void initModelMatrix()
-    // {
-    //     updateModelMatrix();
-    // }
-
     void updateUniform(Shader* shader)
     {
         shader->setMat4fv(this->ModelMatrix, "ModelMatrix");
@@ -132,17 +145,11 @@ private:
 
 public:
 
+    inline Mesh() { printf("This is base naked constructor of Mesh class.\n"); }
     Mesh(
         Primitive *primitive,
         const char *texturePath
     )
-    // ) : texture( new Texture(
-    //         texturePath,
-    //         // "img/abadon.png",
-    //         GL_TEXTURE_2D, GL_TEXTURE0,
-    //         GL_RGB, GL_UNSIGNED_BYTE
-    //     )
-    // )
     {
         this->position = glm::vec3(0);
         this->rotation = glm::vec3(0);
@@ -150,8 +157,6 @@ public:
     
         texture = new Texture(
             texturePath,
-            // "img/abadon.png",
-            // "/Users/rio/Desktop/glgl/img/abadon.png",
             GL_TEXTURE_2D, GL_TEXTURE0,
             GL_RGB, GL_UNSIGNED_BYTE
         );
@@ -174,21 +179,9 @@ public:
         this->scale = scale;
     
         texture = NULL;
-        // texture = new Texture(
-        //     // texturePath,
-        //     // "img/abadon.png",
-        //     "/Users/rio/Desktop/glgl/img/abadon.png",
-        //     GL_TEXTURE_2D, GL_TEXTURE0,
-        //     GL_RGB, GL_UNSIGNED_BYTE
-        // );
-// Unit(*shader, "tex0", 0);
-        //     // 
         initVertexData(primitive->getVertices(), primitive->getNoOfVertices(),
             primitive->getIndices(), primitive->getNoOfIndices()
         );
-        // initVertexData(primitive.getVertices(), primitive.getNoOfVertices(),
-        //     primitive.getIndices(), primitive.getNoOfIndices()
-        // );
         initVAO();
         // initModelMatrix();
     }
@@ -209,7 +202,6 @@ public:
 
         initVertexData(vertexArray, noOfVertices, indexArray, noOfIndices);
         initVAO();
-        // initModelMatrix();
     }
 
     ~Mesh()
@@ -219,18 +211,6 @@ public:
         ebo->Delete();
     }
 
-
-    // void set(
-    //     const Vertex* vertices,
-    //     const unsigned noOfVertices,
-    //     const GLuint* indices,
-    //     const unsigned noOfIndices)
-    // {
-    //     for (size_t i = 0; i < noOfVertices; i++)
-    //         this->vertices.push_back(vertices[i]);
-    //     for (size_t i = 0; i < noOfIndices; i++)
-    //         this->indices.push_back(indices[i]);
-    // }
 
     void render(Shader* shader)
     {

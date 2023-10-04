@@ -4,7 +4,9 @@
 #include "includes/Cube.hpp"
 #include "includes/Quad.hpp"
 // #include "includes/Qube.hpp"
+#include "includes/Sphere.hpp"
 #include "includes/Triangle.hpp"
+#include "includes/Sphere.hpp"
 // #include "includes/.hpp"
 #include <unistd.h>
 
@@ -155,6 +157,9 @@ int main(void)
     //     );
     //     ms[i] = m;
     // }
+
+    Sphere sphere(glm::vec3(0), 0.3);
+
     sleep(1);
     printf("--------------------------------------- start doing game loop ---------------------------------------\n");
     while (!glfwWindowShouldClose(w))
@@ -185,16 +190,21 @@ int main(void)
 
         // cubeMeshs[0]->render(cubeShader);
         // updateInput(w, *cubeMeshs[0]);
-        plane.render(cubeShader);
-        updateInput(w, plane);
+
+        // plane.render(cubeShader);
+        // updateInput(w, plane);
 
         // m.rotate(glm::vec3(0.0f, 0.0f, 1.0f));
         // m.scaleMesh(glm::vec3(1.0f, 0.1f * sin(glfwGetTime()), 1.0f));
         // updateInput(w, m);
         // updateInput(w, quad);
 
-        cubeMesh.render(cubeShader);
-        updateInput(w, cubeMesh);
+        // cubeMesh.render(cubeShader);
+        // cubeMesh.move(glm::vec3(0.05 * sin(glfwGetTime()), 0, 0));
+        // updateInput(w, cubeMesh);
+
+        sphere.render(cubeShader);
+        updateInput(w, sphere);
 
         glfwSwapBuffers(w);
         glfwPollEvents();

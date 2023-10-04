@@ -113,6 +113,8 @@ public:
 
         set(vertices, noOfV, indices, noOfI);
     }
+
+    glm::vec3 sizeEachAspect;
 private:
 };
 

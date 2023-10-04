@@ -95,6 +95,7 @@ void showvertices(GLuint *vertices, size_t size)
 
 void showvertices(std::vector<Vertex> vexs)
 {
+    printf("No of vertices = %lu\n", vexs.size());
     printf("position 3 | color 3 | texcoord 2 | normal 3\n");
     for (int i = 0; i < vexs.size(); i++)
     {
