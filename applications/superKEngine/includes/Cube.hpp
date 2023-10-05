@@ -1,8 +1,9 @@
-#ifndef Qube_H
-#define Qube_H
+#ifndef Cube_H
+#define Cube_H
 
 #include "../../../src/structure/headers/stdgl.hpp"
 #include "Primitive.hpp"
+#include "Mesh.hpp"
 #include <cassert>
 #include <cstdio>
 
@@ -35,29 +36,21 @@ static unsigned ai(char c)
     }
 }
 
-class Cube : public Primitive
+class Cube : public Mesh
 {
+private:
+    glm::vec3 sizeEachAspect;
 public:
     Cube(
-        glm::vec3 position = glm::vec3(0),
-        glm::vec3 rotation = glm::vec3(0),
-        glm::vec3 scale = glm::vec3(1)
+        glm::vec3 position = glm::vec3(0)
+        // glm::vec3 rotation = glm::vec3(0),
+        // glm::vec3 scale = glm::vec3(1)
     )
-        : Primitive()
+        : Mesh()
     {
-
-        // static GLfloat ver[] = 
-        // {
-        //     -1.0,-1.0,1.0, //A
-        //     -1.0,1.0,1.0, // B
-        //     1.0,1.0,1.0, // C
-        //     1.0,-1.0,1.0, // D
-        //     -1.0,-1.0,-1.0, // E
-        //     -1.0,1.0,-1.0, //G
-        //     1.0,1.0,-1.0, // H
-        //     1.0,-1.0,-1.0, // F
-        // };
-        // #define redv    glm::vec3(1, 0, 0);
+        this->position = position;
+        // this->rotation = glm::vec3(0);
+        // this->scale = glm::vec3(1);
         Vertex vertices[] =
         {
             // posotion, color, texcoords, normal
@@ -111,11 +104,14 @@ public:
         };
         unsigned noOfI = sizeof(indices) / sizeof(GLuint);
 
-        set(vertices, noOfV, indices, noOfI);
+        // set(vertices, noOfV, indices, noOfI);
+        callthisfakeconstructor(vertices, noOfV, indices, noOfI);
     }
 
-    glm::vec3 sizeEachAspect;
-private:
+    bool isCollideWith(Mesh& other)
+    {
+        return false;
+    }
 };
 
 #endif

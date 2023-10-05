@@ -118,6 +118,13 @@ void Shader::setMat4fv(glm::mat4 value, const GLchar* name, GLboolean transpose)
     Deactivate();
 }
 
+void Shader::setVec3fv(glm::vec3 vec, const GLchar* name)
+{
+    Activate();
+    glUniform3fv(glGetUniformLocation(shaderProgramId, name), 1, glm::value_ptr(vec));
+    Deactivate();
+}
+
 void Shader::Deactivate()
 {
     glUseProgram(0);

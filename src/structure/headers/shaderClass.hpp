@@ -25,6 +25,7 @@ class Shader
         void Delete();
         void Deactivate();
         void setMat4fv(glm::mat4 value, const GLchar* name, GLboolean transpose = GL_FALSE);
+        void setVec3fv(glm::vec3 vec, const GLchar* name);
     private:
         GLint compileStatus;
         char compileShaderLog[512];

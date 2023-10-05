@@ -7,7 +7,9 @@ layout (location = 3) in vec3 normal;
 
 out vec3 Color;
 out vec2 texCoord;
+out vec3 Normal;
 // uniform vec3 scaleVec;
+out vec3 FragPos;
 
 
 // // "uniform mat4 view;\n"
@@ -40,4 +42,8 @@ void main()
     // gl_Position = transf * camMatrix * vec4(position * scaleVec, 1.0f);
 // "   gl_Position = vec4(position, 1.0f);\n"
 // "   gl_Position = vec4(position * scale, 0.0f, 1.0f);\n"
+
+    Normal = inverse(transpose(mat3(ModelMatrix))) * normal;
+
+    FragPos = vec3(ModelMatrix * vec4(position, 1.0));
 }

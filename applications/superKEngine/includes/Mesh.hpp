@@ -8,7 +8,16 @@
 #include "glm/trigonometric.hpp"
 #include <cassert>
 #include <new>
+#include <vector>
 #include "Primitive.hpp"
+
+struct TripleIndex
+{
+    GLuint a;
+    GLuint b;
+    GLuint c;
+};
+
 
 
 class Mesh
@@ -145,7 +154,8 @@ protected:
 
 public:
 
-    inline Mesh() { printf("This is base naked constructor of Mesh class.\n"); }
+    inline Mesh() {}
+    // inline Mesh() { printf("This is base naked constructor of Mesh class.\n"); }
     Mesh(
         Primitive *primitive,
         const char *texturePath
@@ -279,6 +289,11 @@ public:
     void setPosition(const glm::vec3 pos)
     {
         this->position = pos;
+        for (int i = 0; i < this->noOfVertices; i++)
+        {
+            vertices[i].position += pos;
+            vertices[i].normal += pos;
+        }
     }
 
     void setRotation(const glm::vec3 rotation)
@@ -286,14 +301,24 @@ public:
         this->rotation = rotation;
     }
 
-    void setScale(const glm::vec3 rotation)
+    void setScale(const glm::vec3 scale)
     {
-        this->rotation = rotation;
+        this->scale = scale;
+        for (int i = 0; i < this->noOfVertices; i++)
+        {
+            vertices[i].position *= scale;
+            // vertices[i].normal *= scale;
+        }
     }
 
     void move(const glm::vec3 shiftVector)
     {
         this->position += shiftVector;
+        for (int i = 0; i < this->noOfVertices; i++)
+        {
+            vertices[i].position += shiftVector;
+            vertices[i].normal += shiftVector;
+        }
     }
 
     void rotate(const glm::vec3 rotation)
@@ -305,9 +330,22 @@ public:
 
     void scaleMesh(const glm::vec3 scale)
     {
-        this->scale += scale;
+        this->scale *= scale;
+        for (int i = 0; i < this->noOfVertices; i++)
+        {
+            vertices[i].position *= scale;
+            // vertices[i].normal *= scale;
+        }
     }
 
+    virtual bool isCollideWith(Mesh& other) = 0;
+
+    inline std::vector<Vertex> getVertices() { return vertices; }
+    inline std::vector<GLuint> getIndices() { return indices; }
+    // inline GLuint* getIndices() { return indices.data(); }
+    // inline GLuint* getIndices() { return indices.data(); }
+    inline GLuint getNoOfVertices() {return noOfVertices; }
+    inline GLuint getNoOfIndices() {return noOfIndices; }
 };
 
 

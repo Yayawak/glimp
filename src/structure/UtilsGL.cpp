@@ -1,11 +1,14 @@
 #include "headers/utilsGL.hpp"
 
-void vecshow(glm::vec3 v)
+void vecshow(glm::vec3 v, bool appendNewLine)
 {
     // printf("vec[%f, %f, %f]\n", v.x, v.y, v.z);    
     // printf("[%.2f, %.2f, %.2f]", v.x, v.y, v.z);    
     // printf("[%2.2f, %2.2f, %2.2f]", v.x, v.y, v.z);    
-    printf("[% 0.2f, % 0.2f, % 0.2f]", v.x, v.y, v.z);    
+    if (appendNewLine)
+        printf("[% 0.2f, % 0.2f, % 0.2f]\n", v.x, v.y, v.z);    
+    else
+        printf("[% 0.2f, % 0.2f, % 0.2f]", v.x, v.y, v.z);    
 }
 
 void vecshow(glm::vec2 v)
@@ -120,4 +123,14 @@ void showvertices(std::vector<Vertex> vexs)
 
         printf("\n");       
     }
+}
+
+float lerp(float x0, float x1, float y0, float y1, float xToPredict)
+{
+    assert(x1 - x0 != 0);
+    float m = (y1 - y0) / (x1 - x0);
+    float ret = (m * xToPredict) + y0;
+    // assert(y0 < ret && ret < y1);
+    assert(y0 <= ret <= y1);
+    return ret;
 }

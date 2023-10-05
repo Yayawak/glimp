@@ -23,21 +23,12 @@
 class Sphere : public Mesh
 {
 private:
-    glm::vec3 center;        
+    // glm::vec3 position;        
     float radius;
     unsigned int noOfRings;
     unsigned int noVerticesEachRing;
     float pollAngle;
 
-    float lerp(float x0, float x1, float y0, float y1, float xToPredict)
-    {
-        assert(x1 - x0 != 0);
-        float m = (y1 - y0) / (x1 - x0);
-        float ret = (m * xToPredict) + y0;
-        // assert(y0 < ret && ret < y1);
-        assert(y0 <= ret <= y1);
-        return ret;
-    }
 
     // float getRadiasEachRing(int ringIndex) 
     // {
@@ -81,13 +72,13 @@ private:
         std::vector<Vertex> verticesInRing;
         // // float pollAngle = 30;
         // // int noVerticesInARing = (int)(360 / pollAngle);
-        // // glm::vec3 initPoint = center + glm::vec3(radius, 0.0f, (0.1)*ringIndex);
+        // // glm::vec3 initPoint = position + glm::vec3(radius, 0.0f, (0.1)*ringIndex);
         // float subRadius = getRadiasEachRing(ringIndex);
         // float deltaZ = (2 * radius) / noOfRings;
-        // glm::vec3 initPoint = center 
+        // glm::vec3 initPoint = position 
         //     + glm::vec3(subRadius, 0.0f, (deltaZ)*ringIndex);
-        // // glm::vec3 initPoint = glm::vec3(center.x + radius, center.y, (center.z + (0.1)*ringIndex) - radius);
-        // // glm::vec3 initPoint = glm::vec3(center.x + (radius / ringIndex), center.y, (center.z + (0.1)*ringIndex) - radius);
+        // // glm::vec3 initPoint = glm::vec3(position.x + radius, position.y, (position.z + (0.1)*ringIndex) - radius);
+        // // glm::vec3 initPoint = glm::vec3(position.x + (radius / ringIndex), position.y, (position.z + (0.1)*ringIndex) - radius);
 
         // for (int i = 0; i < noVerticesEachRing; i++)
         // // for (int i = 1; i < 12; i++)
@@ -110,10 +101,11 @@ private:
         // * VERSION 2
         for (int i = 0; i < noVerticesEachRing; i++)
         {
-            glm::vec3 initPoint = center + glm::vec3(radius, 0, 0);
+            glm::vec3 initPoint = position + glm::vec3(radius, 0, 0);
             // glm::vec3 rotatedVec = glm::rotateY(initPoint, glm::radians(-pitchAngle * ringIndex));
             glm::vec3 rotatedVec = glm::rotateY(initPoint, glm::radians(angleToRotateYAxis));
             rotatedVec = glm::rotateZ(rotatedVec, glm::radians(pollAngle * i));
+            glm::vec3 normalSurfaceVec = glm::normalize(rotatedVec - position);
             Vertex v = {
                 rotatedVec,
                 // glm::vec3(0.3, 0.3, 0.4), // color
@@ -121,7 +113,8 @@ private:
                 // glm::vec3(0, 0.2, 0.4), // color
 
                 glm::vec3(1, 1, 0), // texcoord
-                glm::normalize(rotatedVec)
+                // glm::normalize(rotatedVec)
+                normalSurfaceVec
             };
             // vecshow(rotatedVec);
             // std::cout << std::endl;
@@ -129,13 +122,6 @@ private:
         }
         return verticesInRing;
     }
-
-    struct TripleIndex
-    {
-        GLuint a;
-        GLuint b;
-        GLuint c;
-    };
 
     // std::array<int, 3> getIndicesOfTriangle(int ringIndex, int vertexInThatRingIndex)
     TripleIndex getIndicesOfTriangle(int ringIndex, int vertexInThatRingIndex, bool isATriangleOrB)
@@ -171,8 +157,8 @@ private:
     {
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
-        // noOfRings = 36;
-        noOfRings = 64;
+        noOfRings = 12;
+        // noOfRings = 64;
         // noOfRings = 7;
         // noOfRings = pow(2, 8);
         // pollAngle = 15.f / 8;
@@ -220,11 +206,11 @@ private:
     }
 
 public:
-    Sphere(glm::vec3 center, float radius)
+    Sphere(glm::vec3 position, float radius)
     : Mesh() 
     {
         assert(radius > 0);
-        this->center = center;
+        this->position = position;
         this->radius = radius;
         // NOTE : make this funciton called by corrected Vertices data & indices
         
@@ -257,6 +243,27 @@ public:
         callthisfakeconstructor(vertices.data(), noOfVertices,
             indices.data(), noOfIndices
         );
+    }
+
+    bool isCollideWith(Mesh& mesh)
+    {
+        glm::vec3 pos;
+        for (int i = 0; i < mesh.getVertices().size(); i++)
+        {
+            pos = mesh.getVertices()[i].position;
+            float dist = glm::distance(position, pos);
+            // printf("center is "); 
+            //     vecshow(position);
+            // printf("pos is ");
+            //     vecshow(pos);
+            // printf("dist = %f\n\n", dist);
+            if (dist <= radius)
+            // if (glm::distance(position, pos) <= 1000)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 };
 

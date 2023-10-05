@@ -5,6 +5,10 @@
 #include "../../../src/structure/headers/stdgl.hpp"
 // #include "EnObject.hpp"
 #include "Mesh.hpp"
+#include "Cube.hpp"
+#include "Sphere.hpp"
+// #include "TerrainGenerator.hpp"
+// #include "Cube.hpp"
 // #include "Cube.hpp"
 
 #endif

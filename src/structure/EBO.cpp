@@ -3,7 +3,7 @@
 
 EBO::EBO(std::vector<GLuint> indices)
 {
-    printf("Indicess Vector size = %lu\n", indices.size());
+    // printf("Indicess Vector size = %lu\n", indices.size());
     // showvertices(indices);
     GLuint idxs[indices.size()];
     for (size_t i = 0; i < indices.size(); i++)
