@@ -57,21 +57,30 @@ public:
             // A
             glm::vec3(-1.0f, -1.0f,  1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // B
-            glm::vec3(-1.0f,  1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(5.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f,  1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 1.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // C
-            glm::vec3( 1.0f,  1.0f,  1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3( 1.0f,  1.0f,  1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(1.0f, 1.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // D
-            glm::vec3( 1.0f, -1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 5.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3( 1.0f, -1.0f,  1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(1.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
 
             // E
             glm::vec3(-1.0f, -1.0f, -1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(0.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // G
-            glm::vec3(-1.0f,  1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(5.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f,  1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(0.0f, 1.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // H
-            glm::vec3( 1.0f,  1.0f, -1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(5.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3( 1.0f,  1.0f, -1.f),       glm::vec3(1.f, 0.f, 0.f),     glm::vec2(1.0f, 1.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
             // F
-            glm::vec3( 1.0f, -1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(10.0f, 5.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3( 1.0f, -1.0f, -1.f),       glm::vec3(0.f, 0.f, 1.f),     glm::vec2(1.0f, 0.0f),        glm::vec3(0.0f, 0.0f, 0.0f),
         };
+
+        for (int i = 0; i < 8; i++)
+        {
+            // int j = (3 * i) + 1;
+            vertices[i].color = glm::vec3(1);
+            // vertices[i].texcoord.x = (i % 2 == 0) ? 0 : 1;
+            // vertices[i].texcoord.x = (i % 2 == 0) ? 1 : 0;
+        }
+
         unsigned noOfV = sizeof(vertices) / sizeof(Vertex);
         GLuint indices[] = 
         {
@@ -106,12 +115,19 @@ public:
 
         // set(vertices, noOfV, indices, noOfI);
         callthisfakeconstructor(vertices, noOfV, indices, noOfI);
+        // colorWhitener()
+        // for (int i = 0; i < this->vertices.size(); i++)
+        // {
+        //     this->vertices[i].color = glm::vec3(1);
+        // }
     }
+
 
     bool isCollideWith(Mesh& other)
     {
         return false;
     }
+
 };
 
 #endif

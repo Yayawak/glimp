@@ -153,7 +153,15 @@ protected:
 
 
 public:
+    void setNewTexture(std::string texturePath)
+    {
+        texture = new Texture(
+            texturePath.c_str(),
+            GL_TEXTURE_2D, GL_TEXTURE0,
+            GL_RGB, GL_UNSIGNED_BYTE
+        );
 
+    }
     inline Mesh() {}
     // inline Mesh() { printf("This is base naked constructor of Mesh class.\n"); }
     Mesh(
@@ -165,11 +173,7 @@ public:
         this->rotation = glm::vec3(0);
         this->scale = glm::vec3(1);
     
-        texture = new Texture(
-            texturePath,
-            GL_TEXTURE_2D, GL_TEXTURE0,
-            GL_RGB, GL_UNSIGNED_BYTE
-        );
+        setNewTexture(texturePath);
 
         initVertexData(primitive->getVertices(), primitive->getNoOfVertices(),
             primitive->getIndices(), primitive->getNoOfIndices()
@@ -338,6 +342,16 @@ public:
         }
     }
 
+    // void setColor()
+    // void colorWhitener()
+    // {
+    //     for (size_t i = 0; i < this->noOfVertices; i++)
+    //     {
+    //         printf("vertice %lu\n", i);
+    //         vertices[i].color = glm::vec3(1);
+    //     }
+    // }
+
     virtual bool isCollideWith(Mesh& other) = 0;
 
     inline std::vector<Vertex> getVertices() { return vertices; }
@@ -346,6 +360,10 @@ public:
     // inline GLuint* getIndices() { return indices.data(); }
     inline GLuint getNoOfVertices() {return noOfVertices; }
     inline GLuint getNoOfIndices() {return noOfIndices; }
+
+    inline glm::vec3 getPosition() { return position; }
+    inline glm::vec3 getRotation() { return rotation; }
+    inline glm::vec3 getScale() { return scale; }
 };
 
 

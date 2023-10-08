@@ -18,7 +18,7 @@ exsPaths = ./src/exs/*.cpp ./src/exs/**/*.cpp
 structureFiles = ./src/structure/*.cpp src/structure/**/*.cpp
 # structureFiles = ./src/structure/*.cpp 
 # structureHeaders = ./src/structure/headers/*.hpp
-runFlags = -g -std=c++11
+runFlags = -g -std=c++11 
 
 # * ------------------ SNAKE GAME ---------------------------
 snakeGameName = snake-game
@@ -35,6 +35,11 @@ kengineName = kengine
 kengMainSrc = applications/superKEngine/superKEngine.c++
 kengAllSrc = `find applications/superKEngine -name "*.c++" ! -name "superKEngine.c++"`
 
+
+# * ------------------ GENETIC MARIO ---------------------------
+marioname = kengine
+marioMain = applications/genetic-mario/mario-main.c++
+marioAllSrc = `find applications/genetic-mario -name "*.c++" ! -name "mario-main.c++"`
 
 all: snake
 # all:
@@ -83,3 +88,12 @@ buildkengine:
 	$(CXX) ${runFlags} $(structureFiles) $(kengAllSrc) $(kengMainSrc) -o $(buildDir)/$(kengineName) $(appIncludes) $(appLinkers)
 # g++ -pthread ${runFlags} $(structureFiles) $(kengAllSrc) $(kengMainSrc) -o $(buildDir)/$(kengineName) $(appIncludes) $(appLinkers)
 
+# * ----------- MARIO -------
+
+m:  buildmario runm
+
+runm:
+	./bin/$(marioname)
+
+buildmario:
+	$(CXX) ${runFlags} $(structureFiles) $(marioAllSrc) $(kengAllSrc) $(marioMain) -o $(buildDir)/$(marioname) $(appIncludes) $(appLinkers)
