@@ -53,8 +53,8 @@ struct DNAUtils
 				// const T random_offset = NumberGenerator<>::getInstance().get(range * MAX_RANGE);
 				// const T random_offset = NumberGenerator<>::getInstance().get(range * MAX_RANGE * 200000); // bad
 				// !                                                             pass good data to it or it'll cause infinity
-				// const T random_offset = NumberGenerator<>::getInstance().get(1 / range * MAX_RANGE);
-				const T random_offset = NumberGenerator<>::getInstance().get(3);
+				const T random_offset = NumberGenerator<>::getInstance().get(1 / range * MAX_RANGE);
+				// const T random_offset = NumberGenerator<>::getInstance().get(3);
 				dna.set(i, value + random_offset);
 				// dna.set(i, value * 2);
 			}

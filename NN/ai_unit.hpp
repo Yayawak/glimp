@@ -52,7 +52,7 @@ struct AiUnit : public Unit
 // ! most importance how it's integrate with GA
 	void updateNetwork()
 	{
-		printf("UPDATED NETWORK\n");
+		// printf("UPDATED NETWORK\n");
 		// ! problem getting dna wrong order
 		// printf("basic info before tunning dna to layers parameters\n");
 		// printf("No. Layers = %lu\n", network.layers.size());

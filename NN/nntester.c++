@@ -51,9 +51,10 @@ int main(void)
 	// Define constants
 	const float dt = 0.008f;
 	// const float max_iteration_duration = 100.0f;
-	const float max_iteration_duration = 30.0f;
+	// const float max_iteration_duration = 30.0f;
 	// const uint32_t pop_size = 800;
-	const uint32_t pop_size = 8;
+	const uint32_t pop_size = 100;
+	// const uint32_t pop_size = 8;
 	// const uint32_t pop_size = 16;
 	// const uint32_t pop_size = 32;
 	// const uint32_t pop_size = 32;
@@ -64,9 +65,11 @@ int main(void)
 	// Stadium stadium(pop_size, scale * sf::Vector2f(win_width, win_height));
 	// Stadium stadium(pop_size, scale * glm::vec2(400, 300));
 
-    // SnakeFarm farm(pop_size, glm::vec2(20, 15));
+    // SnakeFarm farm(pop_size, glm::vec2(30, 30));
+    // SnakeFarm farm(pop_size, glm::vec2(20, 20));
+    SnakeFarm farm(pop_size, glm::vec2(15, 15));
     // SnakeFarm farm(pop_size, glm::vec2(6, 4));
-    SnakeFarm farm(pop_size, glm::vec2(10, 10));
+    // SnakeFarm farm(pop_size, glm::vec2(10, 10));
 	
 	// Stadium stadium(pop_size);
 	//stadium.loadDnaFromFile("../selector_output_18.bin");
@@ -100,7 +103,8 @@ int main(void)
 		// uint32_t current_drone_i = 0;
         bool draw_drone = true;
 		// if (controls.draw_drones) {
-		if (draw_drone) {
+		// if (draw_drone) {
+		if (false) {
 			// if (controls.show_just_one) {
             bool draw_one = true;
 			if (draw_one) {
@@ -115,9 +119,11 @@ int main(void)
     //SECTION : snake drawing
 				const Snake& bestS = farm.selector.getCurrentPopulation()[farm.current_iteration.best_fitness];
     //SECTION : 
+				#ifdef TT
 				printf("current time used of best snake is %f \n", 
 					farm.current_iteration.time
 				);
+				#endif
 
 				
 			}
@@ -137,7 +143,9 @@ int main(void)
 		// 	target_c.setPosition(stadium.targets[stadium.objectives[stadium.current_iteration.best_unit].target_id]);
 		// 	window.draw(target_c, state);
 		// }
+		#ifdef TT
         farm.printFarmWithBestSnakeInCurrentPopulation();
+		#endif
 		// if (controls.draw_fitness) {
 		// 	fitness_graph.render(window);
 		// }

@@ -1,4 +1,5 @@
 #include "../includes/snake.hpp"
+#include <unistd.h>
 
 Snake::Snake(glm::vec2 initPosition, COLORENUM color, float nodeSize, float offsetEachNode) 
     // : snakeColor(glm::vec3(200.0, 0, 0)), currentTailPosition(initPosition),
@@ -178,6 +179,15 @@ SnakeSigs Snake::updateAllNodeDirection()
 }
 
 
+bool Snake::isHeadCollidedTailPosition(glm::vec2 nextPredictedPosition)
+{
+    return (
+        nextPredictedPosition.x == head->node->getPosition().x &&
+        nextPredictedPosition.y == head->node->getPosition().y
+    )
+    
+}
+
 SnakeSigs Snake::moveOneStep()
 {
     // updateAllNodeDirection();
@@ -193,6 +203,18 @@ SnakeSigs Snake::moveOneStep()
         glm::vec2 nextPos = calculateNextPosition(currentNode, front);
         // printf("nextPos = (%f, %f)\n", nextPos.x, nextPos.y);
         currentNode->node->setPosition(nextPos.x, nextPos.y);
+
+        // if (isHeadCollidedTails())
+        // {
+        //     // head->node->getPosition();
+        //     printf("End game\n");
+        //     exit(-1);
+        // }
+        if (currentNode != head && isHeadCollidedTailPosition(nextPos))
+        {
+            printf("END GAME\n");
+        }
+
         it++;
     }
 
@@ -263,3 +285,42 @@ void Snake::printBodyLinkData()
 
     std::cout << ss.str() << std::endl;
 }
+
+// bool Snake::isHeadCollidedTails()
+// {
+//     if (bodyList.size() <= 1)
+//     {
+//         return false;
+//     }
+
+//     // Panel *head = bodyList.front
+//     // Panel
+//     // head
+//     std::list<SnakeNode>::iterator it;
+
+//     it = bodyList.begin();
+//     printf("----------------------------------------\n");
+//     while (it != bodyList.end())
+//     {
+//         SnakeNode *currentNode = &*it;
+//         if (currentNode == head)
+//         {
+//             it++;
+//             continue;
+//         }
+        
+//         // if (
+//         //     currentNode->node->getPosition().x == head->node->getPosition().x &&
+//         //     currentNode->node->getPosition().y == head->node->getPosition().y
+//         // )
+//         // {
+//         //     return true;
+//         // }
+//         // printf("pos of cur [%f, %f]\n", currentNode->node->getPosition().x, currentNode->node->getPosition().y);
+//         // printf("pos of head[%f, %f]\n", head->node->getPosition().x, head->node->getPosition().y);
+//         // printf("\n");
+
+//         it++;
+//     }
+//     return false;
+// }

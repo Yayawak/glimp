@@ -8,12 +8,14 @@
 #include <cstdlib>
 #include <functional>
 #include <sys/shm.h>
+#include <unistd.h>
 
 
 // * global variables
 // float tiksec = 1.f / 10; // default tik time
-// float tiksec = 1.f / 20;
-float tiksec = 1.f / 40;
+// float tiksec = 1.f / 2;  // very slow
+float tiksec = 1.f / 20;
+// float tiksec = 1.f / 40; // fast
 
 int main(void)
 {
@@ -37,13 +39,14 @@ int main(void)
     // Grid grid(6, 6, glm::vec3(0.8f, 0.1f, 0.1f));
     Snake snake_1(glm::vec2(0.0, 0.0), green, 0.05, 0.008);
     // FIXME : bug at coloring
-    for (int i = 0; i < 8; i++)
+    // for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 14; i++)
         snake_1.addTail();
 
 
-    Snake snake_2(glm::vec2(1.0, 0.0), green, 0.05, 0.008);
-    for (int i = 0; i < 3; i++)
-        snake_2.addTail();
+    // Snake snake_2(glm::vec2(1.0, 0.0), green, 0.05, 0.008);
+    // for (int i = 0; i < 3; i++)
+    //     snake_2.addTail();
 
     while (!glfwWindowShouldClose(w))
     {
@@ -53,16 +56,16 @@ int main(void)
         glClearColor(0.0f, 0.0f, .15f, .0f);
 
         snake_1.draw();
-        snake_2.draw();
+        // snake_2.draw();
         if (now - startTime > tiksec)
         {
             snake_1.moveOneStep();
-            snake_2.moveOneStep();
+            // snake_2.moveOneStep();
             startTime = now;
         }
 
         snake_1.inputHandler(w);
-        snake_2.inputHandler(w);
+        // snake_2.inputHandler(w);
 
         img.draw();
 

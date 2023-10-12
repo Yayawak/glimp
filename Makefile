@@ -118,4 +118,6 @@ runnn:
 # $(builDir)/$(NNName)
 
 buildnn:
+# * TT is for test -> visualize
+# $(CXX) -DTT ${runFlags} ./NN/${NNName}.c++ -o $(buildDir)/${NNName}
 	$(CXX) ${runFlags} ./NN/${NNName}.c++ -o $(buildDir)/${NNName}

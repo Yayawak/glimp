@@ -15,6 +15,9 @@
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
 
+// Test
+// #define TT 
+
 struct Iteration
 {
     float time;
@@ -56,7 +59,9 @@ struct SnakeFarm
         // max_iteration_time(10) // * normal
         // max_iteration_time(dt * 30 times) // * too much (we plus by dt = 0.008)
 
-        max_iteration_time(0.4f) // * normal
+        max_iteration_time(0.8f) // * normal
+        // max_iteration_time(0.4f) //  fast
+        // max_iteration_time(0.2f) //  fast
         // max_iteration_time(100 / 2) // * normal
         // max_iteration_time(1) // too fast
         // max_iteration_time(1 * 1000)
@@ -86,7 +91,9 @@ struct SnakeFarm
         std::vector<Snake>& snakes = selector.getCurrentPopulation();
         size_t i(0);
 
+        #ifdef TT
         printf("called init snakes function to set init postion of its\n");
+        #endif
         for (Snake& s : snakes)
         {
             s.index = i++;
@@ -135,6 +142,7 @@ struct SnakeFarm
     {
         // printf("current snake index: %llu\n", i);
         Snake& s = selector.getCurrentPopulation()[i];
+        updateBestFitness(s.fitness, s.index);
         // printf("s.x = %f, s.y = %f\n", s.position.x, s.position.y);
         // showvec(s.position, "current snk position : "); // ! bug from here (nan,nan vec)
         if (!s.alive)
@@ -159,8 +167,8 @@ struct SnakeFarm
 
         const std::vector<float> input = {
             toFoodVec.x,
-            toFoodVec.y,
-            s.livingTime
+            toFoodVec.y
+            // s.livingTime
         };
 
         s.execute(input);
@@ -177,7 +185,11 @@ struct SnakeFarm
         //     printf("snake alived");
 
         // s.fitness += 1.0f / (1.0f + toFoodDist);
-        s.fitness += 2 + s.livingTime / (1.0f + toFoodDist);
+        // s.fitness += (2 + (s.livingTime)) / (1.0f + toFoodDist);
+        // s.fitness += (2 + (sqrt(s.livingTime))) / (1.0f + toFoodDist);
+        // if shape[x, y] = [20, 20] -> max furthest distance is sqrt(20 ** 2 + 20 ** 2) = 28
+        s.fitness += 1  / (1.0f + toFoodDist);
+        // NOTE :  value from above formular should lay between [0, 1]
         // s.fitness += 100 + s.livingTime / (1.0f + toFoodDist);
         // s.fitness += 1;
         	// We don't want weirdos
@@ -193,8 +205,11 @@ struct SnakeFarm
         ojt.addTimeIn(dt);
 		if (toFoodDist < collectFoodRadius) {
 			// objective.addTimeIn(dt);
+            #ifdef TT
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            #endif
 
+            current_iteration.time /= 4; // reset time reward
             // ojt.addTimeIn(dt);
 
 			// if (ojt.time_in > target_time) {
@@ -204,14 +219,14 @@ struct SnakeFarm
 				// s.fitness += 1 + ojt.points / (1.0f + ojt.time_out);
 				// s.fitness += score_factor * ojt.points / (1.0f + ojt.time_out);
 				// s.fitness += 100000 * ojt.points / (1.0f + ojt.time_out);
-				s.fitness += 100 * ojt.points / (1 + ojt.time_in);
+				s.fitness += 300;
                 // s.fitness += ojt.points;
                 // s.
             // ! next target must be done (food must be eated)
 				ojt.nextTarget(foodPositions);
 				// objective.points = getLength(d.position - objective.getTarget(targets));
 				ojt.points = getLength(s.position - ojt.getTarget(foodPositions));
-                printf("Get Food in time (%f)\n", ojt.time_in);
+                // printf("Get Food in time (%f)\n", ojt.time_in);
                 // std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
                 // exit(-2);
@@ -257,8 +272,8 @@ struct SnakeFarm
 			}
 		});
 		group_update.waitExecutionDone();
-		current_iteration.time += dt;
 
+		current_iteration.time += dt;
     }
 
 	bool isFirstIteration() const
@@ -320,8 +335,35 @@ struct SnakeFarm
 
         for (int i(0); i < farmShape.y; i++)
         {
+            // if (i == 0 || i == farmShape.y - 1)
+            // if (i == 0)
+            // {
+            //     for (int j(0); j < farmShape.x; j++)
+            //     {
+            //         printf("-*");
+            //     }
+            // }
             for (int j(0); j < farmShape.x; j++)
             {
+                // if (i == 0 || i == farmShape.y - 1)
+                // {
+                //     printf("-");
+                // }
+                // if (j == 0 || j == farmShape.x - 1)
+                // if (!(i == 0 || i == farmShape.y - 1) && (j == 0 || j == farmShape.x - 1))
+                // {
+                //     printf("| ");
+                // }
+                // if (j == 0 && (i != farmShape.y - 1 || i != 0))
+
+                // if (j == 0 && i != 0)
+                // // if (j == 0 )
+                // {
+                //     printf("|");
+                // }
+
+
+
                 if ((int)(s.position.x) == j
                     && (int)(s.position.y) == i
                 )
@@ -342,8 +384,25 @@ struct SnakeFarm
                 {
                     // system("Color 70");
                     printf("• ");
+                    // printf("  ");
                 }
+
+                // if (j == farmShape.x - 1 && (i != farmShape.y - 1 || i != 0))
+                // if (j == farmShape.x - 1)
+                // if (j == farmShape.x - 1 && i != farmShape.y - 1 && i != 0)
+                // // if (j == 0 && i == farmShape.x - 1)
+                // {
+                //     printf("|");
+                // }
+
             }
+            // if (i == farmShape.y - 1)
+            // {
+            //     for (int j(0); j < farmShape.x; j++)
+            //     {
+            //         printf("-*");
+            //     }
+            // }
             printf("\n");
         }
         // printf("\n\n\n\n");

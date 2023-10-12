@@ -66,6 +66,8 @@ private:
     glm::vec2 calculateNextPosition(SnakeNode *currentNode, NodeDecisionDirection whereToCalculateNextNode);
     SnakeSigs setFacingDirection(Directions dir);
     SnakeSigs updateAllNodeDirection();
+    // bool isHeadCollidedTails();
+    bool isHeadCollidedTailPosition(glm::vec2 nextPredictedPosition);
 
     
 

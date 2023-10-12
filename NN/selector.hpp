@@ -12,6 +12,7 @@
 
 const float population_elite_ratio = 0.05f;
 const float population_conservation_ratio = 0.25f;
+// const float population_conservation_ratio = 0.10f;
 
 
 template<typename T>
@@ -75,8 +76,11 @@ struct Selector
 		// Replace the weakest
         // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
+		printf("\n");
 		std::cout << "Gen: " << generation << " Best: " << current_units[0].fitness << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / 2));
+		#ifdef TT
+        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+		#endif
 		if ((generation%dump_frequency) == 0) {
 			DnaLoader::writeDnaToFile(out_file, getCurrentPopulation()[0].dna);
 		}
@@ -89,10 +93,13 @@ struct Selector
 
 
 
+
+		#ifdef TT
 		printf("popularion_size = %d\n", population_size);
 		printf("elites_count = %d\n", elites_count);
         // std::this_thread::sleep_for(std::chrono::milliseconds(3000));
         std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		#endif
 
 
 

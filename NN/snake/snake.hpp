@@ -3,9 +3,11 @@
 #include "../ai_unit.hpp"
 
 // const std::vector<uint64_t arch = {7, 9, 9, 4};
-// ! inputs -> {dist to foodx, distToFoodY, survie_time}
+//  inputs -> {dist to foodx, distToFoodY, survie_time}
+// ! inputs -> {dist to foodx, distToFoodY} // better no survive time
 // ! outputs is 4 dires
-const std::vector<uint64_t> arch = {3, 9, 9, 4};
+// const std::vector<uint64_t> arch = {2, 9, 9, 4};
+const std::vector<uint64_t> arch = {2, 4, 4, 4};
 // const std::vector<uint64_t> arch = {3, 2, 2, 4};
 // const std::vector<uint64_t> arch = {3, 3, 3, 4};
 
