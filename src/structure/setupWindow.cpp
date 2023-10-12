@@ -22,7 +22,7 @@ GLFWwindow* setupWindow(int w, int h, const char *windowName)
         fprintf(stderr, "Can't initialize GLFW ");
         getchar();
         glfwTerminate();
-        // exit(-99);
+        exit(-99);
         // return (NULL);
     }
     std::cout << "Initialized " << windowName << "\n";
@@ -31,6 +31,7 @@ GLFWwindow* setupWindow(int w, int h, const char *windowName)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    // printf("kkkkkkk");
 
     // GLFWwindow *window = glfwCreateWindow(700, 500, "EX03", NULL, NULL);
     GLFWwindow *window = glfwCreateWindow(w, h, windowName, NULL, NULL);

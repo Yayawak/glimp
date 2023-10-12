@@ -37,11 +37,16 @@ void main()
     // gl_Position = vec4(position, 1.0f);
     // gl_Position = ModelMatrix * vec4(position, 1.0f);
     // gl_Position = ProjectionMatrix * ModelMatrix * vec4(position, 1.0f);
-    gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1.0f);
+    // gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1.0f);
     // gl_Position = camMatrix * vec4(position, 1.0f);
     // gl_Position = transf * camMatrix * vec4(position * scaleVec, 1.0f);
 // "   gl_Position = vec4(position, 1.0f);\n"
 // "   gl_Position = vec4(position * scale, 0.0f, 1.0f);\n"
+    gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1.0f);
+    // gl_Position = ViewMatrix * ModelMatrix * vec4(position, 1.0f);
+    // gl_Position = ProjectionMatrix * ModelMatrix * vec4(position, 1.0f);
+    // gl_Position = ViewMatrix * ModelMatrix * vec4(position, 1.0f);
+    // gl_Position = ModelMatrix * vec4(position, 1.0f);
 
     Normal = inverse(transpose(mat3(ModelMatrix))) * normal;
 

@@ -57,6 +57,15 @@ void Camera::PaneCamera(Shader& shaderProgram, const char *uniform)
     PaneCamera(shaderProgram, uniform, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
+
+
+
+
+
+
+
+
+
 void Camera::PaneCamera(Shader& shaderProgram, const char *uniform, glm::vec3 rotation)
 {
     transf = glm::rotate(transf, glm::radians(1.f),
@@ -83,6 +92,7 @@ float mouseSpeed = 0.005f;
 //     computeMatricesFromInputs(windowWhoOwnedCamera, shaderProgram, uniform);
 // }
 // can use extern window use not well way.
+
 void Camera::computeMatricesFromInputs(GLFWwindow* window, Shader shaderProgram, const char *uniform)
 {
     speed = 0.8f;

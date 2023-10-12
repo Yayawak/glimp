@@ -62,6 +62,7 @@ void updateInput(GLFWwindow* w, Mesh &mesh)
     }
     if (glfwGetKey(w, GLFW_KEY_X) == GLFW_PRESS)
     {
-        mesh.scaleMesh(glm::vec3(1) * -deltaScale);
+        // mesh.scaleMesh(glm::vec3(1) * -deltaScale);
+        // mesh.scaleMesh(glm::vec3(2));
     }
 }

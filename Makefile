@@ -18,7 +18,7 @@ exsPaths = ./src/exs/*.cpp ./src/exs/**/*.cpp
 structureFiles = ./src/structure/*.cpp src/structure/**/*.cpp
 # structureFiles = ./src/structure/*.cpp 
 # structureHeaders = ./src/structure/headers/*.hpp
-runFlags = -g -std=c++11 
+runFlags = -g -std=c++17 
 
 # * ------------------ SNAKE GAME ---------------------------
 snakeGameName = snake-game
@@ -37,7 +37,7 @@ kengAllSrc = `find applications/superKEngine -name "*.c++" ! -name "superKEngine
 
 
 # * ------------------ GENETIC MARIO ---------------------------
-marioname = kengine
+marioname = genetic-mario
 marioMain = applications/genetic-mario/mario-main.c++
 marioAllSrc = `find applications/genetic-mario -name "*.c++" ! -name "mario-main.c++"`
 
@@ -96,4 +96,26 @@ runm:
 	./bin/$(marioname)
 
 buildmario:
-	$(CXX) ${runFlags} $(structureFiles) $(marioAllSrc) $(kengAllSrc) $(marioMain) -o $(buildDir)/$(marioname) $(appIncludes) $(appLinkers)
+# $(CXX) ${runFlags} $(structureFiles) $(marioAllSrc) $(kengAllSrc) $(marioMain) -o $(buildDir)/$(marioname) $(appIncludes) $(appLinkers)
+	$(CXX) ${runFlags} $(structureFiles) $(kengAllSrc) $(marioAllSrc) $(marioMain) -o $(buildDir)/$(marioname) $(appIncludes) $(appLinkers)
+
+jpg2png: j1 j2
+
+j1:
+	find . -iname '*.jpeg' -exec bash -c 'mogrify -format png "$1"' bash {} \;
+j2:
+	find . -iname '*.jpg' -exec bash -c 'mogrify -format png "$1"' bash {} \;
+
+
+# * --------------- NN ---------------
+
+NNName = nntester
+
+nn: buildnn runnn
+
+runnn:
+	./bin/$(NNName)
+# $(builDir)/$(NNName)
+
+buildnn:
+	$(CXX) ${runFlags} ./NN/${NNName}.c++ -o $(buildDir)/${NNName}

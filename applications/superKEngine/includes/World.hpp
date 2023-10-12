@@ -3,6 +3,7 @@
 
 #include "TerrainGenerator.hpp"
 #include "Terrrain.hpp"
+#include "WorldCamera.hpp"
 #include "stdEngine.hpp"
 #include <vector>
 #include "inputManager.hpp"
@@ -31,22 +32,23 @@ private:
 
     GLFWwindow *window;
     Shader *shader;
-    static World* instance;
+    WorldCamera *camera;
+    // static World* instance;
     // std::vector<WObjectData> worldObjects;
 
     // World(World &other) = delete;
     // void operator=(const World &) = delete;
 
-    World();
-
-    void gameLoop();
-
-    ~World();
+protected:
+    bool isWorldEnd = false;
 
 public:
+    World();
+    ~World();
+    void gameLoop();
     std::vector<WObjectData> worldObjects;
 
-    static World* getInstance();
+    // static World* getInstance();
 
     void addMeshObject(Mesh* mesh, bool isInteractable, std::string name);
 
@@ -54,8 +56,8 @@ public:
 
     void render();
 
-    void collisionManager();
-    // inline GLFWwindow* getWindowOfWorld() { return window; }
+    void virtual collisionManager();
+    inline GLFWwindow* getWindowOfWorld() { return window; }
     // inline void setGameLoopThreadPtr(std::thread *threadPtr) { gameLoopThread = threadPtr; }
     // inline std::thread* getGameLoopThreadPtr() { return gameLoopThread; }
     // void collision
@@ -63,8 +65,10 @@ public:
     // inline std::vector<WObjectData> getWObjectData() { return worldObjects; }
     // std::vector<WObjectData> *getWObjectData();
     void visulizeWorldGameObjects(bool enable);
+
 };
 
+// void runThreads();
 // World* World::instance = NULL;
 
 struct NodeAndDistance

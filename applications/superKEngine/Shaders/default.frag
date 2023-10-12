@@ -42,6 +42,8 @@ vec4 calculateProneLight()
     return (vec4(result, 1.0));
 }
 
+int is3D = 0;
+
 void main()
 {
     // FragColor = vec4(.8f, .3f, .02f, 1.f);
@@ -52,15 +54,30 @@ void main()
     // else
         // FragColor = vec4(Color, 1.0f);
 
-    if (isHasTexture == 1)
+    if (is3D == 1) 
     {
-        // FragColor = vec4(Color, 1.0f) * texture(tex0, texCoord);
-        FragColor = calculateProneLight() * texture(tex0, texCoord);
+        if (isHasTexture == 1)
+        {
+            // FragColor = vec4(Color, 1.0f) * texture(tex0, texCoord);
+            FragColor = calculateProneLight() * texture(tex0, texCoord);
+        }
+        else
+        {
+            // FragColor = vec4(Color, 1.0f);
+            FragColor = calculateProneLight();
+        }
     }
     else
     {
-        // FragColor = vec4(Color, 1.0f);
-        FragColor = calculateProneLight();
+        if (isHasTexture == 1)
+        {
+            FragColor = vec4(Color, 1.0f) * texture(tex0, texCoord);
+            // FragColor = texture(tex0, texCoord);
+        }
+        else
+        {
+            FragColor = vec4(Color, 1.0f);
+        }
     }
 
 

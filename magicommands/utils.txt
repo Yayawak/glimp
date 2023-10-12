@@ -4,3 +4,14 @@ ls -1 *.jpg | xargs -n 1 bash -c 'convert "$0" "${0%.jpg}.png"'
 
 // NOTE : png -> jpg (for stb)
 mogrify -format jpg ./img/abadon.png
+
+// NOTE : must be iname not name
+find . -iname '*.txt' -exec bash -c 'mv -- "$1" "${1%.txt}.text"' bash {} \;
+find . -iname '*.jpeg' -exec bash -c 'mv -- "$1" "${1%.jpeg}.jpg"' bash {} \;
+
+// * so good to change all jpeg to png
+find . -iname '*.jpeg' -exec bash -c 'mogrify -format png "$1"' bash {} \;
+
+
+// show meta data of image like format
+identify -verbose img/blocks/mario-question-block.png                                                                                                                                      ─╯
