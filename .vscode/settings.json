@@ -84,9 +84,26 @@
         "random": "cpp",
         "unordered_set": "cpp"
     },
-    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-13",
-    "cmake.sourceDirectory": "/Users/rio/Desktop/glgl/dynet",
+    // "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-13",
+    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/c++-13",
+    "cmake.5": "/Users/rio/Desktop/glgl/dynet",
     "code-runner.executorMap": {
         "cpp": "cd $dir && g++ -std=c++17 $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
     },
+    // "background.enabled": false,
+    "background.fullscreen": {
+        // "images": ["https://cdn.oneesports.gg/cdn-data/2022/10/Dota2_Muerta_NewDotaHero_TI11.jpg"], // urls of your images
+        // "images": ["/Users/rio/Pictures/backgrounds/Dota2_Muerta_NewDotaHero_TI11.jpeg"], // urls of your images
+        "images": [""],
+        "opacity": 0.91, // 0.85 ~ 0.95 recommended
+        // "opacity": 0.98,// 0.85 ~ 0.95 recommended
+        "size": "cover", // also css, `cover` to self-adaption (recommended)，or `contain`、`200px 200px`
+        "position": "center", // alias to `background-position`, default `center`
+        "interval": 0 // seconds of interval for carousel, default `0` to disabled.
+    },
+    "clangd.arguments": [
+        "--compile-commands-dir=.vscode",
+        "--enable-config"
+    ],
+    "clangd.onConfigChanged": "restart",
 }

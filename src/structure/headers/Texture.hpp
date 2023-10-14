@@ -22,7 +22,8 @@ class Texture
         GLenum type;
         Texture(const char *image, GLenum textype,
             GLenum slot, GLenum format,
-            GLenum pixel
+            GLenum pixel,
+            bool showFailReason=true
         );
 
         void texUnit(Shader& shaderProgram, const char *uniform, GLuint unit);

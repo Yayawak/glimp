@@ -1,3 +1,4 @@
+#pragma once
 #include "../../../src/structure/headers/stdgl.hpp"
 // #include <list.h>
 #include "glm/fwd.hpp"
@@ -8,6 +9,7 @@
 #include <list>
 #include <sstream>
 #include <string>
+#include "../../../NNGA/ai_unit.hpp"
 
 #define ForTest // NOTE for testing features
 
@@ -45,8 +47,14 @@ public:
 
 } SnakeNode;
 
-class Snake
+static const std::vector<uint> arch = {2, 4, 4, 4};
+// static const std::vector<uint> arch;
+
+// class Snake
+class Snake : public AiUnit
 {
+    // const std::vector<uint> arch = {2, 4, 4, 4};
+// static const std::vector<uint> arch;
 private:
     // Directions facingDirection;
     // float 
@@ -72,6 +80,8 @@ private:
     
 
 public:
+    uint snakeindex;
+    inline const SnakeNode* getHead() const { return head; }
     Snake(glm::vec2 initPosition, COLORENUM color, float nodeSize, float offsetEachNode);
     SnakeSigs addTail();
     SnakeSigs draw();
@@ -82,4 +92,7 @@ public:
     // * i should use nmap or telnet something easy easy to play this game with friends
     SnakeSigs inputHandler(GLFWwindow *w);
     void printBodyLinkData();
+    // void update();
+    void update(const float dt);
+	void process(const std::vector<float>& outputs) override;
 };

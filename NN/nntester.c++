@@ -53,9 +53,9 @@ int main(void)
 	// const float max_iteration_duration = 100.0f;
 	// const float max_iteration_duration = 30.0f;
 	// const uint32_t pop_size = 800;
-	const uint32_t pop_size = 100;
+	// const uint32_t pop_size = 100;
 	// const uint32_t pop_size = 8;
-	// const uint32_t pop_size = 16;
+	const uint32_t pop_size = 16;
 	// const uint32_t pop_size = 32;
 	// const uint32_t pop_size = 32;
 	// const uint32_t pop_size = 4;
@@ -65,9 +65,9 @@ int main(void)
 	// Stadium stadium(pop_size, scale * sf::Vector2f(win_width, win_height));
 	// Stadium stadium(pop_size, scale * glm::vec2(400, 300));
 
-    // SnakeFarm farm(pop_size, glm::vec2(30, 30));
+    SnakeFarm farm(pop_size, glm::vec2(30, 30));
     // SnakeFarm farm(pop_size, glm::vec2(20, 20));
-    SnakeFarm farm(pop_size, glm::vec2(15, 15));
+    // SnakeFarm farm(pop_size, glm::vec2(15, 15));
     // SnakeFarm farm(pop_size, glm::vec2(6, 4));
     // SnakeFarm farm(pop_size, glm::vec2(10, 10));
 	

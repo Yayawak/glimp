@@ -4,8 +4,10 @@
 Snake::Snake(glm::vec2 initPosition, COLORENUM color, float nodeSize, float offsetEachNode) 
     // : snakeColor(glm::vec3(200.0, 0, 0)), currentTailPosition(initPosition),
     : currentTailPosition(initPosition),
-        nodeSize(nodeSize), offsetEachNode(offsetEachNode)
+        nodeSize(nodeSize), offsetEachNode(offsetEachNode),
+        AiUnit(arch)
 {
+    // this->arch.push_back(2);
     #ifdef ForTest
     // snakeColor = glm::vec3(200.0, 10., 10.);
     snakeColor = glm::vec3(0.0, 210., 10.);
@@ -184,7 +186,7 @@ bool Snake::isHeadCollidedTailPosition(glm::vec2 nextPredictedPosition)
     return (
         nextPredictedPosition.x == head->node->getPosition().x &&
         nextPredictedPosition.y == head->node->getPosition().y
-    )
+    );
     
 }
 
@@ -286,41 +288,58 @@ void Snake::printBodyLinkData()
     std::cout << ss.str() << std::endl;
 }
 
-// bool Snake::isHeadCollidedTails()
-// {
-//     if (bodyList.size() <= 1)
-//     {
-//         return false;
-//     }
+void Snake::update(const float dt)
+{
+    this->draw();
 
-//     // Panel *head = bodyList.front
-//     // Panel
-//     // head
-//     std::list<SnakeNode>::iterator it;
+    const std::vector<float> input = {
+        // toFoodVec.x,
+        // toFoodVec.y
+        // s.livingTime
+        // NumberGenerator<float>::getInstance().get(10),
+        // NumberGenerator<float>::getInstance().get(10)
+        // NumberGenerator<float>::getInstance().get(20),
+        // NumberGenerator<float>::getInstance().get(20)
+        NumberGenerator<float>::getInstance().get(-10),
+        NumberGenerator<float>::getInstance().get(-10)
+    };
+    
+    this->execute(input);
 
-//     it = bodyList.begin();
-//     printf("----------------------------------------\n");
-//     while (it != bodyList.end())
-//     {
-//         SnakeNode *currentNode = &*it;
-//         if (currentNode == head)
-//         {
-//             it++;
-//             continue;
-//         }
-        
-//         // if (
-//         //     currentNode->node->getPosition().x == head->node->getPosition().x &&
-//         //     currentNode->node->getPosition().y == head->node->getPosition().y
-//         // )
-//         // {
-//         //     return true;
-//         // }
-//         // printf("pos of cur [%f, %f]\n", currentNode->node->getPosition().x, currentNode->node->getPosition().y);
-//         // printf("pos of head[%f, %f]\n", head->node->getPosition().x, head->node->getPosition().y);
-//         // printf("\n");
+}
 
-//         it++;
-//     }
-//     return false;
-// }
+static int findMaxIndex(const std::vector<float>& v)
+{
+    float maxVal = -9999999.f;
+    int maxIndex = -1;
+    for (int i = 0; i < v.size(); i++)
+    {
+        if (v[i] > maxVal)
+        {
+            maxVal = v[i];
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+void Snake::process(const std::vector<float>& outputs) 
+{
+    int maxi = findMaxIndex(outputs);
+    if (maxi == 0)
+    {
+        setFacingDirection(Directions::east);
+    }
+    else if (maxi == 1)
+    {
+        setFacingDirection(Directions::north);
+    }
+    else if (maxi == 2)
+    {
+        setFacingDirection(Directions::west);
+    }
+    else if (maxi == 3)
+    {
+        setFacingDirection(Directions::south);
+    }
+}

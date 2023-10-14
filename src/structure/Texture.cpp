@@ -8,7 +8,8 @@
 
 Texture::Texture(const char *image, GLenum textype,
     GLenum slot, GLenum format,
-    GLenum pixel
+    GLenum pixel,
+    bool showFailReason
 )
 {
     type = textype;
@@ -21,7 +22,7 @@ Texture::Texture(const char *image, GLenum textype,
     stbi_uc *bytes = stbi_load( image,
     // auto *bytes = stbi_load( image,
         &w, &h, &colorChannels, 0);
-    if (stbi_failure_reason())
+    if (stbi_failure_reason() && showFailReason)
     {
         stbi_image_free(bytes);
         std::cout << "Image name : " << image << "\t" << "Failed reason : " << stbi_failure_reason() << "\n";

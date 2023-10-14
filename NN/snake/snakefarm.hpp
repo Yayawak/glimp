@@ -109,7 +109,7 @@ struct SnakeFarm
         }
     }
 
-    bool checkIsSnakeAlive(const Snake& snk)
+    bool checkIsSnakeOutOfBoard(const Snake& snk)
     {
         // printf("checking alive.\n");
         float farmWidth = farmShape.x;
@@ -176,7 +176,11 @@ struct SnakeFarm
 
 
 
-        s.alive = checkIsSnakeAlive(s);
+        s.alive = checkIsSnakeOutOfBoard(s);
+        if (s.alive == false)
+        {
+            s.fitness -= 150;
+        }
         // if (!s.alive)
         // {
         //     printf("snake died");
@@ -188,7 +192,10 @@ struct SnakeFarm
         // s.fitness += (2 + (s.livingTime)) / (1.0f + toFoodDist);
         // s.fitness += (2 + (sqrt(s.livingTime))) / (1.0f + toFoodDist);
         // if shape[x, y] = [20, 20] -> max furthest distance is sqrt(20 ** 2 + 20 ** 2) = 28
+
         s.fitness += 1  / (1.0f + toFoodDist);
+
+
         // NOTE :  value from above formular should lay between [0, 1]
         // s.fitness += 100 + s.livingTime / (1.0f + toFoodDist);
         // s.fitness += 1;
@@ -209,7 +216,7 @@ struct SnakeFarm
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             #endif
 
-            current_iteration.time /= 4; // reset time reward
+            current_iteration.time = 0; // reset time reward
             // ojt.addTimeIn(dt);
 
 			// if (ojt.time_in > target_time) {

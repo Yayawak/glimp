@@ -24,6 +24,8 @@ void MarioWorld::collisionManager()
                 // printf("[ %s & %s ]\n\n\n", worldObjects[mi].name.c_str(), worldObjects[mj].name.c_str());
                 // * used this
                 second->physics->setVelocity(glm::vec3(0));
+
+                // second->physics->isSimulateVelocious = false;
                 // float bounceAmplitude = 8.f;
                 // // float bounceAmplitude = 5.f;
                 // // float bounceAmplitude = 3.5f;
@@ -47,6 +49,8 @@ void MarioWorld::collisionManager()
             }
             else
             {
+                // second->physics->isSimulateVelocious = true;
+                // first->physics->isSimulateVelocious = true;
                 // printf("not collided\n");
             }
         }

@@ -55,7 +55,7 @@ public:
     void setPosition(float x, float y);
     void clean();
     bool isCollideWith(Panel *other);
-    inline glm::vec2 getPosition() { return glm::vec2(rect.x, rect.y); }
+    inline const glm::vec2 getPosition() const { return glm::vec2(rect.x, rect.y); }
 
 };
 

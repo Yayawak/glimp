@@ -1,4 +1,5 @@
 {
+    "C_Cpp.default.cppStandard" : "c++98 | c++03 | c++11 | c++14 | c++17 | c++20 | c++23",
     "configurations": [
         {
             "name": "Mac",
@@ -10,7 +11,10 @@
             "macFrameworkPath": [
                 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
-            "compilerPath": "/usr/bin/clang",
+            // "compilerPath": "/usr/bin/clang",
+            "compilerPath": "/usr/bin/clang++",
+            // "cStandard": "c17",
+            // "cppStandard": "c++17",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "macos-clang-arm64",

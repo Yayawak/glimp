@@ -1,7 +1,9 @@
 #include "../includes/item.hpp"
 
-Item::Item(glm::vec4 rect, std::string imageName, std::string _pathToImage)
-    : Panel(glm::vec3(1, 1, 1), rect, imageName)
+Item::Item(glm::vec4 rect, std::string imageName, std::string _pathToImage, 
+    GLenum imageFormat)
+    : Panel(glm::vec3(1, 1, 1), rect, imageName),
+    imageFormat(imageFormat)
 {
         // src/resources/duals/basicRectImage/default.vert
     shaderProgram = useShaderProgram(
@@ -52,7 +54,9 @@ void Item::draw()
     // static const char *texPath = "../../../img/abadon.png";
     // Texture tex(texPath,
         GL_TEXTURE_2D, GL_TEXTURE0,
-        GL_RGB, GL_UNSIGNED_BYTE
+        // GL_RGB, GL_UNSIGNED_BYTE
+        imageFormat, GL_UNSIGNED_BYTE,
+        false
     );
     tex.texUnit(shaderProgram, "tex0", 0);
 

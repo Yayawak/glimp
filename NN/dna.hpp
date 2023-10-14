@@ -65,7 +65,8 @@ struct DNA
 	{
 		for (byte& b : code) {
 			for (uint64_t i(0); i < 8; ++i) {
-				if (NumberGenerator<>::getInstance().getUnder(1.0f) < probability) {
+				float r = NumberGenerator<>::getInstance().getUnder(1.0f);
+				if (r < probability) {
 					const uint8_t mask = 256 >> i;
 					b ^= mask;
 				}

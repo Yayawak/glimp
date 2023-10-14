@@ -18,6 +18,7 @@ struct Snake : public AiUnit
     float livingTime = 0;
     // glm::vec2 velocity;
 
+    // Snake() = default;
     Snake()
         : AiUnit(arch)
         , position(glm::vec2(4, 4))
