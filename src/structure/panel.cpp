@@ -20,6 +20,7 @@ Panel::Panel(glm::vec3 color, glm::vec4 rect, std::string panelName)
 }
 
 // NOTE should move this function to utiliy class instead
+
 void Panel::setColor(glm::vec3 _color)
 {
     // color = glm::vec3(color.x / 255.f, color.y / 255.f, color.z / 255.f);
@@ -28,7 +29,7 @@ void Panel::setColor(glm::vec3 _color)
     // color.z = color.z / 255.f;
     this->color = _color / 255.f;
 
-    printf("setting color : %s (%f, %f, %f)\n", panelName.c_str(), color.x, color.y, color.z);
+    // printf("setting color : %s (%f, %f, %f)\n", panelName.c_str(), color.x, color.y, color.z);
     // printf("\twith xy = (%f, %f)\n", rect.x, rect.y);
 }
 
@@ -103,8 +104,11 @@ void Panel::draw()
     vbo->Delete();
     ebo->Delete();
 
-    delete [] vbo;
-    delete [] ebo;
+    // // delete vao;
+    delete vbo;
+    delete ebo;
+    // delete [] vbo;
+    // delete [] ebo;
 }
 
 // Shader Panel::useShaderProgram()
@@ -153,4 +157,12 @@ void Panel::clean()
     vbo->Delete();
     ebo->Delete();
     shaderProgram.Delete();
+}
+
+glm::vec2 Panel::getPosition() 
+{
+    // assert(&rect != 0);
+    // if (&rect != 0)
+    return glm::vec2(rect.x, rect.y); 
+    // return glm::vec2(0, 0); 
 }

@@ -17,5 +17,5 @@ public:
     void setColor(glm::vec3 color);
     void changeItemImage(std::string path);
     void draw();
-    inline glm::vec4 getRect() {return rect; }
+    // inline glm::vec4 getRect() {return rect; }
 };

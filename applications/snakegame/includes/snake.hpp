@@ -45,9 +45,16 @@ public:
 
     }
 
+    // ~SSnakeNode()
+    // {
+    //     delete node;
+    // }
+
 } SnakeNode;
 
-static const std::vector<uint> arch = {2, 4, 4, 4};
+// static const std::vector<uint> arch = {2, 19, 19, 4};
+static const std::vector<uint> arch = {2, 32, 32, 4};
+// static const std::vector<uint> arch = {2, 9, 9, 4};
 // static const std::vector<uint> arch;
 
 // class Snake
@@ -95,4 +102,17 @@ public:
     // void update();
     void update(const float dt);
 	void process(const std::vector<float>& outputs) override;
+
+    ~Snake()
+    {
+        // auto it = bodyList.begin();
+
+        // SnakeNode *node;
+        // while (it != bodyList.end())
+        // {
+        //     node = &*it;
+        //     delete node;
+        //     it++;
+        // }
+    }
 };

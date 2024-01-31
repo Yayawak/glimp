@@ -7,7 +7,7 @@
 template<typename T>
 struct Objective
 {
-	uint32_t target_id;
+	uint target_id;
 	float time_in;
 	float time_out;
 	float points;
@@ -16,9 +16,10 @@ struct Objective
 	// std::vector<T>* targets;
 
 	// Objective(const std::vector<T>& targets)
-	Objective(uint target_size)
-		: 
-		targets(target_size)
+	// Objective(uint target_size)
+	Objective()
+		// : 
+		// targets(target_size)
 	{
 		// targets = new std::vector<T>(target_size);
 		// this->targets = targets;
@@ -40,21 +41,22 @@ struct Objective
 
 	// template<typename T>
 	// const T& getTarget() const
-	// const T& getTarget()
-	const T* getTarget()
+	const T& getTarget()
+	// const T* getTarget()
 	// const T* getTarget()
 	{
 		// return this->targets[target_id];
+		return this->targets[0];
 		// return this->targets(target_id);
-		return &targets->at(target_id);
+		// return &targets[target_id];
 	}
 
 	// template<typename T>
 	// void nextTarget()
 	void archiveCurrentTarget()
 	{
-		// target_id = (target_id + 1) % targets.size();
-		target_id = (target_id + 1) % targets->size();
+		target_id = (target_id + 1) % targets.size();
+		// target_id = (target_id + 1) % targets->size();
 		time_in = 0.0f;
 		time_out = 0.0f;
 	}

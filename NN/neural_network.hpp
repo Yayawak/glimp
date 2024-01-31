@@ -86,7 +86,7 @@ struct Network
 		for (uint64_t i(0); i < layers_sizes.size(); ++i) {
 			addLayer(layers_sizes[i]);
 		}
-		printf("---------------------\n");
+		// printf("---------------------\n");
 	}
 
 	void addLayer(const uint64_t neurons_count)

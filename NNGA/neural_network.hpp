@@ -27,7 +27,7 @@ struct Network
 		for (uint64_t i(0); i < layers_sizes.size(); ++i) {
 			addLayer(layers_sizes[i]);
 		}
-		printf("---------------------\n");
+		// printf("---------------------\n");
 	}
 
 	void addLayer(const uint64_t neurons_count)
@@ -41,7 +41,7 @@ struct Network
 			layers.push_back(l);
 		}
 
-		printf("Created layer %lu\n", layers.size());
+		// printf("Created layer %lu\n", layers.size());
 	}
 
 	const std::vector<float>& execute(const std::vector<float>& input)

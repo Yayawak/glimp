@@ -40,7 +40,7 @@ protected:
 
 public:
     std::string panelName;
-    glm::vec4 rect;
+    glm::vec4 rect = glm::vec4(0);
     // Panel(glm::vec3 color, glm::vec4 rect, std::string panelName) : 
     //     color(color), rect(rect), panelName(panelName), shaderProgram(useShaderProgram());
     Panel(glm::vec3 color, glm::vec4 rect, std::string panelName);
@@ -54,8 +54,9 @@ public:
     void shiftByVec(float x, float y);
     void setPosition(float x, float y);
     void clean();
-    bool isCollideWith(Panel *other);
-    inline const glm::vec2 getPosition() const { return glm::vec2(rect.x, rect.y); }
+    // bool isCollideWith(Panel *other);
+    // inline const glm::vec2 getPosition() const { return glm::vec2(rect.x, rect.y); }
+    glm::vec2 getPosition();
 
 };
 

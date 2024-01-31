@@ -1,7 +1,7 @@
 {
-    "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "*.embeddedhtml": "html",
+        "vector": "cpp",
         "__bit_reference": "cpp",
         "__bits": "cpp",
         "__config": "cpp",
@@ -15,6 +15,7 @@
         "__split_buffer": "cpp",
         "__string": "cpp",
         "__threading_support": "cpp",
+        "__tree": "cpp",
         "__tuple": "cpp",
         "array": "cpp",
         "atomic": "cpp",
@@ -27,6 +28,7 @@
         "compare": "cpp",
         "complex": "cpp",
         "concepts": "cpp",
+        "condition_variable": "cpp",
         "cstdarg": "cpp",
         "cstddef": "cpp",
         "cstdint": "cpp",
@@ -36,20 +38,32 @@
         "ctime": "cpp",
         "cwchar": "cpp",
         "cwctype": "cpp",
+        "deque": "cpp",
         "exception": "cpp",
+        "fstream": "cpp",
+        "future": "cpp",
         "initializer_list": "cpp",
+        "iomanip": "cpp",
         "ios": "cpp",
         "iosfwd": "cpp",
+        "iostream": "cpp",
         "istream": "cpp",
         "limits": "cpp",
+        "list": "cpp",
         "locale": "cpp",
+        "map": "cpp",
         "memory": "cpp",
         "mutex": "cpp",
         "new": "cpp",
+        "numeric": "cpp",
         "optional": "cpp",
         "ostream": "cpp",
+        "queue": "cpp",
+        "random": "cpp",
         "ratio": "cpp",
+        "set": "cpp",
         "sstream": "cpp",
+        "stack": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "string": "cpp",
@@ -59,51 +73,13 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "unordered_map": "cpp",
+        "unordered_set": "cpp",
         "variant": "cpp",
-        "vector": "cpp",
         "__functional_base": "cpp",
         "algorithm": "cpp",
         "functional": "cpp",
         "iterator": "cpp",
-        "utility": "cpp",
-        "iostream": "cpp",
-        "__tree": "cpp",
-        "filesystem": "cpp",
-        "fstream": "cpp",
-        "deque": "cpp",
-        "iomanip": "cpp",
-        "list": "cpp",
-        "map": "cpp",
-        "queue": "cpp",
-        "set": "cpp",
-        "stack": "cpp",
-        "thread": "cpp",
-        "condition_variable": "cpp",
-        "future": "cpp",
-        "numeric": "cpp",
-        "random": "cpp",
-        "unordered_set": "cpp"
+        "utility": "cpp"
     },
-    // "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-13",
-    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/c++-13",
-    "cmake.5": "/Users/rio/Desktop/glgl/dynet",
-    "code-runner.executorMap": {
-        "cpp": "cd $dir && g++ -std=c++17 $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-    },
-    // "background.enabled": false,
-    "background.fullscreen": {
-        // "images": ["https://cdn.oneesports.gg/cdn-data/2022/10/Dota2_Muerta_NewDotaHero_TI11.jpg"], // urls of your images
-        // "images": ["/Users/rio/Pictures/backgrounds/Dota2_Muerta_NewDotaHero_TI11.jpeg"], // urls of your images
-        "images": [""],
-        "opacity": 0.91, // 0.85 ~ 0.95 recommended
-        // "opacity": 0.98,// 0.85 ~ 0.95 recommended
-        "size": "cover", // also css, `cover` to self-adaption (recommended)，or `contain`、`200px 200px`
-        "position": "center", // alias to `background-position`, default `center`
-        "interval": 0 // seconds of interval for carousel, default `0` to disabled.
-    },
-    "clangd.arguments": [
-        "--compile-commands-dir=.vscode",
-        "--enable-config"
-    ],
-    "clangd.onConfigChanged": "restart",
+    "C_Cpp.errorSquiggles": "disabled"
 }

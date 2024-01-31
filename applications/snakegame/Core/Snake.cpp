@@ -33,18 +33,22 @@ SnakeSigs Snake::preventOutOfBorder(SnakeNode *currentNode)
 {
     if (currentNode->node->rect.x > 1)    
     {
+        alive = 0;
         currentNode->node->rect.x = -1;
     }
     else if (currentNode->node->rect.x < -1)    
     {
+        alive = 0;
         currentNode->node->rect.x = 1;
     }
     else if (currentNode->node->rect.y > 1)    
     {
+        alive = 0;
         currentNode->node->rect.y = -1;
     }
     else if (currentNode->node->rect.y < -1)    
     {
+        alive = 0;
         currentNode->node->rect.y = 1;
     }
     return (well);
@@ -97,17 +101,19 @@ SnakeSigs Snake::addTail()
 {
     // glm::vec4 rectangle();
     // tail.
-    if (bodyList.size() == 0)
+    // if (bodyList.size() == 0)
+    if (bodyList.empty())
     {
-        std::cout << "init node head\n";
+        bodyList = std::list<SnakeNode>();
+        // std::cout << "init node head\n";
         glm::vec2 wh(nodeSize, nodeSize);
         glm::vec4 rect(currentTailPosition, wh);
         head = new SnakeNode(
             // new Panel(snakeColor, rect, "a body"),
             // new Panel(glm::vec3(255, 0, 255), rect, "H"),
             new Panel(glm::vec3(230, 100, 60), rect, "H"),
-            south
             // south
+            east
         );
         
         bodyList.push_front(*head);
@@ -130,12 +136,15 @@ SnakeSigs Snake::addTail()
     );
     bodyList.push_back(*newTail);
     countNode++;
+
+    // head = &bodyList.back();
     return (well);
 }
 
 SnakeSigs Snake::draw()
 {
     std::list<SnakeNode>::iterator it;
+    // printf("drawing snake.\n");
 
     it = bodyList.begin();
     while (it != bodyList.end())
@@ -196,6 +205,7 @@ SnakeSigs Snake::moveOneStep()
 
     std::list<SnakeNode>::iterator it = bodyList.begin();
     // std::cout << "moveOneStep\n";
+    // assert(&*it);
     while (it != bodyList.end())
     {
         // SnakeNode currentNode = *it;
@@ -205,6 +215,7 @@ SnakeSigs Snake::moveOneStep()
         glm::vec2 nextPos = calculateNextPosition(currentNode, front);
         // printf("nextPos = (%f, %f)\n", nextPos.x, nextPos.y);
         currentNode->node->setPosition(nextPos.x, nextPos.y);
+        // printf("T\n");
 
         // if (isHeadCollidedTails())
         // {
@@ -214,7 +225,8 @@ SnakeSigs Snake::moveOneStep()
         // }
         if (currentNode != head && isHeadCollidedTailPosition(nextPos))
         {
-            printf("END GAME\n");
+            // printf("END GAME\n");
+            alive = 0;
         }
 
         it++;
@@ -227,6 +239,8 @@ SnakeSigs Snake::moveOneStep()
 
 SnakeSigs Snake::setFacingDirection(Directions dir)
 {
+    // printf("setting direction name %s\n", getDirectionName(dir).c_str());
+    head = &bodyList.front();
     head->thisNodeFacingDirection = dir;
     // printf("head direction      : %d\n", head->thisNodeFacingDirection);
     // printf("real head direction : %d\n", bodyList.front().thisNodeFacingDirection);
@@ -290,22 +304,12 @@ void Snake::printBodyLinkData()
 
 void Snake::update(const float dt)
 {
+    // moveOneStep();
+    // setFacingDirection(west);
+    // setFacingDirection()
+    // setFacingDirection(east);
+    moveOneStep();
     this->draw();
-
-    const std::vector<float> input = {
-        // toFoodVec.x,
-        // toFoodVec.y
-        // s.livingTime
-        // NumberGenerator<float>::getInstance().get(10),
-        // NumberGenerator<float>::getInstance().get(10)
-        // NumberGenerator<float>::getInstance().get(20),
-        // NumberGenerator<float>::getInstance().get(20)
-        NumberGenerator<float>::getInstance().get(-10),
-        NumberGenerator<float>::getInstance().get(-10)
-    };
-    
-    this->execute(input);
-
 }
 
 static int findMaxIndex(const std::vector<float>& v)
@@ -326,20 +330,26 @@ static int findMaxIndex(const std::vector<float>& v)
 void Snake::process(const std::vector<float>& outputs) 
 {
     int maxi = findMaxIndex(outputs);
+    // if (snakeindex == 0)
+    //     printf("after process output is %d\n", maxi);
+
+    // setFacingDirection(west);
     if (maxi == 0)
     {
         setFacingDirection(Directions::east);
     }
-    else if (maxi == 1)
+    if (maxi == 1)
     {
         setFacingDirection(Directions::north);
     }
-    else if (maxi == 2)
+    if (maxi == 2)
     {
         setFacingDirection(Directions::west);
     }
-    else if (maxi == 3)
+    if (maxi == 3)
     {
         setFacingDirection(Directions::south);
     }
+    // // moveOneStep();
 }
+

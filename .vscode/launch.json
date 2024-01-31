@@ -1,23 +1,17 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "java",
-            "name": "Main",
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
             "request": "launch",
-            "mainClass": "Main",
-            "projectName": "glgl_519a0e8a"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug",
-            "program": "${workspaceFolder}/<executable file>",
+            "program": "/Users/rio/Desktop/glgl/bin/snake-game",
             "args": [],
-            "cwd": "${workspaceFolder}"
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
         }
     ]
 }
